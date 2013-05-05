@@ -1,0 +1,114 @@
+<?php
+
+class SPVIDEO_CLASS_ClipService {
+    private static $classInstance = null;
+    private $originalClassInstance;
+
+    public static function getInstance() {
+        if ( !( self::$classInstance instanceof SPVIDEO_CLASS_ClipService ) ) {
+            self::$classInstance = new self();
+            $class = new ReflectionClass( 'VIDEO_BOL_ClipService' );
+            $property = $class->getProperty( 'classInstance' );
+
+            $property->setAccessible( true );
+            $property->setValue( self::$classInstance );
+            $property->setAccessible( false );
+        }
+
+        return self::$classInstance;
+    }
+
+    public function findClipsList( $type, $page, $limit ) {
+        if ( $type == 'toprated' ) {
+            $first = ( $page - 1 ) * $limit;
+            $topRatedList = BOL_RateService::getInstance()->findMostRatedEntityList( 'video_rates', $first, $limit );
+
+            $clipArr = $this->clipDao->findByIdList( array_keys( $topRatedList ) );
+
+            $clips = array();
+
+            foreach ( $clipArr as $key => $clip ) {
+                $clipArrItem = (array) $clip;
+                $clips[$key] = $clipArrItem;
+                $clips[$key]['score'] = $topRatedList[$clipArrItem['id']]['avgScore'];
+                $clips[$key]['rates'] = $topRatedList[$clipArrItem['id']]['ratesCount'];
+            }
+
+            usort( $clips, array( 'VIDEO_BOL_ClipService', 'sortArrayItemByDesc' ) );
+        }
+        else {
+            $clips = $this->clipDao->getClipsList( $type, $page, $limit );
+        }
+
+        $list = array();
+        if ( is_array( $clips ) ) {
+            foreach ( $clips as $key => $clip ) {
+                $clip = (array) $clip;
+                $list[$key] = $clip;
+                $list[$key]['thumb'] = $this->getClipThumbUrl( $clip['id'], $clip['code'] );
+            }
+        }
+
+        return $list;
+    }
+
+    public function findUserClipsList( $userId, $page, $itemsNum, $exclude = null ) {
+        $clips = $this->clipDao->getUserClipsList( $userId, $page, $itemsNum, $exclude );
+
+        if ( is_array( $clips ) ) {
+            $list = array();
+            foreach ( $clips as $key => $clip ) {
+                $clip = (array) $clip;
+                $list[$key] = $clip;
+                $list[$key]['thumb'] = $this->getClipThumbUrl( $clip['id'], $clip['code'] );
+            }
+
+            return $list;
+        }
+
+        return null;
+    }
+
+    public function findTaggedClipsList( $tag, $page, $limit ) {
+        $first = ( $page - 1 ) * $limit;
+
+        $clipIdList = BOL_TagService::getInstance()->findEntityListByTag( 'video', $tag, $first, $limit );
+
+        $clips = $this->clipDao->findByIdList( $clipIdList );
+
+        if ( is_array( $clips ) ) {
+            $list = array();
+            foreach ( $clips as $key => $clip ) {
+                $clip = (array) $clip;
+                $list[$key] = $clip;
+                $list[$key]['thumb'] = $this->getClipThumbUrl( $clip['id'] );
+            }
+        }
+
+        return $list;
+    }
+
+    public function getClipThumbUrl( $clipId, $code = null ) {
+        return $this->originalClassInstance->getClipThumbUrl( $clipId, $code );
+    }
+
+    public function __call( $method, $args ) {
+        if ( !method_exists( $this, $method ) )
+            return call_user_func_array( array( $this->originalClassInstance, $method ), $args );
+        else
+            return call_user_func_array( array( $this, $method ), $args );
+    }
+
+    public function __get( $name ) {
+        $class = new ReflectionClass( 'VIDEO_BOL_ClipService' );
+        $property = $class->getProperty( $name );
+
+        $property->setAccessible( true );
+        return $property->getValue( $this->originalClassInstance );
+    }
+
+    private function __construct() {
+        $this->originalClassInstance = VIDEO_BOL_ClipService::getInstance();
+    }
+
+}

@@ -1,0 +1,126 @@
+	<style type="text/css">
+	/*Form*/
+	#formsWrapper
+	{
+		clear: both;
+		width: 100%;
+		overflow: hidden;
+	}
+	#formsWrapper ul li
+	{
+		float: left;
+		display: inline-block;
+	}
+	#formsWrapper ul
+	{
+		/*width: 4000px;
+		left: 0;
+		position: relative;*/
+	}
+	</style>
+
+	<div class="ow_superwide ow_automargin">
+		<ul id="videoTypeNav" class="ow_content_menu clearfix">
+			<li class="active"><a id="vidLink" href="#"><span class="ow_ic_link">From link</span></a></li>
+			<li class=""><a id="vidEmbed" href="#"><span class="ow_ic_script">Embed Code</span></a></li>
+			<li class=""><a id="vidUpload" href="#"><span class="ow_ic_up_arrow">Upload</span></a></li>
+		</ul>
+	</div>
+
+	<div class="ow_superwide ow_automargin ow_stdmargin">
+
+		<div id="formsWrapper">
+		<ul>
+			<li>
+				<table class="ow_table_1 ow_form">
+				    <tbody>
+				    	<tr class="ow_alt2 ow_tr_first">
+				        <td class="ow_label"><label for="">Video link</label></td>
+				        <td class="ow_value"><input id="fetch_url" placeholder="Paste your video clip link here"  type="text" id="" /> <br> <span style="display:none;" class="error"></span></td>
+				        <td class="ow_desc ow_small" style="text-align:center"><span class="ow_button"><span class="  ow_positive"><input value="Check" id="" name="add" type="button" onclick="checkClip(this)"></span></span></td>
+				    </tr>
+					</tbody>
+				</table>
+				<div id="clip_detail">
+											
+				</div>
+			</li>
+			<li>
+				{$embedForm}
+			</li>
+			<li>
+				<table class="ow_table_1 ow_form">
+				    <tbody>
+				    	<tr class="ow_alt2 ow_tr_first">
+				        <td class="ow_label"><label for="">Embed code</label></td>
+				        <td class="ow_value"><input type="text" id="" /> <br> <span id="" style="display:none;" class="error"></span></td>
+				        <td class="ow_desc ow_small">Use video embed code from resources like Youtube, Metacafe, Google Video and others.</td>
+				    </tr>
+					</tbody>
+				</table>
+			</li>
+		</ul>
+		</div>
+
+	</div>
+
+	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script> 
+
+	{literal}
+	<script type="text/javascript">
+
+	function checkClip(e) {
+	    var u = $('#fetch_url').val();
+	    var reqStart = "http://gdata.youtube.com/feeds/api/videos/";
+	    var reqSettings = "?v=2&alt=json&callback=?";
+	    // var vid = grabytvid(u);
+	    var vid = u;
+
+	    var request = reqStart + vid + reqSettings;
+
+	    $.getJSON(request, function(data) {
+	    	try 
+	    	{
+	    		console.log(data);
+	    		var y = (data.entry["media$group"]["media$thumbnail"][0].url);
+	        	$('#clip_detail').append('<img src="' + y + '" alt="" />');	        	
+	    	}
+	    	catch (err)
+	    	{
+	    		alert(err);
+	    	}
+	    });
+	}
+
+	function ClearClasses(){
+		$("#videoTypeNav li").removeClass();
+	}
+
+	$(function (){
+		$("#formsWrapper li").css('width',$("#formsWrapper").css('width'));
+		$('#formsWrapper ul').css('position','relative');
+		$('#formsWrapper ul').css('left','0');
+		$('#formsWrapper ul').css('width','3000px');
+
+		$("#videoTypeNav a").click(function(e){
+			e.preventDefault();
+			//check which tab has been clicked
+			var getID = $(this).attr('id');
+			if(getID == "vidLink"){
+				$("#formsWrapper ul").animate({left: "0px"}, { duration: 350, easing: 'easeInOutCirc' });
+				ClearClasses();
+				$(this).parent("li").addClass("active");
+			} else if(getID == "vidEmbed"){
+				$("#formsWrapper ul").animate({left: "-" + $("#formsWrapper").css('width')}, { duration: 350, easing: 'easeInOutCirc' });
+				ClearClasses();
+				$(this).parent("li").addClass("active");			
+			} else if(getID == "vidUpload"){
+				$("#formsWrapper ul").animate({left: "-" + (parseInt($("#formsWrapper").css('width'))*2) + "px"}, { duration: 350, easing: 'easeInOutCirc' });
+				ClearClasses();
+				$(this).parent("li").addClass("active");
+			}
+		});
+
+	});
+	</script>
+	{/literal}
