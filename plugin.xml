@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin>
-	<name>SpVideo</name>
+	<name>Super Video</name>
 	<key>spvideo</key>
 	<description>Super power charges your core video plugin with: Upload video (via Uploadlux). Custom video thumbnail (either upload or from remote Url)</description>
     <author>Thao Le</author>
     <authorEmail>thaolt@songphi.com</authorEmail>
-	<authorUrl>http://songphi.com</authorUrl>
+	<authorUrl>http://oxwall.songphi.com</authorUrl>
 	<developerKey>f3cf04f4be78d22162470c28a80dbd93</developerKey>
     <build>10000</build>
     <copyright>(C) 2013 SongPhi LLC. All rights reserved.</copyright>
