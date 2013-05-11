@@ -60,6 +60,15 @@ OW::getRouter()->addRoute(
 
 OW::getRouter()->addRoute(
 	new OW_Route(
+		'spvideo.base',
+		'spvideo',
+		'SPVIDEO_CTRL_Spvideo',
+		'index'
+	)
+);
+
+OW::getRouter()->addRoute(
+	new OW_Route(
 		'spvideo.ajax_get_clip',
 		'spvideo/ajax_get_clip',
 		'SPVIDEO_CTRL_Spvideo',

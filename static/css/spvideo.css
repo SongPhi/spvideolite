@@ -1,0 +1,25 @@
+#formsWrapper
+{
+	clear: both;
+	width: 100%;
+	overflow: hidden;
+}
+#formsWrapper ul li
+{
+	float: left;
+	display: inline-block;
+}
+#formsWrapper ul
+{
+	/*width: 4000px;
+	left: 0;
+	position: relative;*/
+}
+
+.spvideo_ic_loading 
+{
+	width: 220px;
+	height: 19px;
+	margin: auto;
+	background: url(../img/ajax-loader.gif) no-repeat top left transparent;
+}
