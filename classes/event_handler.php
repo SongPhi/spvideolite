@@ -37,38 +37,48 @@ class SPVIDEO_CLASS_EventHandler {
 			return;
 		if ( OW::getRequest()->isPost() )
 			return;
+		if ( OW::getRequest()->isAjax() )
+			return;
 
 		$doc = OW::getDocument();
 
+		// add scripts
+		OW::getDocument()->addScript(
+			OW::getPluginManager()
+			->getPlugin( 'spvideo' )
+			->getStaticUrl().'js/base64.js'
+		);
 		OW::getDocument()->addScript(
 			OW::getPluginManager()
 			->getPlugin( 'spvideo' )
 			->getStaticUrl().'js/spvideo.js'
 		);
-
 		OW::getDocument()->addScript(
 			OW::getPluginManager()
 			->getPlugin( 'spvideo' )
 			->getStaticUrl().'js/jquery.easing.min.js'
 		);
 
+		// add stylesheets
 		OW::getDocument()->addStyleSheet(
 			OW::getPluginManager()
 			->getPlugin( 'spvideo' )
 			->getStaticCssUrl().'spvideo.css'
 		);
 
+		// inject & modify the adding form
 		$embedForm = $doc->getBody();
 		$matches = array();
 		preg_match_all( "/<form.*<\/form>/is", $embedForm, $matches );
 		$embedForm = $matches[0][0];
-
+		$importService = SPVIDEO_CLASS_ImportService::getInstance();
 		$spVideoCtrl = new SPVIDEO_CTRL_Add();
 		$spVideoCtrl->setTemplate( OW::getPluginManager()->getPlugin( 'spvideo' )->getCtrlViewDir() . 'add_index.html' );
 		$spVideoCtrl->setEmbedForm( $embedForm );
 
 		$spVideoCtrl->index();
 
+		// commit body changes
 		$doc->setBody( $spVideoCtrl->render() );
 
 	}

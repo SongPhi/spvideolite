@@ -1,31 +1,28 @@
-Review the clip detail then click Add to save the new video
 
-<form id="form_60275216" method="post" action="" name="videoAddForm">
-<input name="form_name" id="input_71736164" type="hidden" value="videoAddForm" />
-
-		
-		<table class="ow_table_1 ow_form">
-		    <tr class="ow_alt2 ow_tr_first">
-		        <td class="ow_label"><label for="input_46971339">Embed code</label></td>
-		        <td class="ow_value"><textarea name="code" id="input_46971339"></textarea> <br /> <span id="input_46971339_error" style="display:none;" class="error"></span></td>
-		        <td class="ow_desc ow_small">Use video embed code from resources like Youtube, Metacafe, Google Video and others.</td>
-		    </tr>
-		    <tr class="ow_alt1">
-		        <td class="ow_label"><label for="input_7088853">Title</label></td>
-		        <td class="ow_value"><input name="title" id="input_7088853" type="text" /> <br /> <span id="input_7088853_error" style="display:none;" class="error"></span></td>
-		        <td class="ow_desc"></td>
-		    </tr>
-		    <tr class="ow_alt2">
-		        <td class="ow_label"><label for="input_61716586">Description</label></td>
-		        <td class="ow_value"><textarea name="description" id="input_61716586"></textarea> <br /> <span id="input_61716586_error" style="display:none;" class="error"></span></td>
-		        <td class="ow_desc ow_small">Short description of the video</td>
-		    </tr>
-		    <tr class="ow_alt1 ow_tr_last">
-		        <td class="ow_label"><label for="input_36716397">Tags</label></td>
-		        <td class="ow_value"><input name="tags" id="input_36716397" value="" /></td>
-		        <td class="ow_desc ow_small">Comma-separated</td>
-		    </tr>
-		</table>
-		<div class="clearfix ow_stdmargin"><div class="ow_right"><span class="ow_button"><span class=" ow_ic_add ow_positive"><input type="submit"  value="Add" id="input_71562540" class="ow_ic_add ow_positive"name="add"value="Add"  /></span></span></div></div>
-		
-</form>
+{if !$auth_msg} 
+	<p class="ow_smallmargin">Review the clip detail then click Add to save the new video</p>
+	{form name='SPVideoAddForm'}
+	
+	<table class="ow_table_1 ow_form">
+		<tr class="ow_alt1">
+	        <td class="ow_label">{label name='title'}</td>
+	        <td class="ow_value">{input name='title'} <br /> {error name='title'}</td>
+	    </tr>
+	    <tr class="ow_alt2 ow_tr_first">
+	        <td class="ow_label">{label name='code'}</td>
+	        <td class="ow_value">{input name='code'} <br /> {error name='code'}</td>
+	    </tr>	    
+	    <tr class="ow_alt2">
+	        <td class="ow_label">{label name='description'}</td>
+	        <td class="ow_value">{input name='description'} <br /> {error name='description'}</td>
+	    </tr>
+	    <tr class="ow_alt1 ow_tr_last">
+	        <td class="ow_label">{label name='tags'}</td>
+	        <td class="ow_value">{input name='tags'}</td>
+	    </tr>
+	</table>
+	<div class="clearfix ow_stdmargin"><div class="ow_right">{submit name='add' class='ow_ic_add ow_positive'}</div></div>
+	{/form}
+{else}
+    <div class="ow_anno ow_std_margin ow_nocontent">{$auth_msg}</div>
+{/if}

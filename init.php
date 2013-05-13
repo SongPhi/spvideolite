@@ -85,6 +85,15 @@ OW::getRouter()->addRoute(
 	)
 );
 
+OW::getRouter()->addRoute(
+	new OW_Route(
+		'spvideo.import',
+		'spvideo/import',
+		'SPVIDEO_CTRL_Spvideo',
+		'import'
+	)
+);
+
 
 
 // Events handling
