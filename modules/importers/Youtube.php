@@ -7,13 +7,18 @@ class SPVIDEO_IMP_Youtube implements SPVIDEO_CLASS_IImporter
 {
 	private static $regexp = '%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i';
 	private static $regexpIdIndex = 1;
+	private static $embedTemplate = '<iframe width="560" height="315" src="http://www.youtube.com/embed/{videoId}" frameborder="0" allowfullscreen></iframe>';
 
 	public static function getRegExp() {
 		return self::$regexp;
-	}	
+	}
 
 	public static function getRegExpIdentifierIndex() {
 		return self::$regexpIdIndex;
+	}
+
+	public static function embedApplyVideoId($videoId) {
+		return str_replace('{videoId}', $videoId, self::$embedTemplate);
 	}
 
 	public static function getClipIdentifier( $url ) {
@@ -87,10 +92,14 @@ class SPVIDEO_IMP_Youtube implements SPVIDEO_CLASS_IImporter
 
 		# Files URL
 		$video->files = array();
+
+		# Embed Code
+		$video->embedCode = $this->embedApplyVideoId($id);
 		
 		# FLV file URL
 		// TODO: Récupération de l'URL du fichier flv
 		// self::$video->flv_url = 'http://www.youtube.com/get_video.php?video_id='.self::$id;
+
 		return $video;
 	}
 }

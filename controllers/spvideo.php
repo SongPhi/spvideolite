@@ -13,14 +13,38 @@ class SPVIDEO_CTRL_Spvideo extends OW_ActionController
 	public function myVideo() {
 
 	}
+
+    public function import() {
+        if (!OW::getRequest()->isPost()) { 
+            throw new Redirect404Exception();
+        }
+
+        $spVideoAddForm = new spVideoAddForm();
+
+        if ( $spVideoAddForm->isValid($_POST) ) {
+            $language = OW::getLanguage();
+            $values = $spVideoAddForm->getValues();
+            $code = VIDEO_BOL_ClipService::getInstance()->validateClipCode($values['code']);
+            
+            if ( !BOL_TextFormatService::getInstance()->isCodeResourceValid($code) ) {
+                OW::getFeedback()->warning($language->text('video', 'resource_not_allowed'));
+                $this->redirect(OW::getRouter()->urlFor('VIDEO_CTRL_Add', 'index'));
+            }
+            
+            $res = $spVideoAddForm->process();
+            OW::getFeedback()->info($language->text('video', 'clip_added'));
+            $this->redirect(OW::getRouter()->urlForRoute('view_clip', array('id' => $res['id'])));
+        } else {
+            $this->redirect(OW::getRouter()->urlFor('VIDEO_CTRL_Add', 'index'));
+        }
+    }
 	
 	public function ajaxGetClip() {
-		if (!OW::getRequest()->isAjax())
-			die('Hacking Attempt!');
+		if (!OW::getRequest()->isAjax()) { 
+			throw new Redirect404Exception();
+        }
 
-		$importService = SPVIDEO_CLASS_ImportService::getInstance();
-
-		
+		$importService = SPVIDEO_CLASS_ImportService::getInstance();		
 
 		try {
 			$video = $importService->checkClip($_POST['clipUrl']);
@@ -35,6 +59,7 @@ class SPVIDEO_CTRL_Spvideo extends OW_ActionController
             $spVideoAddForm->setValues(array(
             	'title' => $video->title,
             	'description' => $video->description,
+                'code' => $video->embedCode,
             	'tags' => implode(',', (array)$video->tags ),
         	));
 
@@ -104,53 +129,53 @@ class spVideoAddForm extends Form
      */
     public function process()
     {
-        // $values = $this->getValues();
-        // $clipService = VIDEO_BOL_ClipService::getInstance();
+        $values = $this->getValues();
+        $clipService = VIDEO_BOL_ClipService::getInstance();
 
-        // $clip = new VIDEO_BOL_Clip();
-        // $clip->title = htmlspecialchars($values['title']);
-        // $description = UTIL_HtmlTag::stripJs($values['description']);
-        // $description = UTIL_HtmlTag::stripTags($description, array('frame', 'style'), array(), true);
-        // $clip->description = $description;
-        // $clip->userId = OW::getUser()->getId();
+        $clip = new VIDEO_BOL_Clip();
+        $clip->title = htmlspecialchars($values['title']);
+        $description = UTIL_HtmlTag::stripJs($values['description']);
+        $description = UTIL_HtmlTag::stripTags($description, array('frame', 'style'), array(), true);
+        $clip->description = $description;
+        $clip->userId = OW::getUser()->getId();
 
-        // $clip->code = UTIL_HtmlTag::stripJs($values['code']);
+        $clip->code = UTIL_HtmlTag::stripJs($values['code']);
 
-        // $prov = new VideoProviders($clip->code);
+        $prov = new VideoProviders($clip->code);
 
-        // $privacy = OW::getEventManager()->call(
-        //     'plugin.privacy.get_privacy', 
-        //     array('ownerId' => $clip->userId, 'action' => 'video_view_video')
-        // );
+        $privacy = OW::getEventManager()->call(
+            'plugin.privacy.get_privacy', 
+            array('ownerId' => $clip->userId, 'action' => 'video_view_video')
+        );
                     
-        // $clip->provider = $prov->detectProvider();
-        // $clip->addDatetime = time();
-        // $clip->status = 'approved';
-        // $clip->privacy = mb_strlen($privacy) ? $privacy : 'everybody';
+        $clip->provider = $prov->detectProvider();
+        $clip->addDatetime = time();
+        $clip->status = 'approved';
+        $clip->privacy = mb_strlen($privacy) ? $privacy : 'everybody';
 
-        // $eventParams = array('pluginKey' => 'video', 'action' => 'add_video');
+        $eventParams = array('pluginKey' => 'video', 'action' => 'add_video');
 
-        // if ( OW::getEventManager()->call('usercredits.check_balance', $eventParams) === true )
-        // {
-        //     OW::getEventManager()->call('usercredits.track_action', $eventParams);
-        // }
+        if ( OW::getEventManager()->call('usercredits.check_balance', $eventParams) === true )
+        {
+            OW::getEventManager()->call('usercredits.track_action', $eventParams);
+        }
         
-        // if ( $clipService->addClip($clip) )
-        // {
-        //     BOL_TagService::getInstance()->updateEntityTags($clip->id, 'video', $values['tags']);
+        if ( $clipService->addClip($clip) )
+        {
+            BOL_TagService::getInstance()->updateEntityTags($clip->id, 'video', $values['tags']);
             
-        //     // Newsfeed
-        //     $event = new OW_Event('feed.action', array(
-        //         'pluginKey' => 'video',
-        //         'entityType' => 'video_comments',
-        //         'entityId' => $clip->id,
-        //         'userId' => $clip->userId
-        //     ));
+            // Newsfeed
+            $event = new OW_Event('feed.action', array(
+                'pluginKey' => 'video',
+                'entityType' => 'video_comments',
+                'entityId' => $clip->id,
+                'userId' => $clip->userId
+            ));
             
-        //     OW::getEventManager()->trigger($event);
+            OW::getEventManager()->trigger($event);
 
-        //     return array('result' => true, 'id' => $clip->id);
-        // }
+            return array('result' => true, 'id' => $clip->id);
+        }
 
         return false;
     }
