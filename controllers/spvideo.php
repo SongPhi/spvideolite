@@ -136,6 +136,7 @@ class spVideoAddForm extends Form
         $clip->title = htmlspecialchars($values['title']);
         $description = UTIL_HtmlTag::stripJs($values['description']);
         $description = UTIL_HtmlTag::stripTags($description, array('frame', 'style'), array(), true);
+        $description = nl2br($description);
         $clip->description = $description;
         $clip->userId = OW::getUser()->getId();
 
