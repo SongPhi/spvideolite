@@ -30,12 +30,12 @@ class SPVIDEO_IMP_Youtube implements SPVIDEO_CLASS_IImporter
 		}
 	}
 
-	public function getClipDetailByUrl( $url ) {
+	public static function getClipDetailByUrl( $url ) {
 		$id = self::getClipIdentifier( $url );
 		return $this->getClipDetailByIdentifier($id);
 	}
 
-	public function getClipDetailByIdentifier( $id ) {
+	public static function getClipDetailByIdentifier( $id ) {
 		$video = new stdClass;
 		# XML data URL
 		$file_data = 'http://gdata.youtube.com/feeds/api/videos/'.$id;
