@@ -11,23 +11,22 @@ class SPVIDEO_CLASS_EventHandler {
 	 * 
 	 */
 	private function getRoute() {
-		try {
-			return OW::getRouter()->route();
-		} catch (Exception $e) {
-			return false;
+		if ( !$this->route ) {
+			try {
+				$this->route = OW::getRouter()->route();
+			} catch (Exception $e) {
+				$this->route = false;
+			}
 		}
+		return $this->route;
 	}
 
 	/**
 	 * 
 	 */
 	private function isRoute( $controller, $action = null ) {
-		$this->route = $this->getRoute();
-
-		if ($this->route == false) {
-			return false;
-		}
-
+		if ($this->getRoute() == false)
+			return;
 		if ( $this->route["controller"] == $controller ) {
 			if ( $this->route["action"] == $action || $action==null ) {
 				return true;
@@ -77,7 +76,8 @@ class SPVIDEO_CLASS_EventHandler {
 		$embedForm = $doc->getBody();
 		$matches = array();
 		preg_match_all( "/<form.*<\/form>/is", $embedForm, $matches );
-		$embedForm = $matches[0][0];
+		if (count($matches[0]) > 0)
+			$embedForm = $matches[0][0];
 		$importService = SPVIDEO_CLASS_ImportService::getInstance();
 		$spVideoCtrl = new SPVIDEO_CTRL_Add();
 		$spVideoCtrl->setTemplate( OW::getPluginManager()->getPlugin( 'spvideo' )->getCtrlViewDir() . 'add_index.html' );

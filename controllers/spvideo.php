@@ -136,6 +136,7 @@ class spVideoAddForm extends Form
         $clip->title = htmlspecialchars($values['title']);
         $description = UTIL_HtmlTag::stripJs($values['description']);
         $description = UTIL_HtmlTag::stripTags($description, array('frame', 'style'), array(), true);
+        $description = nl2br($description, true);
         $clip->description = $description;
         $clip->userId = OW::getUser()->getId();
 
@@ -144,7 +145,7 @@ class spVideoAddForm extends Form
         $prov = new VideoProviders($clip->code);
 
         $privacy = OW::getEventManager()->call(
-            'plugin.privacy.get_privacy', 
+            'plugin.privacy.get_privacy',
             array('ownerId' => $clip->userId, 'action' => 'video_view_video')
         );
                     

@@ -30,12 +30,12 @@ class SPVIDEO_IMP_DailyMotion implements SPVIDEO_CLASS_IImporter
 		}
 	}
 
-	public function getClipDetailByUrl( $url ) {
+	public static function getClipDetailByUrl( $url ) {
 		$id = self::getClipIdentifier( $url );
 		return $this->getClipDetailByIdentifier($id);
 	}
 
-	public function getClipDetailByIdentifier( $id ) {
+	public static function getClipDetailByIdentifier( $id ) {
 		$video = new stdClass;
 		# XML data URL
 		$file_data = 'http://www.dailymotion.com/rss/video/'.$id;
