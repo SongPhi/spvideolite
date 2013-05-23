@@ -11,16 +11,23 @@ class SPVIDEO_CLASS_EventHandler {
 	 * 
 	 */
 	private function getRoute() {
-		if ( !$this->route )
-			$this->route = OW::getRouter()->route();
-		return $this->route;
+		try {
+			return OW::getRouter()->route();
+		} catch (Exception $e) {
+			return false;
+		}
 	}
 
 	/**
 	 * 
 	 */
 	private function isRoute( $controller, $action = null ) {
-		$this->getRoute();
+		$this->route = $this->getRoute();
+
+		if ($this->route == false) {
+			return false;
+		}
+
 		if ( $this->route["controller"] == $controller ) {
 			if ( $this->route["action"] == $action || $action==null ) {
 				return true;
