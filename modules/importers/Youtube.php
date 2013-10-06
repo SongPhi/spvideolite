@@ -32,7 +32,7 @@ class SPVIDEO_IMP_Youtube implements SPVIDEO_CLASS_IImporter
 
 	public static function getClipDetailByUrl( $url ) {
 		$id = self::getClipIdentifier( $url );
-		return $this->getClipDetailByIdentifier($id);
+		return self::getClipDetailByIdentifier($id);
 	}
 
 	public static function getClipDetailByIdentifier( $id ) {
@@ -94,7 +94,7 @@ class SPVIDEO_IMP_Youtube implements SPVIDEO_CLASS_IImporter
 		$video->files = array();
 
 		# Embed Code
-		$video->embedCode = $this->embedApplyVideoId($id);
+		$video->embedCode = self::embedApplyVideoId($id);
 		
 		# FLV file URL
 		// TODO: Récupération de l'URL du fichier flv

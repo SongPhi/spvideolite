@@ -56,11 +56,21 @@ class SPVIDEO_CTRL_Spvideo extends OW_ActionController
 
             $spVideoAddForm->setAction( OW::getRouter()->urlForRoute('spvideo.import') );
 
+            $thumbnail = '';
+
+            foreach ($video->thumbnails as $thumb) {
+                if (!empty($thumb->url)) {
+                    $thumbnail = $thumb->url;
+                    break;
+                }
+            }
+
             $spVideoAddForm->setValues(array(
             	'title' => $video->title,
             	'description' => $video->description,
                 'code' => $video->embedCode,
             	'tags' => implode(',', (array)$video->tags ),
+                'thumbnail' => $thumbnail
         	));
 
             $this->addForm($spVideoAddForm);
@@ -117,6 +127,9 @@ class spVideoAddForm extends Form
         $tagsField = new TagsInputField('tags');
         $this->addElement($tagsField->setLabel($language->text('video', 'tags')));
 
+        $thumbnailField = new HiddenField('thumbnail');
+        $this->addElement($thumbnailField);
+
         $submit = new Submit('add');
         $submit->setValue($language->text('video', 'btn_add'));
         $this->addElement($submit);
@@ -139,6 +152,7 @@ class spVideoAddForm extends Form
         $description = nl2br($description, true);
         $clip->description = $description;
         $clip->userId = OW::getUser()->getId();
+        $clip->thumbUrl = $values['thumbnail'];
 
         $clip->code = UTIL_HtmlTag::stripJs($values['code']);
 

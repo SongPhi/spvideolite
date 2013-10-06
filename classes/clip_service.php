@@ -18,34 +18,40 @@ class SPVIDEO_CLASS_ClipService {
         return self::$classInstance;
     }
 
-    public function findClipsList( $type, $page, $limit ) {
-        if ( $type == 'toprated' ) {
+    public function findClipsList( $type, $page, $limit )
+    {
+        if ( $type == 'toprated' )
+        {
             $first = ( $page - 1 ) * $limit;
-            $topRatedList = BOL_RateService::getInstance()->findMostRatedEntityList( 'video_rates', $first, $limit );
+            $topRatedList = BOL_RateService::getInstance()->findMostRatedEntityList('video_rates', $first, $limit);
 
-            $clipArr = $this->clipDao->findByIdList( array_keys( $topRatedList ) );
+            $clipArr = $this->clipDao->findByIdList(array_keys($topRatedList));
 
             $clips = array();
 
-            foreach ( $clipArr as $key => $clip ) {
+            foreach ( $clipArr as $key => $clip )
+            {
                 $clipArrItem = (array) $clip;
                 $clips[$key] = $clipArrItem;
                 $clips[$key]['score'] = $topRatedList[$clipArrItem['id']]['avgScore'];
                 $clips[$key]['rates'] = $topRatedList[$clipArrItem['id']]['ratesCount'];
             }
 
-            usort( $clips, array( 'VIDEO_BOL_ClipService', 'sortArrayItemByDesc' ) );
+            usort($clips, array('VIDEO_BOL_ClipService', 'sortArrayItemByDesc'));
         }
-        else {
-            $clips = $this->clipDao->getClipsList( $type, $page, $limit );
+        else
+        {
+            $clips = $this->clipDao->getClipsList($type, $page, $limit);
         }
 
         $list = array();
-        if ( is_array( $clips ) ) {
-            foreach ( $clips as $key => $clip ) {
+        if ( is_array($clips) )
+        {
+            foreach ( $clips as $key => $clip )
+            {
                 $clip = (array) $clip;
                 $list[$key] = $clip;
-                $list[$key]['thumb'] = $this->getClipThumbUrl( $clip['id'], $clip['code'] );
+                $list[$key]['thumb'] = $this->getClipThumbUrl($clip['id'], $clip['code'], $clip['thumbUrl']);
             }
         }
 
@@ -53,14 +59,14 @@ class SPVIDEO_CLASS_ClipService {
     }
 
     public function findUserClipsList( $userId, $page, $itemsNum, $exclude = null ) {
-        $clips = $this->clipDao->getUserClipsList( $userId, $page, $itemsNum, $exclude );
+        $clips = $this->clipDao->getUserClipsList($userId, $page, $itemsNum, $exclude);
 
-        if ( is_array( $clips ) ) {
+        if ( is_array($clips) ) {
             $list = array();
             foreach ( $clips as $key => $clip ) {
                 $clip = (array) $clip;
                 $list[$key] = $clip;
-                $list[$key]['thumb'] = $this->getClipThumbUrl( $clip['id'], $clip['code'] );
+                $list[$key]['thumb'] = $this->getClipThumbUrl($clip['id'], $clip['code'], $clip['thumbUrl']);
             }
 
             return $list;
@@ -70,26 +76,26 @@ class SPVIDEO_CLASS_ClipService {
     }
 
     public function findTaggedClipsList( $tag, $page, $limit ) {
-        $first = ( $page - 1 ) * $limit;
+        $first = ($page - 1 ) * $limit;
 
-        $clipIdList = BOL_TagService::getInstance()->findEntityListByTag( 'video', $tag, $first, $limit );
+        $clipIdList = BOL_TagService::getInstance()->findEntityListByTag('video', $tag, $first, $limit);
 
-        $clips = $this->clipDao->findByIdList( $clipIdList );
+        $clips = $this->clipDao->findByIdList($clipIdList);
 
-        if ( is_array( $clips ) ) {
-            $list = array();
+        $list = array();
+        if ( is_array($clips) ) {
             foreach ( $clips as $key => $clip ) {
                 $clip = (array) $clip;
                 $list[$key] = $clip;
-                $list[$key]['thumb'] = $this->getClipThumbUrl( $clip['id'] );
+                $list[$key]['thumb'] = $this->getClipThumbUrl($clip['id'], $clip['code'], $clip['thumbUrl']);
             }
         }
 
         return $list;
     }
 
-    public function getClipThumbUrl( $clipId, $code = null ) {
-        return $this->originalClassInstance->getClipThumbUrl( $clipId, $code );
+    public function getClipThumbUrl( $clipId, $code = null, $thumbUrl = null ) {
+        return $this->originalClassInstance->getClipThumbUrl( $clipId, $code, $thumbUrl );
     }
 
     public function __call( $method, $args ) {

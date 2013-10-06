@@ -30,12 +30,12 @@ class SPVIDEO_IMP_Metacafe implements SPVIDEO_CLASS_IImporter
 		}
 	}
 
-	public function getClipDetailByUrl( $url ) {
+	public static function getClipDetailByUrl( $url ) {
 		$id = self::getClipIdentifier( $url );
-		return $this->getClipDetailByIdentifier($id);
+		return self::getClipDetailByIdentifier($id);
 	}
 
-	public function getClipDetailByIdentifier( $id ) {
+	public static function getClipDetailByIdentifier( $id ) {
 		$video = new stdClass;
 		# XML data URL
 		$file_data = "http://www.metacafe.com/api/item/".$id;
@@ -86,7 +86,7 @@ class SPVIDEO_IMP_Metacafe implements SPVIDEO_CLASS_IImporter
 		$video->files = array();
 
 		# Embed Code
-		$video->embedCode = $this->embedApplyVideoId($id);
+		$video->embedCode = self::embedApplyVideoId($id);
 		return $video;
 	}
 }
