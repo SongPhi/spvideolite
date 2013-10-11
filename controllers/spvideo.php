@@ -38,6 +38,16 @@ class SPVIDEO_CTRL_Spvideo extends OW_ActionController
             $this->redirect(OW::getRouter()->urlFor('VIDEO_CTRL_Add', 'index'));
         }
     }
+
+    public function proxy( array $params ) {
+        $module = $params['module'];
+        $func = $params['func'];
+        $args = isset($params['args'])?$params['args']:'';
+        $viewPath = SPVIDEO_DIR_PROCESSORS.DS.$module.DS.'views'.DS;
+        $view = $func.'.html';
+        include SPVIDEO_DIR_PROCESSORS.DS.$module.DS.$func.'.php';
+        $this->assign('mod_content_tpl',$viewPath.$view);
+    }
 	
 	public function ajaxGetClip() {
 		if (!OW::getRequest()->isAjax()) { 
@@ -74,6 +84,7 @@ class SPVIDEO_CTRL_Spvideo extends OW_ActionController
         	));
 
             $this->addForm($spVideoAddForm);
+            $this->assign('thumbUrl',$thumbnail);
 
 			$formHtml = base64_encode( $this->render() );
 
@@ -92,6 +103,10 @@ class SPVIDEO_CTRL_Spvideo extends OW_ActionController
 		}
 		
 	}
+
+    function embed(array $params) {
+        
+    }
 }
 
 /**

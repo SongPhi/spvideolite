@@ -46,19 +46,11 @@ class SPVIDEO_CTRL_Admin extends ADMIN_CTRL_Abstract {
 		$menuItems[] = $item;
 
 		$item = new BASE_MenuItem();
-		$item->setLabel( $language->text( 'spvideo', 'adm_menu_encoder' ) );
-		$item->setUrl( OW::getRouter()->urlForRoute( 'spvideo.admin_encoder' ) );
+		$item->setLabel( $language->text( 'spvideo', 'adm_menu_processor' ) );
+		$item->setUrl( OW::getRouter()->urlForRoute( 'spvideo.admin_processor' ) );
 		$item->setKey( 'quota' );
 		$item->setIconClass( 'ow_ic_files' );
 		$item->setOrder( 2 );
-		$menuItems[] = $item;
-
-		$item = new BASE_MenuItem();
-		$item->setLabel( $language->text( 'spvideo', 'adm_menu_storage' ) );
-		$item->setUrl( OW::getRouter()->urlForRoute( 'spvideo.admin_storage' ) );
-		$item->setKey( 'quota' );
-		$item->setIconClass( 'ow_ic_server' );
-		$item->setOrder( 3 );
 		$menuItems[] = $item;
 
 		$item = new BASE_MenuItem();
@@ -111,12 +103,8 @@ class SPVIDEO_CTRL_Admin extends ADMIN_CTRL_Abstract {
         $this->setPageHeading( 'Quota - Settings' );
 	}
 
-	function encoder() {
-		$this->setPageHeading( 'Encoder - Settings' );
-	}
-
-	function storage() {
-		$this->setPageHeading( 'Storage - Settings' );
+	function processor() {
+		$this->setPageHeading( 'Processor- Settings' );
 	}
 
 	function tweaks() {

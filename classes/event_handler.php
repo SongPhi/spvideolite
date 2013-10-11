@@ -45,6 +45,8 @@ class SPVIDEO_CLASS_EventHandler {
 			return;
 		if ( OW::getRequest()->isAjax() )
 			return;
+		if( !OW::getUser()->isAuthenticated() )
+			return;
 
 		$doc = OW::getDocument();
 
@@ -78,7 +80,6 @@ class SPVIDEO_CLASS_EventHandler {
 		preg_match_all( "/<form.*<\/form>/is", $embedForm, $matches );
 		if (count($matches[0]) > 0)
 			$embedForm = $matches[0][0];
-		$importService = SPVIDEO_CLASS_ImportService::getInstance();
 		$spVideoCtrl = new SPVIDEO_CTRL_Add();
 		$spVideoCtrl->setTemplate( OW::getPluginManager()->getPlugin( 'spvideo' )->getCtrlViewDir() . 'add_index.html' );
 		$spVideoCtrl->setEmbedForm( $embedForm );

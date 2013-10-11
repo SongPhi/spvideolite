@@ -1,8 +1,8 @@
 	<div class="ow_superwide ow_automargin">
 		<ul id="videoTypeNav" class="ow_content_menu clearfix">
 			<li class="active"><a id="vidLink" href="#"><span class="ow_ic_link">From link</span></a></li>
-			<li class=""><a id="vidEmbed" href="#"><span class="ow_ic_script">Embed Code</span></a></li>
 			<li class=""><a id="vidUpload" href="#"><span class="ow_ic_up_arrow">Upload</span></a></li>
+			<li class=""><a id="vidEmbed" href="#"><span class="ow_ic_script">Embed Code</span></a></li>
 		</ul>
 	</div>
 
@@ -15,7 +15,7 @@
 				    <tbody>
 				    	<tr class="ow_alt2 ow_tr_first">
 				        <td class="ow_value"><input id="fetch_url" placeholder="Paste your video clip link here"  type="text" id="" /> <br> <span style="display:none;" class="error"></span></td>
-				        <td class="ow_desc ow_small" style="text-align:center"><span class="ow_button"><span class="  ow_positive"><input value="Check" id="spvideo_btn_check" name="add" type="button"></span></span></td>
+				        <td class="ow_desc ow_small" style="text-align:center"><span class="ow_button"><span class="ow_positive"><input value="Check" id="spvideo_btn_check" name="check" type="button"></span></span></td>
 				    </tr>
 					</tbody>
 				</table>
@@ -23,23 +23,15 @@
 					<div class="spvideo_ic_loading"></div>
 				</div>
 				<div id="checkClip_resp_place_holder" style="display:none">
-					sdad
+					&nbsp;
 				</div>
 			</li>
 			<li>
-				{$embedForm}
+				{include file=$uploadFormTpl}
 			</li>
 			<li>
-				<table class="ow_table_1 ow_form">
-				    <tbody>
-				    	<tr class="ow_alt2 ow_tr_first">
-				        <td class="ow_label"><label for="">Embed code</label></td>
-				        <td class="ow_value"><input type="text" id="" /> <br> <span id="" style="display:none;" class="error"></span></td>
-				        <td class="ow_desc ow_small">Use video embed code from resources like Youtube, Metacafe, Google Video and others.</td>
-				    </tr>
-					</tbody>
-				</table>
-			</li>
+				{$embedForm}
+			</li>			
 		</ul>
 		</div>
 
@@ -57,10 +49,9 @@
 
 		$('#spvideo_btn_check').click(function() {
 			SPVideo.checkClip( $('#fetch_url').val() );
+			$('#spvideo_btn_check').addClass('ow_inprogress');
 		});
 	});
-
-	
 
 	function ClearClasses(){
 		$("#videoTypeNav li").removeClass();
@@ -80,11 +71,11 @@
 				$("#formsWrapper ul").animate({left: "0px"}, { duration: 350, easing: 'easeInOutCirc' });
 				ClearClasses();
 				$(this).parent("li").addClass("active");
-			} else if(getID == "vidEmbed"){
+			} else if(getID == "vidUpload"){
 				$("#formsWrapper ul").animate({left: "-" + $("#formsWrapper").css('width')}, { duration: 350, easing: 'easeInOutCirc' });
 				ClearClasses();
 				$(this).parent("li").addClass("active");			
-			} else if(getID == "vidUpload"){
+			} else if(getID == "vidEmbed"){
 				$("#formsWrapper ul").animate({left: "-" + (parseInt($("#formsWrapper").css('width'))*2) + "px"}, { duration: 350, easing: 'easeInOutCirc' });
 				ClearClasses();
 				$(this).parent("li").addClass("active");

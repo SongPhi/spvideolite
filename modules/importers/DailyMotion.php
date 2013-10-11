@@ -23,7 +23,7 @@ class SPVIDEO_IMP_DailyMotion implements SPVIDEO_CLASS_IImporter
 	
 	public static function getClipIdentifier( $url ) {
 		$matches = array();
-		if (preg_match(self::$regexp, $url, $matches)) {
+		if (preg_match(self::$regexp, $url, $matches)) {			
 			return $matches[self::$regexpIdIndex];
 		} else {
 			throw new Exception('Unmatched URL of service');
@@ -32,7 +32,7 @@ class SPVIDEO_IMP_DailyMotion implements SPVIDEO_CLASS_IImporter
 
 	public static function getClipDetailByUrl( $url ) {
 		$id = self::getClipIdentifier( $url );
-		return $this->getClipDetailByIdentifier($id);
+		return self::getClipDetailByIdentifier($id);
 	}
 
 	public static function getClipDetailByIdentifier( $id ) {
@@ -40,7 +40,7 @@ class SPVIDEO_IMP_DailyMotion implements SPVIDEO_CLASS_IImporter
 		# XML data URL
 		$file_data = 'http://www.dailymotion.com/rss/video/'.$id;
 		$video->xml_url = $file_data;
-		
+
 		# XML
 		$xml = new SimpleXMLElement(file_get_contents($file_data));
 		
@@ -92,7 +92,7 @@ class SPVIDEO_IMP_DailyMotion implements SPVIDEO_CLASS_IImporter
 		//self::$mp4 = $mp4_query ? $mp4_query[0] : '';
 
 		# Embed Code
-		$video->embedCode = $this->embedApplyVideoId($id);
+		$video->embedCode = self::embedApplyVideoId($id);
 		return $video;
 	}
 }

@@ -1,24 +1,27 @@
-
 {if !$auth_msg} 
 	<p class="ow_smallmargin">Review the clip detail then click Add to save the new video</p>
 	{form name='SPVideoAddForm'}
 	
 	<table class="ow_table_1 ow_form">
-		<tr class="ow_alt1">
+		<tr class="ow_alt1 ow_tr_first">
 	        <td class="ow_label">{label name='title'}</td>
 	        <td class="ow_value">{input name='title'} <br /> {error name='title'}</td>
 	    </tr>
-	    <tr class="ow_alt2 ow_tr_first">
+	    <tr class="ow_alt2">
 	        <td class="ow_label">{label name='code'}</td>
 	        <td class="ow_value">{input name='code'} <br /> {error name='code'}</td>
 	    </tr>	    
-	    <tr class="ow_alt2">
+	    <tr class="ow_alt1">
 	        <td class="ow_label">{label name='description'}</td>
 	        <td class="ow_value">{input name='description'} <br /> {error name='description'}</td>
 	    </tr>
-	    <tr class="ow_alt1 ow_tr_last">
+	    <tr class="ow_alt2 ow_tr_last">
 	        <td class="ow_label">{label name='tags'}</td>
 	        <td class="ow_value">{input name='tags'}</td>
+	    </tr>
+	    <tr class="ow_alt1 ow_tr_last">
+	        <td class="ow_label">Thumbnail</td>
+	        <td class="ow_value"><img width="145" src="{$thumbUrl}" /></td>
 	    </tr>
 	</table>
 	<div class="clearfix ow_stdmargin"><div class="ow_right">{submit name='add' class='ow_ic_add ow_positive'}</div></div>

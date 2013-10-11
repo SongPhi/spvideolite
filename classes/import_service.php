@@ -1,7 +1,5 @@
 <?php
 
-require_once(OW::getPluginManager()->getPlugin( 'spvideo' )->getRootDir() . 'libraries' . DS . 'videopian' . DS . 'Videopian.php');
-
 /**
 * 
 */
@@ -29,6 +27,8 @@ class SPVIDEO_CLASS_ImportService
     			return $video;
 			}
     	}
+        throw new Exception("Unsupported video site", 1);
+        
     }
 
     protected function __construct() {

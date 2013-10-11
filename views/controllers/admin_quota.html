@@ -1,9 +1,12 @@
 {$menu}
 
-<div class="ow_superwide ow_automargin">
-<table class="ow_table_1 ow_form">
+<table class="ow_table_1">
 	<tr class="ow_tr_first">
 		<th>Role</th>
+		<th>Enabled</th>
+		<th>MFS</th>
+		<th>FL</th>
+		<th>Quota</th>
 	</tr>
 	<tbody>
 	{foreach name="roles" from=$set item='item'}
@@ -11,8 +14,11 @@
 			        {assign var='roleId' value=$role->id}
 		<tr>
 			<td>{text key="base+authorization_role_`$role->name`"}</td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
 		</tr>
 	{/foreach}
 	</tbody>
 </table>
-</div>

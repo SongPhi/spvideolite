@@ -1,5 +1,9 @@
 <?php
 
+define('SPVIDEO_DIR_ROOT',dirname(__FILE__));
+define('SPVIDEO_DIR_PROCESSORS',SPVIDEO_DIR_ROOT.DS.'modules'.DS.'processors');
+define('SPVIDEO_DIR_USERFILES',OW::getPluginManager()->getPlugin('spvideo')->getUserFilesDir());
+
 // Overloading default video clip service instance
 SPVIDEO_CLASS_ClipService::getInstance();
 
@@ -24,19 +28,10 @@ OW::getRouter()->addRoute(
 
 OW::getRouter()->addRoute(
 	new OW_Route(
-		'spvideo.admin_encoder',
-		'admin/plugins/spvideo/encoder',
+		'spvideo.admin_processor',
+		'admin/plugins/spvideo/processor',
 		'SPVIDEO_CTRL_Admin',
-		'encoder'
-	)
-);
-
-OW::getRouter()->addRoute(
-	new OW_Route(
-		'spvideo.admin_storage',
-		'admin/plugins/spvideo/storage',
-		'SPVIDEO_CTRL_Admin',
-		'storage'
+		'processor'
 	)
 );
 
@@ -87,6 +82,15 @@ OW::getRouter()->addRoute(
 
 OW::getRouter()->addRoute(
 	new OW_Route(
+		'spvideo.embed',
+		'spvideo/embed/:videoId',
+		'SPVIDEO_CTRL_Spvideo',
+		'embed'
+	)
+);
+
+OW::getRouter()->addRoute(
+	new OW_Route(
 		'spvideo.import',
 		'spvideo/import',
 		'SPVIDEO_CTRL_Spvideo',
@@ -94,7 +98,25 @@ OW::getRouter()->addRoute(
 	)
 );
 
+OW::getRouter()->addRoute(
+	new OW_Route(
+		'spvideo.proxy',
+		'spvideo/proxy/:module/:func',
+		'SPVIDEO_CTRL_Spvideo',
+		'proxy',
+		array('module','func','args'=>'')
+	)
+);
 
+OW::getRouter()->addRoute(
+	new OW_Route(
+		'spvideo.proxy_args',
+		'spvideo/proxy/:module/:func/:args',
+		'SPVIDEO_CTRL_Spvideo',
+		'proxy',
+		array('module','func','args')
+	)
+);
 
 // Events handling
 $eventHandler = new SPVIDEO_CLASS_EventHandler();

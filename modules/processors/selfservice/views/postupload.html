@@ -1,0 +1,39 @@
+<div class="ow_superwide ow_automargin">
+  <p class="ow_smallmargin">Your video clip has been uploaded successfully, please fill in the clip's detail infomation and click "Save".</p>
+  {form name='SelfServiceVideoInfoForm'}
+
+  <table class="ow_table_1 ow_form">
+    <tr class="ow_alt1">
+          <td class="ow_label">{label name='title'}</td>
+          <td class="ow_value">{input name='title'} <br /> {error name='title'}</td>
+      </tr>
+      <tr class="ow_alt2">
+          <td class="ow_label">{label name='description'}</td>
+          <td class="ow_value">{input name='description'} <br /> {error name='description'}</td>
+      </tr>
+      <tr class="ow_alt1 ow_tr_last">
+          <td class="ow_label">{label name='tags'}</td>
+          <td class="ow_value">{input name='tags'}</td>
+      </tr>
+  </table>
+  
+  <table class="ow_table_1 ow_form">
+    <tr>
+      <th colspan="2">Thumbnail Selection</th>
+    </tr>
+    <tr class="ow_alt1">
+      <td class="ow_label">I want to</td>
+      <td class="ow_value">
+        <input type="radio" name="thumbnail_method"> Select from generated thumbnail<br />
+        <input type="radio" name="thumbnail_method"> Upload image from my computer<br />
+        <input type="radio" name="thumbnail_method"> Enter remote thumbnail URL<br />
+      </td>
+    </tr>
+      
+  </table>
+
+  <div class="clearfix ow_stdmargin"><div class="ow_right">{submit name='save' class='ow_ic_save ow_positive'}</div></div>
+  {input name='token'}
+
+  {/form}
+</div>

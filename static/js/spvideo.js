@@ -4,8 +4,6 @@ var SPVideoClass = function(_baseUrl, _loadingEl, _detailElement) {
 	this.detailElement = _detailElement;
 	this.checkClipUrl = this.baseUrl + '/ajax_get_clip';
 
-	
-
 	this.checkClipFromElement = function(inputHandle) {
 		var url = jQuery(inputHandle).val();
 		this.checkClip(url);
@@ -34,7 +32,12 @@ var SPVideoClass = function(_baseUrl, _loadingEl, _detailElement) {
 		this.detailElement.html( '' );
 		if (!data.error) {
 			this.detailElement.html( Base64.decode(data.formHtml) );
+			var tagsField = $('form[name=SPVideoAddForm]').find('input[name=tags]');
+			$(tagsField).tagsInput({'pseudoDelimiter':["."], 'height':'auto', 'width':'auto', 'interactive':true, 'defaultText':'Enter tags here...', 'removeWithBackspace':true, 'minChars':3, 'maxChars':0, 'placeholderColor':'#666666'});
+		} else {
+			alert(data.errMsg);
 		}
+		$('#spvideo_btn_check').removeClass('ow_inprogress');
 	}
 
 	this.handleCheckClipError = function(data) {
