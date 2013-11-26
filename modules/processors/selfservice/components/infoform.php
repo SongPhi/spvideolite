@@ -1,4 +1,5 @@
 <?php
+require_once dirname(dirname(__FILE__)).DS.'classes'.DS.'processing.php';
 
 class SelfServiceVideoInfoForm extends Form
 {
@@ -49,7 +50,7 @@ class SelfServiceVideoInfoForm extends Form
     $description = nl2br($description, true);
     $clip->description = $description;
     $clip->userId = OW::getUser()->getId();
-    $clip->code = "pending";    
+    $clip->code = '<iframe src="'.(OW::getRouter()->getBaseUrl().'spvideo/unavail/').'" width="540" height="315" frameborder="0" allowfullscreen="allowfullscreen"></iframe>';    
 
     $privacy = OW::getEventManager()->call(
         'plugin.privacy.get_privacy',
@@ -70,23 +71,25 @@ class SelfServiceVideoInfoForm extends Form
     
     if ( $clipService->addClip($clip) )
     {
-        BOL_TagService::getInstance()->updateEntityTags($clip->id, 'video', $values['tags']);
+      SelfServiceProcessing::processTemporaryUpload($values['token'],$clip->id,$clip->userId);
 
-        $embedUrl = OW::getRouter()->getBaseUrl().'spvideo/embed/'.$clip->id;
-        $clip->code = '<iframe src="'.$embedUrl.'" width="540" height="315" frameborder="0" allowfullscreen="allowfullscreen"></iframe>';
-        $clipService->updateClip($clip);
-        
-        // Newsfeed
-        $event = new OW_Event('feed.action', array(
-            'pluginKey' => 'video',
-            'entityType' => 'video_comments',
-            'entityId' => $clip->id,
-            'userId' => $clip->userId
-        ));
-        
-        OW::getEventManager()->trigger($event);
+      BOL_TagService::getInstance()->updateEntityTags($clip->id, 'video', $values['tags']);
 
-        return array('result' => true, 'id' => $clip->id);
+      $embedUrl = OW::getRouter()->getBaseUrl().'spvideo/embed/'.$clip->id;
+      $clip->code = '<iframe src="'.$embedUrl.'" width="540" height="315" frameborder="0" allowfullscreen="allowfullscreen"></iframe>';
+      $clipService->updateClip($clip);
+      
+      // Newsfeed
+      $event = new OW_Event('feed.action', array(
+          'pluginKey' => 'video',
+          'entityType' => 'video_comments',
+          'entityId' => $clip->id,
+          'userId' => $clip->userId
+      ));
+      
+      OW::getEventManager()->trigger($event);
+
+      return array('result' => true, 'id' => $clip->id);
     }
 
     return false;

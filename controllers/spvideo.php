@@ -105,7 +105,22 @@ class SPVIDEO_CTRL_Spvideo extends OW_ActionController
 	}
 
     function embed(array $params) {
-        
+        $dbo = OW::getDbo();
+        $sources = $dbo->queryForList("SELECT * FROM `".OW_DB_PREFIX."spvideo_clip_format` WHERE clipId=(SELECT id FROM `".OW_DB_PREFIX."spvideo_clip` WHERE videoId=".$params['videoId'].")");
+        $supplied = '';
+        foreach ($sources as $index => $value) {
+            $value['url'] = str_replace("baseurl:/", OW::getRouter()->getBaseUrl(), $value['url']);
+            $sources[$index] = $value;
+            $supplied .= ','.$value['format'];
+        }
+        $supplied = ltrim($supplied,',');
+        $this->setTemplate( OW::getPluginManager()->getPlugin( 'spvideo' )->getCtrlViewDir() . 'spvideo_embed.html' );
+        $this->assign('staticUrl',OW::getPluginManager()->getPlugin( 'spvideo' )->getStaticUrl());
+        $this->assign('staticJsUrl',OW::getPluginManager()->getPlugin( 'spvideo' )->getStaticJsUrl());
+        $this->assign('staticCssUrl',OW::getPluginManager()->getPlugin( 'spvideo' )->getStaticCssUrl());
+        $this->assign('sources',$sources);
+        $this->assign('supplied',$supplied);
+        die($this->render());
     }
 }
 

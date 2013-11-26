@@ -4,6 +4,9 @@ define('SPVIDEO_DIR_ROOT',dirname(__FILE__));
 define('SPVIDEO_DIR_PROCESSORS',SPVIDEO_DIR_ROOT.DS.'modules'.DS.'processors');
 define('SPVIDEO_DIR_USERFILES',OW::getPluginManager()->getPlugin('spvideo')->getUserFilesDir());
 
+// Autoloader
+require_once SPVIDEO_DIR_ROOT.DS.'libs'.DS.'autoloader.php';
+
 // Overloading default video clip service instance
 SPVIDEO_CLASS_ClipService::getInstance();
 
@@ -122,3 +125,4 @@ OW::getRouter()->addRoute(
 $eventHandler = new SPVIDEO_CLASS_EventHandler();
 OW::getEventManager()->bind( OW_EventManager::ON_BEFORE_DOCUMENT_RENDER, array( $eventHandler, 'replaceVideoAddView' ) );
 OW::getEventManager()->bind( 'base.add_main_console_item', array( $eventHandler, 'on_add_console_item' ) );
+
