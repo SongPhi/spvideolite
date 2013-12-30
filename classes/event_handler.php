@@ -28,7 +28,7 @@ class SPVIDEO_CLASS_EventHandler {
 		if ($this->getRoute() == false)
 			return;
 		if ( $this->route["controller"] == $controller ) {
-			if ( $this->route["action"] == $action || $action==null ) {
+			if ( $action==null || $this->route["action"] == $action  ) {
 				return true;
 			}
 		}
@@ -39,7 +39,7 @@ class SPVIDEO_CLASS_EventHandler {
 	 *
 	 */
 	public function replaceVideoAddView( $event ) {
-		if ( !$this->isRoute( 'VIDEO_CTRL_Add', 'index' ) )
+		if ( !$this->isRoute( 'VIDEO_CTRL_Add' ) )
 			return;
 		if ( OW::getRequest()->isPost() )
 			return;

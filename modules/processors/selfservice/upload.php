@@ -30,4 +30,3 @@ $upload_handler = new SelfServiceUploadHandler(array(
 ));
 
 
-die();

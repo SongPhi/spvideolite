@@ -58,7 +58,10 @@
 	}
 
 	$(function (){
-		$("#formsWrapper li").css('width',$("#formsWrapper").css('width'));
+		$("#formsWrapper li").css('width',$("#formsWrapper li .ow_table_1").first().width()+'px');
+		$("#formsWrapper li").css('float','left');
+		$("#formsWrapper li").css('display','inline-block');
+		$("#formsWrapper li").css('margin-right','10px');
 		$('#formsWrapper ul').css('position','relative');
 		$('#formsWrapper ul').css('left','0');
 		$('#formsWrapper ul').css('width','3000px');
@@ -72,11 +75,11 @@
 				ClearClasses();
 				$(this).parent("li").addClass("active");
 			} else if(getID == "vidUpload"){
-				$("#formsWrapper ul").animate({left: "-" + $("#formsWrapper").css('width')}, { duration: 350, easing: 'easeInOutCirc' });
+				$("#formsWrapper ul").animate({left: "-" +($("#formsWrapper li .ow_table_1").first().width()+10)+'px'}, { duration: 350, easing: 'easeInOutCirc' });
 				ClearClasses();
 				$(this).parent("li").addClass("active");			
 			} else if(getID == "vidEmbed"){
-				$("#formsWrapper ul").animate({left: "-" + (parseInt($("#formsWrapper").css('width'))*2) + "px"}, { duration: 350, easing: 'easeInOutCirc' });
+				$("#formsWrapper ul").animate({left: "-" + (($("#formsWrapper li .ow_table_1").first().width()+10)*2) + "px"}, { duration: 350, easing: 'easeInOutCirc' });
 				ClearClasses();
 				$(this).parent("li").addClass("active");
 			}
