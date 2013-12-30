@@ -6,7 +6,7 @@
 class SPVIDEO_IMP_Blip implements SPVIDEO_CLASS_IImporter
 {
   private static $regexp = '#blip\.tv.*/*#i';
-  private static $regexpIdIndex = 1;
+  private static $regexpIdIndex = 0;
   private static $embedTemplate = '';
 
   public static function getRegExp() {
@@ -23,7 +23,7 @@ class SPVIDEO_IMP_Blip implements SPVIDEO_CLASS_IImporter
 
   public static function getClipIdentifier( $url ) {
     $matches = array();
-    if (preg_match(self::$regexp, $url, $matches)) {
+    if (preg_match(self::$regexp, $url, $matches) && isset($matches[self::$regexpIdIndex])) {
       return $matches[self::$regexpIdIndex];
     } else {
       throw new Exception('Unmatched URL of service');
@@ -74,7 +74,7 @@ class SPVIDEO_IMP_Blip implements SPVIDEO_CLASS_IImporter
     $video->date_updated = null;
 
     # Thumbnails
-    $thumbnails_query = $xml->xpath('/rss/channel/item/blip:smallThumbnail');
+    $thumbnails_query = $xml->xpath('/rss/channel/item/blip:picture');
     $thumbnail = new stdClass;
     $thumbnail->url = strval($thumbnails_query[0]);
     list($thumbnail->width, $thumbnail->height) = getimagesize($thumbnail->url);

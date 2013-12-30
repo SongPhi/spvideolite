@@ -1,6 +1,9 @@
 {if !$auth_msg} 
-	<p class="ow_smallmargin">Review the clip detail then click Add to save the new video</p>
 	{form name='SPVideoAddForm'}
+	<div class="clearfix ow_stdmargin">
+		<div class="ow_right">{submit name='add' class='ow_ic_add ow_positive'}</div>
+		<p class="ow_smallmargin">Review the clip detail then click "Add" to save the new video</p>
+	</div>
 	
 	<table class="ow_table_1 ow_form">
 		<tr class="ow_alt1 ow_tr_first">
@@ -24,7 +27,7 @@
 	        <td class="ow_value"><img width="145" src="{$thumbUrl}" /></td>
 	    </tr>
 	</table>
-	<div class="clearfix ow_stdmargin"><div class="ow_right">{submit name='add' class='ow_ic_add ow_positive'}</div></div>
+	
 	{input name='thumbnail'}
 	{/form}
 {else}

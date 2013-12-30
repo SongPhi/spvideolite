@@ -17,7 +17,7 @@
         </span>
       </td>
     </tr>
-    <tr>
+    <tr id="panel-upload-btn">
       <td>
         <div id="spvideo_upload_progress" class="progress-bar blue stripes">
           <span>Starting...</span>
@@ -91,6 +91,7 @@ function hideProgressBar() {
 }
 
 $(document).ready(function () {
+  $('#panel-upload-btn').hide();
   $('#videoInfoPanel').hide();
   hideProgressBar();
   $('#videoClip').on('change',function(){
@@ -114,6 +115,7 @@ $(document).ready(function () {
     },
     add: function (e, data) {
       $('#spvideo_btn_upload').unbind('click');
+      $('#panel-upload-btn').show();
       hideProgressBar();
       var options = $(this).fileupload('option');
       if (!options.acceptFileTypes.test(data.files[0].name)) {
