@@ -10,8 +10,10 @@ class SelfServiceUploadHandler extends SPVIDEO_CLASS_UploadHandler {
                 $token = $_POST['token'];
                 $userId = OW::getUser()->getId();
                 $dbo = OW::getDbo();
-                $dbo->update('INSERT INTO `'.OW_DB_PREFIX.'spvideo_upl_temp` (`token`,`userId`,`isCompleted`,`filename`,`filesize`) VALUES (\''.$token.'\',\''.$userId.'\',1,\''. $file->name .'\','.$file->size.')');
+                $dbo->update('INSERT INTO `'.OW_DB_PREFIX.'spvideo_upl_temp` (`token`,`userId`,`isCompleted`,`filename`,`filesize`) VALUES (\''.$token.'\',\''.$userId.'\',1,\''. addslashes($file->name) .'\','.$file->size.')');
                 rename($this->get_upload_path($file->name), $this->get_upload_path($token));
+            } else {
+                throw new Exception($file->error, 1);                
             }
             return $file;
         } catch (Exception $e) {

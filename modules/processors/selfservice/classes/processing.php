@@ -34,7 +34,7 @@ class SelfServiceProcessing
 
     $url = 'baseurl:/ow_userfiles/plugins/spvideo/'.($userId).'/'.$videoId.'_'.$temp->filename;
     $size = $temp->filesize;
-    $dbo->insert('INSERT INTO `'.OW_DB_PREFIX.'spvideo_clip_format` (clipId,format,url,size) VALUES ('.$spClipId.',\''.$format.'\',\''.$url.'\','.$size.')');
+    $dbo->insert('INSERT INTO `'.OW_DB_PREFIX.'spvideo_clip_format` (clipId,format,url,size) VALUES ('.$spClipId.',\''.$format.'\',\''.addslashes($url).'\','.$size.')');
   }
   
 }
