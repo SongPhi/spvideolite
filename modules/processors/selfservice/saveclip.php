@@ -17,7 +17,7 @@ if ( $infoForm->isValid($_POST) ) {
 } else {
   OW::getFeedback()->error('Error while processing your information');
   $this->setPageHeading('Video Upload');
-  $infoForm->setAction( OW::getRouter()->getBaseUrl().'/spvideo/proxy/selfservice/saveclip' );
+  $infoForm->setAction( OW::getRouter()->getBaseUrl().'spvideo/proxy/selfservice/saveclip' );
   $infoForm->setValues($_POST);
   $this->addForm($infoForm);
   $view = 'postupload.html';
