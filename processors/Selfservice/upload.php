@@ -11,7 +11,7 @@ class SelfServiceUploadHandler extends SPVIDEO_CLASS_UploadHandler {
                 $userId = OW::getUser()->getId();
                 $dbo = OW::getDbo();
                 $dbo->update('INSERT INTO `'.OW_DB_PREFIX.'spvideo_upl_temp` (`token`,`userId`,`isCompleted`,`filename`,`filesize`) VALUES (\''.$token.'\',\''.$userId.'\',1,\''. addslashes($file->name) .'\','.$file->size.')');
-                rename($this->get_upload_path($file->name), $this->get_upload_path($token));
+                // rename($this->get_upload_path($file->name), $this->get_upload_path($token));
             } else {
                 throw new Exception($file->error, 1);                
             }
@@ -24,9 +24,11 @@ class SelfServiceUploadHandler extends SPVIDEO_CLASS_UploadHandler {
     }
 }
 
+$uploadPath = SPVIDEO_DIR_PLUGINFILES . DS . $_POST['token'] . DS;
+@mkdir($uploadPath, 0777);
 $upload_handler = new SelfServiceUploadHandler(array(
-    'upload_dir' => SPVIDEO_DIR_USERFILES,
-    'accept_file_types' => '/\.(mp4|m4v|flv|ogv|webm)$/i',
+    'upload_dir' => $uploadPath,
+    'accept_file_types' => '/\.(mp4|m4v|flv|ogv|ogg|webm)$/i',
     'param_name' => 'videoClip',
     'max_file_size' => '500000000'
 ));

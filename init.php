@@ -1,8 +1,10 @@
 <?php
 
 define('SPVIDEO_DIR_ROOT',dirname(__FILE__));
-define('SPVIDEO_DIR_PROCESSORS',SPVIDEO_DIR_ROOT.DS.'modules'.DS.'processors');
+define('SPVIDEO_DIR_PROCESSORS',SPVIDEO_DIR_ROOT.DS.'processors');
+define('SPVIDEO_DIR_IMPORTERS',SPVIDEO_DIR_ROOT.DS.'importers');
 define('SPVIDEO_DIR_USERFILES',OW::getPluginManager()->getPlugin('spvideo')->getUserFilesDir());
+define('SPVIDEO_DIR_PLUGINFILES',OW::getPluginManager()->getPlugin('spvideo')->getPluginFilesDir());
 
 // Autoloader
 require_once SPVIDEO_DIR_ROOT.DS.'libs'.DS.'autoloader.php';
@@ -126,3 +128,19 @@ $eventHandler = new SPVIDEO_CLASS_EventHandler();
 OW::getEventManager()->bind( OW_EventManager::ON_BEFORE_DOCUMENT_RENDER, array( $eventHandler, 'replaceVideoAddView' ) );
 OW::getEventManager()->bind( 'base.add_main_console_item', array( $eventHandler, 'on_add_console_item' ) );
 
+if ( !OW::getRequest()->isAjax() ) {
+	OW::getEventManager()->bind( 'video.collect_video_toolbar_items', array($eventHandler,'showLessVideoDescription') );
+	OW::getEventManager()->bind( 'video.collect_video_toolbar_items', array($eventHandler,'correctPlayerSize') );
+	OW::getEventManager()->bind( 'video.collect_video_toolbar_items', array($eventHandler,'addLargerPlayerButton') );	
+}
+
+// adding package pointers for importers
+$autoloader = OW::getAutoloader();
+$autoloader->addPackagePointer('SPVIDEO_IMP', SPVIDEO_DIR_IMPORTERS);
+// adding package pointers for processors
+$autoloader->addPackagePointer('SPVIDEO_PRO', SPVIDEO_DIR_PROCESSORS);
+
+// registering processors
+SPVIDEO_BOL_Service::registerProcessor('Selfservice');
+SPVIDEO_BOL_Service::registerProcessor('Transloadit');
+// SPVIDEO_BOL_Service::getProcessorInstance('Selfservice');

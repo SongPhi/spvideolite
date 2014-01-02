@@ -15,16 +15,14 @@ class SPVIDEO_CTRL_Add extends OW_ActionController
 	}
 
 	public function index() {
-		$uploadToken = md5(OW::getUser()->getEmail().'/'.microtime());
 		$this->assign('staticUrl',OW::getPluginManager()->getPlugin( 'spvideo' )->getStaticUrl());
-		$this->assign('token',$uploadToken);
 		$this->assign('embedForm', $this->embedForm);
 		// call selected module upload template
-		$module = 'selfservice';
+		$module = 'Selfservice';
 		$func = 'add';
-		$viewPath = SPVIDEO_DIR_PROCESSORS.DS.$module.DS.'views'.DS;
+		$viewPath = SPVIDEO_BOL_Service::callProcessorFunction($module, 'getViewPath', $this);
 		$view = $func.'.html';
-		include SPVIDEO_DIR_PROCESSORS.DS.$module.DS.$func.'.php';
-		$this->assign('uploadFormTpl', $viewPath.$view);
+		$this->assign('uploadFormTpl', $viewPath. DS . $view);
+		SPVIDEO_BOL_Service::callProcessorFunction($module, $func, $this);
 	}
 }

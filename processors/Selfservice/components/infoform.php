@@ -1,7 +1,6 @@
 <?php
-require_once dirname(dirname(__FILE__)).DS.'classes'.DS.'processing.php';
 
-class SelfServiceVideoInfoForm extends Form
+class SPVIDEO_PRO_SELFSERVICE_CMP_Infoform extends Form
 {
   /**
    * Class constructor

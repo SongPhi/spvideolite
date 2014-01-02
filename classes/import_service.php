@@ -32,7 +32,7 @@ class SPVIDEO_CLASS_ImportService
     }
 
     protected function __construct() {
-    	$this->importerModulePath = OW::getPluginManager()->getPlugin( 'spvideo' )->getRootDir() . 'modules' . DS . 'importers' . DS;
+    	$this->importerModulePath = OW::getPluginManager()->getPlugin( 'spvideo' )->getRootDir() . 'importers' . DS;
     	$this->loadModules();
     }
 
@@ -42,9 +42,8 @@ class SPVIDEO_CLASS_ImportService
     	$files = scandir($this->importerModulePath);
         foreach ($files as $file) {
             if ($this->strEndWith($file,'.php')) {
-                require_once( $this->importerModulePath . DS . $file );
-                $shortname = strtolower(substr($file, 0,strlen($file)-4));
-                $className = self::IMPORTER_CLASS_PREFIX . substr($file, 0,strlen($file)-4);
+                $className = OW::getAutoloader()->filenameToClass($file,'SPVIDEO_IMP');
+                $shortname = strtolower(substr($className,0-strlen($file)+11));
                 $importer = array(
                 	'className' => $className,
                 	'regexp' => $className::getRegExp(),
