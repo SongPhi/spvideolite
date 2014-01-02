@@ -170,8 +170,8 @@ class SPVIDEO_CLASS_EventHandler {
 					parent.removeClass();
 					parent.addClass('ow_stdmargin');
 					var newHeight = iframe.height()*( parent.width()/iframe.width() );
-					if (newHeight > 580) {
-						iframe.height(580);
+					if (newHeight > 520) {
+						iframe.height(520);
 					} else {
 						iframe.height(newHeight);
 					}

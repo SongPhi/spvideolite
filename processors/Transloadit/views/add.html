@@ -1,0 +1,113 @@
+<form id="TransloaditUploadForm" action="{$uploadDest}" enctype="multipart/form-data" method="POST">
+  <input type="file" style="display:none" name="videoClip" id="videoClip" />
+</form>
+
+<table class="ow_table_1 ow_form">
+  <tbody>
+    <tr class="ow_alt2 ow_tr_first">
+      <td class="ow_value">
+        <input type="text" id="spvideo_media_filename" placeholder="Pick video file from your computer" disabled />
+        <br><span id="" style="display:none;" class="error"></span>
+      </td>
+      <td style="width:1%">
+        <span class="ow_button">
+          <span class="ow_positive">
+            <input value="Browse" id="spvideo_btn_browse" name="browse" type="button" class="ow_ic_folder">
+          </span>
+        </span>
+      </td>
+    </tr>
+    <tr id="panel-upload-btn">
+      <td>
+        <div id="spvideo_upload_progress" class="progress-bar blue stripes">
+          <span>Starting...</span>
+        </div>
+        <div id="validation_message"></div>
+      </td>
+      <td style="width:1%;height:1%">
+        <span class="ow_button" style="display:none" id="upload_btn_container">
+          <span class="ow_positive">
+            <input value="Upload" id="spvideo_btn_upload" name="upload" type="button" />
+          </span>
+        </span>
+        <span class="ow_button" style="display:none" id="cancel_btn_container">
+          <span class="ow_positive">
+            <input value="Cancel" id="spvideo_btn_cancel" name="upload" type="button" class="ow_ic_delete" />
+          </span>
+        </span>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<script>
+{literal}
+function showValidationMessage(message='') {
+  $('#validation_message').html(message);
+
+  if (message.length>0) {
+    $('#upload_btn_container').hide();
+  } else {
+    $('#upload_btn_container').show();
+  }
+}
+
+function clearValidationMessage() {
+  showValidationMessage('');
+}
+
+function changeProgressMessage(message) {
+  $('#spvideo_upload_progress > span').html(message);
+}
+
+function showProgressBar() {
+  $('#spvideo_upload_progress').show();
+}
+
+function hideProgressBar() {
+  $('#spvideo_upload_progress').hide();
+}
+
+$(document).ready(function () {
+  $('#panel-upload-btn').hide();
+  $('#spvideo_upload_progress').hide();
+  // $('#videoInfoPanel').hide();
+  hideProgressBar();
+  $('#videoClip').on('change',function(){
+    $('#spvideo_media_filename').val($('#videoClip').val());
+    clearValidationMessage();
+    $('#panel-upload-btn').show();
+  });
+  $('#spvideo_btn_browse').click(function(){
+    $('#videoClip').click();
+  });
+  $('#TransloaditUploadForm').transloadit({
+    wait: false,
+    params: {
+      auth: { key : "e51a60ac4d3241fcb2b313b78da36cd7"},
+      template_id: "974a12a073d111e3876d512bca01cfbd"
+    },
+    modal: false,
+    onProgress: function(bytesReceived, bytesExpected) {
+      var progress = parseInt((bytesReceived / bytesExpected * 100).toFixed(2));
+      $('#spvideo_upload_progress > span').css(
+        'width',
+        progress + '%'
+      );
+      changeProgressMessage('Uploading ('+progress+'%)');      
+    },
+    onStart: function() {
+      $('#spvideo_upload_progress').show();
+    },
+    onError: function(assembly) {
+      alert(assembly.error+': '+assembly.message);
+    }
+  });
+
+  $('#panel-upload-btn').click(function(){
+    $('#TransloaditUploadForm').submit();
+  });
+  
+});
+{/literal}
+</script>

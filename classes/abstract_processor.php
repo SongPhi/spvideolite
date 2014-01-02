@@ -46,5 +46,13 @@ abstract class SPVIDEO_CLASS_AbstractProcessor
   public function getViewPath() {
     return $this->getClassPath() . DS . 'views';
   }
+
+  public function setTemplate($filename) {
+    $this->ctrl->setTemplate($this->getViewPath() . DS . $filename);
+  }
+
+  public function addScript($script) {
+    OW::getDocument()->addScript($script);
+  }
   
 }

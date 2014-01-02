@@ -27,15 +27,15 @@
 /*---------------------------*/			
         
 .progress-bar {
-	background-color: #ccc;
-	height: 18px;
-	padding: 5px;
+	background-color: #ddd;
+	min-height: 18px;
+	padding: 2px;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
-	-moz-box-shadow: 0 1px 5px #000 inset, 0 1px 0 #444;
-	-webkit-box-shadow: 0 1px 5px #000 inset, 0 1px 0 #444;
-	box-shadow: 0 1px 5px #000 inset, 0 1px 0 #444;           
+	-moz-box-shadow: 0 1px 1px #000 inset, 0 1px 0 #444;
+	-webkit-box-shadow: 0 1px 1px #000 inset, 0 1px 0 #444;
+	box-shadow: 0 1px 1px #000 inset, 0 1px 0 #444;           
 }
 
 .progress-bar span {
@@ -57,6 +57,7 @@
 	font-weight:bold;
 	color:#333;
 	white-space:nowrap;
+	padding: 3px 0px;
 }
 
 /*---------------------------*/			

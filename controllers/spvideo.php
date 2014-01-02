@@ -43,10 +43,10 @@ class SPVIDEO_CTRL_Spvideo extends OW_ActionController
         $module = $params['module'];
         $func = $params['func'];
         $args = isset($params['args'])?$params['args']:'';
-        $viewPath = SPVIDEO_DIR_PROCESSORS.DS.$module.DS.'views'.DS;
-        $view = $func.'.html';
-        include SPVIDEO_DIR_PROCESSORS.DS.$module.DS.$func.'.php';
-        $this->assign('mod_content_tpl',$viewPath.$view);
+        // $viewPath = SPVIDEO_BOL_Service::callProcessorFunction($module, 'getViewPath', $this);
+        // $view = $func.'.html';
+        // $this->assign('mod_content_tpl', $viewPath. DS . $view);
+        SPVIDEO_BOL_Service::callProcessorFunction($module, $func, $this);
     }
 	
 	public function ajaxGetClip() {

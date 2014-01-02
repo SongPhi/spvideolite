@@ -70,7 +70,7 @@ class SPVIDEO_PRO_SELFSERVICE_CMP_Infoform extends Form
     
     if ( $clipService->addClip($clip) )
     {
-      SelfServiceProcessing::processTemporaryUpload($values['token'],$clip->id,$clip->userId);
+      SPVIDEO_PRO_SELFSERVICE_CLASS_Processing::processTemporaryUpload($values['token'],$clip->id,$clip->userId);
 
       BOL_TagService::getInstance()->updateEntityTags($clip->id, 'video', $values['tags']);
 
