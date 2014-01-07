@@ -108,19 +108,26 @@ class SPVIDEO_CLASS_EventHandler {
   public static function showLessVideoDescription(BASE_CLASS_EventCollector $event) {
   	OW::getDocument()->addOnloadScript("
   		if ($('.ow_video_description').height()>60) {
+        $('.ow_video_description').attr('origheight',$('.ow_video_description').height());
   			$('.ow_video_description').css({'max-height':'60px','overflow':'hidden'});
 				$('<div id=\"video-show-less\" class=\"ow_small ow_txtcenter\" style=\"margin-top:5px;margin-bottom:10px;border-top:1px dashed #aaa;display:none\"><span id=\"spvideo-desc-show-less\" class=\"ow_lbutton\" style=\"margin-top:-8px\">Show less</span></div>').insertAfter($('.ow_video_description'));
-				$('<div id=\"video-show-more\" class=\"ow_small ow_txtcenter\" style=\"margin-top:5px;margin-bottom:10px;border-top:1px dashed #aaa\"><span id=\"spvideo-desc-show-more\" class=\"ow_lbutton\" style=\"margin-top:-8px\">Show more</span></div>').insertAfter($('.ow_video_description'));
+				$('<div id=\"video-show-more\" class=\"ow_small ow_txtcenter\" style=\"margin-top:5px;margin-bottom:10px;border-top:1px dashed #aaa\"><span id=\"spvideo-desc-show-more\" class=\"ow_lbutton\" style=\"margin-top:-8px\">Show more</span></div>').insertAfter($('.ow_video_description'));      
+
 				$('#spvideo-desc-show-more').click(function(){
-					$('.ow_video_description').css('max-height','');
-					$('#spvideo-desc-show-more').parent().hide();
-					$('#spvideo-desc-show-less').parent().show();
-					$('#spvideo-desc-show-less').click(function(){
-						$('.ow_video_description').css({'max-height':'60px','overflow':'hidden'});
-						$('#spvideo-desc-show-less').parent().hide();
-						$('#spvideo-desc-show-more').parent().show();
-					});
+					$('.ow_video_description').animate({'max-height':$('.ow_video_description').attr('origheight')+'px'},300,function(){
+            $('#spvideo-desc-show-more').parent().hide();
+            $('#spvideo-desc-show-less').parent().show(); 
+          });
+									
 				});
+        $('#spvideo-desc-show-less').click(function(){
+          $('.ow_video_description').css({'overflow':'hidden'});
+          $('.ow_video_description').animate({'max-height':'60px'},300,function(){
+            $('#spvideo-desc-show-less').parent().hide();
+            $('#spvideo-desc-show-more').parent().show();
+          });
+          
+        });
 			}			
 		");
   }
@@ -167,22 +174,26 @@ class SPVIDEO_CLASS_EventHandler {
 				}
 
   			if (parent.hasClass('ow_left')) {
-					parent.removeClass();
-					parent.addClass('ow_stdmargin');
-					var newHeight = iframe.height()*( parent.width()/iframe.width() );
-					if (newHeight > 520) {
-						iframe.height(520);
-					} else {
-						iframe.height(newHeight);
-					}
-					iframe.width(parent.width());
-					$('#btn-resize-player a').html('Smaller');
-					remains.show();
-					$('.ow_video_description').appendTo(remains);
-					$('#video-show-more').appendTo(remains);
-					$('#video-show-less').appendTo(remains);
-					$('div[id^=comments-video]').appendTo(remains);
+          $('.ow_right').animate({\"margin-top\": player.height()+\"px\"}, 500, function(){
+            $('.ow_right').css('margin-top','');
+            parent.removeClass();
+            parent.addClass('ow_stdmargin');
+            var newHeight = iframe.height()*( parent.width()/iframe.width() );
+            if (newHeight > 520) {
+              iframe.height(520);
+            } else {
+              iframe.height(newHeight);
+            }
+            iframe.width(parent.width());
+            $('#btn-resize-player a').html('Smaller');          
+            remains.show();
+            $('.ow_video_description').appendTo(remains);
+            $('#video-show-more').appendTo(remains);
+            $('#video-show-less').appendTo(remains);
+            $('div[id^=comments-video]').appendTo(remains);
+          });					
   			} else {
+          $('.ow_right').css('margin-top',player.height()+'px');
 					parent.removeClass();
 					parent.addClass('ow_superwide');
 					parent.addClass('ow_left');
@@ -194,6 +205,7 @@ class SPVIDEO_CLASS_EventHandler {
 					$('#video-show-less').appendTo(parent);
 					$('div[id^=comments-video]').appendTo(parent);
 					remains.hide();
+          $('.ow_right').animate({\"margin-top\": \"0px\"}, 500);
   			}
   		});
     ");

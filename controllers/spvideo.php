@@ -122,6 +122,8 @@ class SPVIDEO_CTRL_Spvideo extends OW_ActionController
         $this->assign('supplied',$supplied);
         die($this->render());
     }
+
+    
 }
 
 /**

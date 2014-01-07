@@ -54,6 +54,14 @@ class SPVIDEO_CTRL_Admin extends ADMIN_CTRL_Abstract {
 		$menuItems[] = $item;
 
 		$item = new BASE_MenuItem();
+		$item->setLabel( $language->text( 'spvideo', 'adm_menu_categories' ) );
+		$item->setUrl( OW::getRouter()->urlForRoute( 'spvideo.admin_categories' ) );
+		$item->setKey( 'categories' );
+		$item->setIconClass( 'ow_ic_folder' );
+		$item->setOrder( 3 );
+		$menuItems[] = $item;
+
+		$item = new BASE_MenuItem();
 		$item->setLabel( $language->text( 'spvideo', 'adm_menu_tweaks' ) );
 		$item->setUrl( OW::getRouter()->urlForRoute( 'spvideo.admin_tweaks' ) );
 		$item->setKey( 'quota' );
@@ -114,5 +122,9 @@ class SPVIDEO_CTRL_Admin extends ADMIN_CTRL_Abstract {
 	function help() {
 		$this->setPageHeading( 'Help and Support' );
 	}
+
+	public function categories() {
+    $this->setPageHeading( 'Video Categories' );    
+  }
 
 }

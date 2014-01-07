@@ -15,6 +15,21 @@ class SPVIDEO_PRO_Selfservice extends SPVIDEO_CLASS_AbstractProcessor
       'SPVIDEO_PRO_SELFSERVICE_CLASS',
       $this->getClassPath() . DS . 'classes'
     );
+
+    spl_autoload_register(function($class_name)
+    {
+      $parts = explode('\\', $class_name);
+      $namespace = array_shift($parts);
+      if($namespace === 'PHPVideoToolkit')
+      {
+        $class = str_replace('_', DS, array_pop($parts));
+        $path = SPVIDEO_DIR_ROOT . DS . 'libs' . DS.'PHPVideoToolkit'.DS.ltrim(implode(DS, $parts).DS, DS).$class.'.php';
+        if(is_file($path) === true)
+        {
+          require_once $path;
+        }
+      }
+    });
   }
 
   public function add() {

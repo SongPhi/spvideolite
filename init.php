@@ -6,8 +6,8 @@ define('SPVIDEO_DIR_IMPORTERS',SPVIDEO_DIR_ROOT.DS.'importers');
 define('SPVIDEO_DIR_USERFILES',OW::getPluginManager()->getPlugin('spvideo')->getUserFilesDir());
 define('SPVIDEO_DIR_PLUGINFILES',OW::getPluginManager()->getPlugin('spvideo')->getPluginFilesDir());
 
-// Autoloader
-require_once SPVIDEO_DIR_ROOT.DS.'libs'.DS.'autoloader.php';
+// Initialize helper instance
+SPVIDEO_BOL_Service::getInstance();
 
 // Overloading default video clip service instance
 SPVIDEO_CLASS_ClipService::getInstance();
@@ -37,6 +37,15 @@ OW::getRouter()->addRoute(
 		'admin/plugins/spvideo/processor',
 		'SPVIDEO_CTRL_Admin',
 		'processor'
+	)
+);
+
+OW::getRouter()->addRoute(
+	new OW_Route(
+		'spvideo.admin_categories',
+		'admin/plugins/spvideo/categories',
+		'SPVIDEO_CTRL_Admin',
+		'categories'
 	)
 );
 
