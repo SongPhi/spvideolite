@@ -42,10 +42,7 @@ class SPVIDEO_CTRL_Spvideo extends OW_ActionController
     public function proxy( array $params ) {
         $module = $params['module'];
         $func = $params['func'];
-        $args = isset($params['args'])?$params['args']:'';
-        // $viewPath = SPVIDEO_BOL_Service::callProcessorFunction($module, 'getViewPath', $this);
-        // $view = $func.'.html';
-        // $this->assign('mod_content_tpl', $viewPath. DS . $view);
+        $args = isset($params['args'])?$params['args']:'';        
         SPVIDEO_BOL_Service::callProcessorFunction($module, $func, $this);
     }
 	
@@ -103,6 +100,53 @@ class SPVIDEO_CTRL_Spvideo extends OW_ActionController
 		}
 		
 	}
+
+    private function getVideoMenu()
+    {
+        $validLists = array('featured', 'latest', 'toprated', 'categories','tagged');
+        $classes = array('ow_ic_push_pin', 'ow_ic_clock', 'ow_ic_star', 'ow_ic_folder','ow_ic_tag');
+
+        if ( !VIDEO_BOL_ClipService::getInstance()->findClipsCount('featured') )
+        {
+            array_shift($validLists);
+            array_shift($classes);
+        }
+
+        $language = OW::getLanguage();
+
+        $menuItems = array();
+
+        $order = 0;
+        foreach ( $validLists as $type )
+        {
+            $item = new BASE_MenuItem();
+            if ($type!='categories') {
+                $item->setLabel($language->text('video', 'menu_' . $type));
+                $item->setUrl(OW::getRouter()->urlForRoute('view_list', array('listType' => $type)));
+            } else {
+                $item->setLabel($language->text('spvideo', 'menu_' . $type));
+                $item->setUrl(OW::getRouter()->urlForRoute('spvideo.categories'));
+            }
+            $item->setKey($type);
+            $item->setIconClass($classes[$order]);
+            $item->setOrder($order);
+
+            array_push($menuItems, $item);
+
+            $order++;
+        }
+
+        $menu = new BASE_CMP_ContentMenu($menuItems);
+
+        return $menu;
+    }
+
+    public function categories() {
+        OW::getDocument()->setHeading(OW::getLanguage()->text('video', 'page_title_browse_video'));
+        OW::getDocument()->setHeadingIconClass('ow_ic_video');
+        OW::getDocument()->setTitle(OW::getLanguage()->text('spvideo', 'meta_title_video_categories'));
+        $this->addComponent('videoMenu', $this->getVideoMenu());
+    }
 
     function embed(array $params) {
         $dbo = OW::getDbo();

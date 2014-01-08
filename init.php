@@ -132,15 +132,25 @@ OW::getRouter()->addRoute(
 	)
 );
 
-// Events handling
-$eventHandler = new SPVIDEO_CLASS_EventHandler();
-OW::getEventManager()->bind( OW_EventManager::ON_BEFORE_DOCUMENT_RENDER, array( $eventHandler, 'replaceVideoAddView' ) );
-OW::getEventManager()->bind( 'base.add_main_console_item', array( $eventHandler, 'on_add_console_item' ) );
+OW::getRouter()->addRoute(
+	new OW_Route(
+		'spvideo.categories',
+		'spvideo/categories',
+		'SPVIDEO_CTRL_Spvideo',
+		'categories'
+	)
+);
 
-if ( !OW::getRequest()->isAjax() ) {
+if ( !OW::getRequest()->isAjax() || !OW::getRequest()->isPost() ) {
+	// Events handling
+	$eventHandler = new SPVIDEO_CLASS_EventHandler();
+	OW::getEventManager()->bind( OW_EventManager::ON_BEFORE_DOCUMENT_RENDER, array( $eventHandler, 'replaceVideoAddView' ) );
+	OW::getEventManager()->bind( OW_EventManager::ON_BEFORE_DOCUMENT_RENDER, array( $eventHandler, 'addCategoriesList' ) );
+	OW::getEventManager()->bind( 'base.add_main_console_item', array( $eventHandler, 'on_add_console_item' ) );
 	OW::getEventManager()->bind( 'video.collect_video_toolbar_items', array($eventHandler,'showLessVideoDescription') );
 	OW::getEventManager()->bind( 'video.collect_video_toolbar_items', array($eventHandler,'correctPlayerSize') );
-	OW::getEventManager()->bind( 'video.collect_video_toolbar_items', array($eventHandler,'addLargerPlayerButton') );	
+	OW::getEventManager()->bind( 'video.collect_video_toolbar_items', array($eventHandler,'addLargerPlayerButton') );
+	OW::getEventManager()->bind( OW_EventManager::ON_BEFORE_DOCUMENT_RENDER, array( $eventHandler, 'fixLongTitles' ) );
 }
 
 // adding package pointers for importers
