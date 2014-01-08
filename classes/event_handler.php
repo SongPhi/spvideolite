@@ -159,7 +159,7 @@ class SPVIDEO_CLASS_EventHandler {
    */
   public static function correctPlayerSize(BASE_CLASS_EventCollector $event) {
   	OW::getDocument()->addOnloadScript("
-    	$('.ow_video_player iframe').width($('.ow_video_player iframe').parent().width());
+    	$('.ow_video_player iframe').width($('.ow_video_player').width());
     ");
   }
 
@@ -200,13 +200,13 @@ class SPVIDEO_CLASS_EventHandler {
             $('.ow_right').css('margin-top','');
             parent.removeClass();
             parent.addClass('ow_stdmargin');
-            var newHeight = iframe.height()*( parent.width()/iframe.width() );
+            var newHeight = iframe.height()*( player.width()/iframe.width() );
             if (newHeight > 520) {
               iframe.height(520);
             } else {
               iframe.height(newHeight);
             }
-            iframe.width(parent.width());
+            iframe.width(player.width());
             $('#btn-resize-player a').html('Smaller');          
             remains.show();
             $('.ow_video_description').appendTo(remains);
@@ -219,7 +219,7 @@ class SPVIDEO_CLASS_EventHandler {
 					parent.removeClass();
 					parent.addClass('ow_superwide');
 					parent.addClass('ow_left');
-					iframe.width(parent.width());
+					iframe.width(player.width());
 					iframe.height(origHeight);
 					$('#btn-resize-player a').html('Larger');
 					$('.ow_video_description').appendTo(parent);
