@@ -91,6 +91,14 @@ class SPVIDEO_CLASS_EventHandler {
 
 	}
 
+  function addCategoriesList( $event ) {
+    if ( !$this->isRoute( 'VIDEO_CTRL_Video','viewList' ) && !$this->isRoute( 'VIDEO_CTRL_Video','viewTaggedList' ) )
+      return;
+    OW::getDocument()->addOnloadScript("
+      $('<li class=\"_categories\"><a href=\"".OW::getRouter()->urlForRoute('spvideo.categories')."\"><span class=\"ow_ic_folder\">Categories</span></a></li>').insertBefore($('.ow_content_menu li').last());      
+    ");
+  }
+
 	/**
 	 *
 	 */
@@ -130,6 +138,20 @@ class SPVIDEO_CLASS_EventHandler {
         });
 			}			
 		");
+  }
+
+  public function fixLongTitles() {
+    OW::getDocument()->addOnloadScript("
+      $('.ow_video_item_title').each(function(index, e){
+        var \$e= $(e);
+        var title = String.trim(\$e.html());
+        if (\$e.height()>42) {
+          \$e.css({'max-height':'40px','overflow':'hidden'});
+          \$e.parent().attr('onmouseover',\"\$(this).find('.ow_video_item_title').css({'max-height':'','overflow':''});\");
+          \$e.parent().attr('onmouseout',\"\$(this).find('.ow_video_item_title').css({'max-height':'40px','overflow':'hidden'});\");
+        }
+      });
+    ");
   }
 
   /**

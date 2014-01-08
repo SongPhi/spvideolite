@@ -43,3 +43,10 @@ $path = OW::getPluginManager()->getPlugin('spvideo')->getRootDir() . 'langs.zip'
 //   `status` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
 //   PRIMARY KEY (`id`)
 // ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+
+// CREATE TABLE `oxwall`.`ox_spvideo_categories` (
+// `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+// `alias` VARCHAR( 100 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL ,
+// `video_count` INT UNSIGNED NULL
+// ) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
