@@ -58,6 +58,28 @@ class SPVIDEO_CLASS_ClipService {
         return $list;
     }
 
+    public function updateClip( VIDEO_BOL_Clip $clip , $notify = true)
+    {
+        $this->clipDao->save($clip);
+        
+        $this->cleanListCache();
+
+        if ($notify) {
+            $event = new OW_Event(self::EVENT_AFTER_EDIT, array('clipId' => $clip->id));
+            OW::getEventManager()->trigger($event);
+
+            $event = new OW_Event('feed.action', array(
+                'pluginKey' => 'video',
+                'entityType' => 'video_comments',
+                'entityId' => $clip->id,
+                'userId' => $clip->userId
+            ));
+            OW::getEventManager()->trigger($event);    
+        }        
+
+        return $clip->id;
+    }
+
     public function findUserClipsList( $userId, $page, $itemsNum, $exclude = null ) {
         $clips = $this->clipDao->getUserClipsList($userId, $page, $itemsNum, $exclude);
 
@@ -86,6 +108,7 @@ class SPVIDEO_CLASS_ClipService {
         if ( is_array($clips) ) {
             foreach ( $clips as $key => $clip ) {
                 $clip = (array) $clip;
+                if ($clip['status']!='approved') continue;
                 $list[$key] = $clip;
                 $list[$key]['thumb'] = $this->getClipThumbUrl($clip['id'], $clip['code'], $clip['thumbUrl']);
             }

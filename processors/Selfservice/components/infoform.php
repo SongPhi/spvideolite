@@ -58,7 +58,7 @@ class SPVIDEO_PRO_SELFSERVICE_CMP_Infoform extends Form
                 
     $clip->provider = 'selfservice';
     $clip->addDatetime = time();
-    $clip->status = 'approved';
+    $clip->status = 'blocked';
     $clip->privacy = mb_strlen($privacy) ? $privacy : 'everybody';
 
     $eventParams = array('pluginKey' => 'video', 'action' => 'add_video');
@@ -76,17 +76,7 @@ class SPVIDEO_PRO_SELFSERVICE_CMP_Infoform extends Form
 
       $embedUrl = OW::getRouter()->getBaseUrl().'spvideo/embed/'.$clip->id;
       $clip->code = '<iframe src="'.$embedUrl.'" width="540" height="315" frameborder="0" allowfullscreen="allowfullscreen"></iframe>';
-      $clipService->updateClip($clip);
-      
-      // Newsfeed
-      $event = new OW_Event('feed.action', array(
-          'pluginKey' => 'video',
-          'entityType' => 'video_comments',
-          'entityId' => $clip->id,
-          'userId' => $clip->userId
-      ));
-      
-      OW::getEventManager()->trigger($event);
+      $clipService->updateClip($clip,false);
 
       return array('result' => true, 'id' => $clip->id);
     }

@@ -141,7 +141,7 @@ OW::getRouter()->addRoute(
 	)
 );
 
-if ( !OW::getRequest()->isAjax() || !OW::getRequest()->isPost() ) {
+if ( !OW::getRequest()->isAjax() && !OW::getRequest()->isPost() ) {
 	// Events handling
 	$eventHandler = new SPVIDEO_CLASS_EventHandler();
 	OW::getEventManager()->bind( OW_EventManager::ON_BEFORE_DOCUMENT_RENDER, array( $eventHandler, 'replaceVideoAddView' ) );

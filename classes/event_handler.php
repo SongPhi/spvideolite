@@ -95,7 +95,37 @@ class SPVIDEO_CLASS_EventHandler {
     if ( !$this->isRoute( 'VIDEO_CTRL_Video','viewList' ) && !$this->isRoute( 'VIDEO_CTRL_Video','viewTaggedList' ) )
       return;
     OW::getDocument()->addOnloadScript("
-      $('<li class=\"_categories\"><a href=\"".OW::getRouter()->urlForRoute('spvideo.categories')."\"><span class=\"ow_ic_folder\">Categories</span></a></li>').insertBefore($('.ow_content_menu li').last());      
+      $('<li class=\"_categories\"><a href=\"".OW::getRouter()->urlForRoute('spvideo.categories')."\"><span class=\"ow_ic_folder\">Categories</span></a></li>').insertBefore($('.ow_content_menu li').last());
+      $('<div id=\"categories-list\" style=\"display:none;position:absolute;\"><ul><li>Teen</li><li>Amateur</li></ul></div>').appendTo($('body'));
+      $('.ow_content_menu ._categories').mouseenter(function(){
+        if ($('#categories-list').css('display')!='none') {
+          clearTimeout($('.ow_content_menu ._categories').data('timeoutId'));
+          return false;
+        }
+        $('.ow_content_menu ._categories').addClass('active');
+        $('#categories-list').css('top', ($('.ow_content_menu ._categories').offset().top+$('.ow_content_menu ._categories').height()) + 'px');
+        $('#categories-list').css('left', $('.ow_content_menu ._categories').offset().left + 'px');
+        $('#categories-list').slideDown(200).show();
+      }).mouseleave(function(){
+        var timeoutId = setTimeout(function(){
+          $('.ow_content_menu ._categories').removeClass('active');
+          $('#categories-list').slideUp(200,function(){
+            $('#categories-list').hide();
+          });
+        },400);
+        $('#categories-list').data('timeoutId',timeoutId);
+      });
+      $('#categories-list').mouseenter(function(){
+        clearTimeout($('#categories-list').data('timeoutId'));
+      }).mouseleave(function(){
+        var timeoutId = setTimeout(function(){
+          $('.ow_content_menu ._categories').removeClass('active');
+          $('#categories-list').slideUp(200,function(){
+            $('#categories-list').hide();
+          });
+        },400);
+        $('.ow_content_menu ._categories').data('timeoutId',timeoutId);
+      });
     ");
   }
 
@@ -144,7 +174,7 @@ class SPVIDEO_CLASS_EventHandler {
     OW::getDocument()->addOnloadScript("
       $('.ow_video_item_title').each(function(index, e){
         var \$e= $(e);
-        var title = String.trim(\$e.html());
+        var title = \$e.html().trim();
         if (\$e.height()>42) {
           \$e.css({'max-height':'40px','overflow':'hidden'});
           \$e.parent().attr('onmouseover',\"\$(this).find('.ow_video_item_title').css({'max-height':'','overflow':''});\");
