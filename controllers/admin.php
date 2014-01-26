@@ -20,7 +20,80 @@ class SPVIDEO_CTRL_Admin extends ADMIN_CTRL_Abstract {
 	}
 
 	function index() {
+    $language = OW::getLanguage();
 		$this->setPageHeading( 'General - Settings' );
+
+    OW::getDocument()->addStyleSheet( SPVIDEO_BOL_Service::getCssUrl('spvideo_admin') );
+    OW::getDocument()->addStyleSheet( SPVIDEO_BOL_Service::getCssUrl('toggles-light') );
+    OW::getDocument()->addScript( SPVIDEO_BOL_Service::getJsUrl('jquery.toggles.min') );
+
+    OW::getDocument()->addOnloadScript("
+      $('#features input[type=checkbox]').each(function(index,obj){
+        var togglerId = $(obj).attr('id')+'_toggler';
+        $(obj).parent().append('<div class=\"toggle-light\" id=\"'+togglerId+'\"></div>');
+        $('#'+togglerId).toggles({
+          drag: true,
+          width: 55,
+          text: {
+            on: '".$language->text( 'spvideo', 'chk_on' )."',
+            off: '".$language->text( 'spvideo', 'chk_off' )."'
+          },
+          on: $(obj).is(':checked'),
+          checkbox: $(obj)
+        });
+        $(obj).hide();
+        $('#'+togglerId).on('toggle',function(e,active){
+          var thisKey = $(this).attr('id');
+          var configKey = 'features.' + $(this).attr('id').replace('_toggler','');
+          var formKey = $(this).attr('id').replace('_toggler','') + '_cfg_form';
+
+          var postData = { key : configKey, value : active };
+          if (active) {
+            postData.value = 1;
+            $('#'+formKey).slideDown('fast');
+            $('#'+thisKey).parents('table').find('tr').first().removeClass('ow_tr_last');
+          } else {
+            postData.value = 0;
+            $('#'+formKey).slideUp('fast',function(){
+              $('#'+formKey).hide();
+              $('#' + thisKey).parents('table').find('tr').first().addClass('ow_tr_last');
+            });            
+          }
+          $.post(
+            '".OW::getRouter()->urlForRoute('spvideo.admin_saveconfig')."',
+            postData,
+            function( data ) {
+            },
+            'text'
+          );
+          
+        });
+
+        if (!$('#upload_video').is(':checked')) {
+          $('#upload_video_cfg_form').hide();
+        } else {
+          $('#upload_video').parents('table').find('tr').first().removeClass('ow_tr_last');
+        }
+
+        if (!$('#categories').is(':checked')) {
+          $('#categories_cfg_form').hide();
+        } else {
+          $('#categories').parents('table').find('tr').first().removeClass('ow_tr_last');
+        }
+
+        if (!$('#importers').is(':checked')) {
+          $('#importers_cfg_form').hide();
+        } else {
+          $('#importers').parents('table').find('tr').first().removeClass('ow_tr_last');
+        }
+      });
+    ");
+    $features = SPVIDEO_BOL_Configs::getInstance()->searchKey('#^features\..+?$#im');
+    $featuresConfig = array();
+    foreach ($features as $feature) {
+      $featuresConfig[substr($feature, 9)] = SPVIDEO_BOL_Configs::getInstance()->get($feature);
+    }
+    $this->assign('features',$featuresConfig);
 	}
 
 	function getMenu() {
@@ -108,15 +181,58 @@ class SPVIDEO_CTRL_Admin extends ADMIN_CTRL_Abstract {
 
         // $this->assign('roles',$roles);
 
-        $this->setPageHeading( 'Quota - Settings' );
+        $this->setPageHeading( 'Quota' );
 	}
 
 	function processor() {
-		$this->setPageHeading( 'Processor- Settings' );
+		$this->setPageHeading( 'Processor' );
 	}
 
 	function tweaks() {
-		$this->setPageHeading( 'Tweaks - Settings' );
+		$language = OW::getLanguage();
+		$this->setPageHeading( 'Tweaks' );
+
+    OW::getDocument()->addStyleSheet( SPVIDEO_BOL_Service::getCssUrl('toggles-light') );
+    OW::getDocument()->addScript( SPVIDEO_BOL_Service::getJsUrl('jquery.toggles.min') );
+
+    OW::getDocument()->addOnloadScript("
+	  	$('.tweaksForm input[type=checkbox]').each(function(index,obj){
+	      var togglerId = $(obj).attr('id')+'_toggler';
+	      $(obj).parent().append('<div class=\"toggle-light\" id=\"'+togglerId+'\"></div>');
+	      $('#'+togglerId).toggles({
+	        drag: true,
+	        width: 55,
+	        text: {
+	          on: '".$language->text( 'spvideo', 'chk_on' )."',
+	          off: '".$language->text( 'spvideo', 'chk_off' )."'
+	        },
+	        on: $(obj).is(':checked'),
+	        checkbox: $(obj)
+	      });
+	      $(obj).hide();
+	      $('#'+togglerId).on('toggle',function(e,active){
+	      	var configKey = 'tweaks.' + $(this).attr('id').replace('_toggler','');
+	      	var postData = { key : configKey, value : active };
+	      	if (active)
+	      		postData.value = 1;
+	      	else
+	      		postData.value = 0;
+	      	$.post(
+	      		'".OW::getRouter()->urlForRoute('spvideo.admin_saveconfig')."',
+	      		postData,
+		      	function( data ) {
+						},
+						'text'
+					);
+	      });
+	    });
+    ");
+    $tweaks = SPVIDEO_BOL_Configs::getInstance()->searchKey('#^tweaks\..+?$#im');
+    $tweaksConfig = array();
+    foreach ($tweaks as $tweak) {
+    	$tweaksConfig[substr($tweak, 7)] = SPVIDEO_BOL_Configs::getInstance()->get($tweak);
+    }
+    $this->assign('tweaks',$tweaksConfig);
 	}
 
 	function help() {
@@ -124,7 +240,14 @@ class SPVIDEO_CTRL_Admin extends ADMIN_CTRL_Abstract {
 	}
 
 	public function categories() {
-    $this->setPageHeading( 'Video Categories' );    
+    $this->setPageHeading( 'Categories' );    
+    // http://ow16.dev/admin/languages?prefix=spvideo&search=category_
+  }
+
+  public function saveconfig( array $params) {
+  	SPVIDEO_BOL_Configs::getInstance()->set($_POST['key'],$_POST['value']);
+  	die();
   }
 
 }
+

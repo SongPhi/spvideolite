@@ -69,6 +69,15 @@ OW::getRouter()->addRoute(
 
 OW::getRouter()->addRoute(
 	new OW_Route(
+		'spvideo.admin_saveconfig',
+		'admin/plugins/spvideo/saveconfig',
+		'SPVIDEO_CTRL_Admin',
+		'saveconfig'
+	)
+);
+
+OW::getRouter()->addRoute(
+	new OW_Route(
 		'spvideo.base',
 		'spvideo',
 		'SPVIDEO_CTRL_Spvideo',

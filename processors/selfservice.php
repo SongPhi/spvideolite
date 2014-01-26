@@ -56,7 +56,7 @@ class SPVIDEO_PRO_Selfservice extends SPVIDEO_CLASS_AbstractProcessor
     @mkdir($uploadPath, 0777);
     $upload_handler = new SPVIDEO_PRO_SELFSERVICE_CLASS_UploadHandler(array(
         'upload_dir' => $uploadPath,
-        'accept_file_types' => '/\.(mp4|m4v|flv|ogv|ogg|webm)$/i',
+        'accept_file_types' => '/\.(mp4|m4v|flv|f4v|ogv|ogg|webm)$/i',
         'param_name' => 'videoClip',
         'max_file_size' => '500000000'
     ));

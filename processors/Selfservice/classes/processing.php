@@ -27,6 +27,9 @@ class SPVIDEO_PRO_SELFSERVICE_CLASS_Processing
       case 'mp4':
         $format = 'm4v';
         break;
+      case 'f4v':
+        $format = 'flv';
+        break;
       
       default:
         $format = $format;

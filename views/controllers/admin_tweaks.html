@@ -1,3 +1,22 @@
 {$menu}
 
-admin_tweaks.html
+<div class="tweaksForm ow_wide ow_automargin">
+  <table class="ow_table_2">
+    <tr class="ow_alt1 ow_tr_first">
+      <td class="ow_txtleft">Auto compact video description</td>
+      <td style="width:1%"><input type="checkbox" {if $tweaks.desc_show_more}checked="checked" {/if}id="desc_show_more" name="desc_show_more"></td>
+    </tr>
+    <tr class="ow_alt2">
+      <td class="ow_txtleft">Fix long titles on video listings</td>
+      <td style="width:1%"><input type="checkbox" {if $tweaks.fix_long_titles}checked="checked" {/if}id="fix_long_titles" name="fix_long_titles"></td>
+    </tr>
+    <tr class="ow_alt1">
+      <td class="ow_txtleft">Auto correct player width</td>
+      <td style="width:1%"><input type="checkbox" {if $tweaks.correct_player_size}checked="checked" {/if}id="correct_player_size" name="correct_player_size"></td>
+    </tr>
+    <tr class="ow_alt2">
+      <td class="ow_txtleft">Add a button for enlarging video player</td>
+      <td style="width:1%"><input type="checkbox" {if $tweaks.player_enlargable}checked="checked" {/if}id="player_enlargable" name="player_enlargable"></td>
+    </tr>
+  </table>
+</div>

@@ -1,0 +1,25 @@
+#features .ow_table_1,#features .ow_table_2 {
+  margin-bottom: 0px;
+}
+
+#features .ow_table_1 td {
+  text-align: left;
+}
+
+#features .ow_table_1 tr:first-child td:first-child {
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+}
+
+#features .ow_table_1 tr:first-child td:last-child {
+  border-top-right-radius: 0px;
+}
+
+#features .ow_table_1 tr:last-child {
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+#features .ow_table_2 {
+  margin-top: 15px;
+}

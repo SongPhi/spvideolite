@@ -16,9 +16,6 @@ class SPVIDEO_BOL_Service
     return self::$classInstance;
   }
 
-  protected function __construct() {
-  }
-
   /**
    * ============= UTILITIES FUNCTIONS =============
    */
@@ -36,31 +33,29 @@ class SPVIDEO_BOL_Service
 
   public static function getRoute() {
     try {
-      if (is_object(OW::getRouter()->getUsedRoute()))
-  	    return OW::getRouter()->route();
-      else 
-  	    return false;
+      if (is_object(OW::getRouter()->getUsedRoute())) {
+        return OW::getRouter()->route();
+      } else {
+        return false;
+      }        
     } catch ( Exception $e ) {
       return false;
     }
   }
 
-	/**
-	 *
-	 */
-	public static function isRoute( $controller, $action = null ) {
-		$route = self::getRoute();
-	
-		if ( $route == false )
-			return false;
-	
-		if ( $route["controller"] == $controller ) {
-			if ( $route["action"] == $action || $action==null ) {
-				return true;
-			}
-		}
-		return false;
-	}
+  public static function isRoute( $controller, $action = null ) {
+    $route = self::getRoute();
+
+    if ( !$route )
+      return false;
+
+    if ( $route["controller"] == $controller ) {
+      if ( empty($action) || $route["action"] == $action ) {
+        return true;
+      }
+    }
+    return false;
+  }
 
   /**
    * ============= PROCESSORS FUNCTIONS =============

@@ -1,3 +1,75 @@
 {$menu}
 
-admin_index.html
+<h2>Features</h2>
+
+<div class="ow_superwide ow_automargin" id="features">  
+  <table class="ow_table_2">    
+    <tr class="ow_tr_last ow_tr_first">
+      <th class="ow_txtleft">
+        <span>Upload videos</span>
+        <div class="ow_right"><input type="checkbox" {if $features.upload_video}checked="checked" {/if}id="upload_video" name="upload_video"></div>
+      </th>
+    </tr>
+  </table>
+  <div id="upload_video_cfg_form">
+    <table class="ow_table_1 ow_form">
+      <tbody>
+        <tr class="ow_alt1">
+          <td>configu</td>
+          <td></td>
+        </tr>
+        <tr class="ow_alt2 ow_tr_last">
+          <td>configu2</td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <table class="ow_table_2">
+    <tr class="ow_tr_last ow_tr_first">
+      <th class="ow_txtleft">
+        <span>Categories</span>
+        <div class="ow_right"><input type="checkbox" {if $features.categories}checked="checked" {/if}id="categories" name="categories"></div>
+      </th>
+    </tr>
+  </table>
+  <div id="categories_cfg_form">
+    <table class="ow_table_1 ow_form">
+      <tbody>
+        <tr class="ow_alt1">
+          <td>configu</td>
+          <td></td>
+        </tr>
+        <tr class="ow_alt2 ow_tr_last">
+          <td>configu2</td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  
+  <table class="ow_table_2">
+    <tr class="ow_tr_last ow_tr_first">
+      <th class="ow_txtleft">
+        <span>Link import</span>
+        <div class="ow_right"><input type="checkbox" {if $features.importers}checked="checked" {/if}id="importers" name="importers"></div>
+      </th>
+    </tr>
+  </table>
+  <div id="importers_cfg_form">
+    <table class="ow_table_1 ow_form">
+      <tbody>
+        <tr class="ow_alt1">
+          <td>configu</td>
+          <td></td>
+        </tr>
+        <tr class="ow_alt2 ow_tr_last">
+          <td>configu2</td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
