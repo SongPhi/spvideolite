@@ -7,7 +7,6 @@ class SPVIDEO_BOL_Service
 {
   const PLUGIN_NAME = 'spvideo';
   protected static $classInstance = null;
-  protected static $currentRoute = null;
   protected static $processors = null;
 
   public static function getInstance() {
@@ -18,7 +17,6 @@ class SPVIDEO_BOL_Service
   }
 
   protected function __construct() {
-    self::$currentRoute = self::getRoute();
   }
 
   /**
@@ -38,25 +36,31 @@ class SPVIDEO_BOL_Service
 
   public static function getRoute() {
     try {
-      return OW::getRouter()->route();
+      if (is_object(OW::getRouter()->getUsedRoute()))
+  	    return OW::getRouter()->route();
+      else 
+  	    return false;
     } catch ( Exception $e ) {
       return false;
     }
   }
 
-  public static function isRoute( $controller, $action = null ) {
-    $route = self::$currentRoute;
-
-    if ( !$route )
-      return false;
-
-    if ( $route["controller"] == $controller ) {
-      if ( empty($action) || $route["action"] == $action ) {
-        return true;
-      }
-    }
-    return false;
-  }
+	/**
+	 *
+	 */
+	public static function isRoute( $controller, $action = null ) {
+		$route = self::getRoute();
+	
+		if ( $route == false )
+			return false;
+	
+		if ( $route["controller"] == $controller ) {
+			if ( $route["action"] == $action || $action==null ) {
+				return true;
+			}
+		}
+		return false;
+	}
 
   /**
    * ============= PROCESSORS FUNCTIONS =============
