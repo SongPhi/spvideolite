@@ -4,7 +4,7 @@
  *
  */
 class SPVIDEO_CLASS_EventHandler {
-  
+
   /**
    *
    */
@@ -159,7 +159,14 @@ class SPVIDEO_CLASS_EventHandler {
    */
   public static function correctPlayerSize(BASE_CLASS_EventCollector $event) {
     OW::getDocument()->addOnloadScript("
-      $('.ow_video_player iframe').width($('.ow_video_player').width());
+      var parent = $('.ow_video_player').parent();
+      var player = $('.ow_video_player');
+      var iframe = $('.ow_video_player iframe');
+      var remains = $('#enlarged-remaining');
+      var newHeight = iframe.height()*( player.width()/iframe.width() );
+      
+      iframe.height(newHeight);
+      iframe.width(player.width());
     ");
   }
 
