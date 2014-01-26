@@ -32,17 +32,16 @@ class SPVIDEO_BOL_Service
   }
 
   public static function getRoute() {
-    try {
-      if (is_object(OW::getRouter()->getUsedRoute())) {
-        return OW::getRouter()->route();
-      } else {
-        return false;
-      }        
-    } catch ( Exception $e ) {
-      return false;
+    $route = OW::getRequestHandler()->getHandlerAttributes();
+    if (is_array($route)) {
+      return $route;
     }
+    return false;
   }
 
+  /**
+   *
+   */
   public static function isRoute( $controller, $action = null ) {
     $route = self::getRoute();
 
@@ -50,10 +49,11 @@ class SPVIDEO_BOL_Service
       return false;
 
     if ( $route["controller"] == $controller ) {
-      if ( empty($action) || $route["action"] == $action ) {
+      if ( $route["action"] == $action || !$action ) {
         return true;
       }
     }
+
     return false;
   }
 

@@ -4,40 +4,12 @@
  *
  */
 class SPVIDEO_CLASS_EventHandler {
-
-  public static function getRoute() {
-    try {
-      if (is_object(OW::getRouter()->getUsedRoute()))
-        return OW::getRouter()->route();
-      else 
-        return false;
-    } catch ( Exception $e ) {
-      return false;
-    }
-  }
-
-  /**
-   *
-   */
-  public static function isRoute( $controller, $action = null ) {
-    $route = self::getRoute();
-
-    if ( $route == false )
-      return false;
-
-    if ( $route["controller"] == $controller ) {
-      if ( $route["action"] == $action || $action==null ) {
-        return true;
-      }
-    }
-    return false;
-  }
-
+  
   /**
    *
    */
   public function replaceVideoAddView( $event ) {
-    if ( !$this->isRoute( 'VIDEO_CTRL_Add' ) )
+    if ( !SPVIDEO_BOL_Service::isRoute( 'VIDEO_CTRL_Add' ) )
       return;
     if ( OW::getRequest()->isPost() )
       return;
@@ -90,7 +62,7 @@ class SPVIDEO_CLASS_EventHandler {
   }
 
   function addCategoriesList( $event ) {
-    if ( !$this->isRoute( 'VIDEO_CTRL_Video','viewList' ) && !$this->isRoute( 'VIDEO_CTRL_Video','viewTaggedList' ) )
+    if ( !SPVIDEO_BOL_Service::isRoute( 'VIDEO_CTRL_Video','viewList' ) && !SPVIDEO_BOL_Service::isRoute( 'VIDEO_CTRL_Video','viewTaggedList' ) )
       return;
     OW::getDocument()->addOnloadScript("
       $('<li class=\"_categories\"><a href=\"".OW::getRouter()->urlForRoute('spvideo.categories')."\"><span class=\"ow_ic_folder\">Categories</span></a></li>').insertBefore($('.ow_content_menu li').last());
