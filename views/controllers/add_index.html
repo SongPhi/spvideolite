@@ -1,92 +1,84 @@
-	<div class="ow_superwide ow_automargin">
-		<ul id="videoTypeNav" class="ow_content_menu clearfix">
-			<li class="active"><a id="vidLink" href="#"><span class="ow_ic_link">From link</span></a></li>
-			<li class=""><a id="vidUpload" href="#"><span class="ow_ic_up_arrow">Upload</span></a></li>
-			<li class=""><a id="vidEmbed" href="#"><span class="ow_ic_script">Embed Code</span></a></li>
-		</ul>
+<div class="ow_superwide ow_automargin">
+	<ul id="videoTypeNav" class="ow_content_menu clearfix">
+		<li class="active"><a id="vidLink" href="#"><span class="ow_ic_link">From link</span></a></li>
+		<li class=""><a id="vidEmbed" href="#"><span class="ow_ic_script">Embed Code</span></a></li>
+	</ul>
+</div>
+
+<div class="ow_superwide ow_automargin ow_stdmargin">
+
+	<div id="formsWrapper">
+	<ul>
+		<li>
+			<table class="ow_table_1 ow_form">
+			    <tbody>
+			    	<tr class="ow_alt2 ow_tr_first">
+			        <td class="ow_value"><input id="fetch_url" placeholder="Paste your video clip link here"  type="text" id="" /> <br> <span style="display:none;" class="error"></span></td>
+			        <td class="ow_desc ow_small" style="text-align:center"><span class="ow_button"><span class="ow_positive"><input value="Check" id="SPVIDEOLITE_btn_check" name="check" type="button"></span></span></td>
+			    </tr>
+				</tbody>
+			</table>
+			<div id="checkClip_loading" style="display:none">
+				<div class="spvideo_ic_loading"></div>
+			</div>
+			<div id="checkClip_resp_place_holder" style="display:none">
+				&nbsp;
+			</div>
+		</li>
+		<li>
+			{$embedForm}
+		</li>			
+	</ul>
 	</div>
 
-	<div class="ow_superwide ow_automargin ow_stdmargin">
+</div>
 
-		<div id="formsWrapper">
-		<ul>
-			<li>
-				<table class="ow_table_1 ow_form">
-				    <tbody>
-				    	<tr class="ow_alt2 ow_tr_first">
-				        <td class="ow_value"><input id="fetch_url" placeholder="Paste your video clip link here"  type="text" id="" /> <br> <span style="display:none;" class="error"></span></td>
-				        <td class="ow_desc ow_small" style="text-align:center"><span class="ow_button"><span class="ow_positive"><input value="Check" id="SPVIDEOLITE_btn_check" name="check" type="button"></span></span></td>
-				    </tr>
-					</tbody>
-				</table>
-				<div id="checkClip_loading" style="display:none">
-					<div class="spvideo_ic_loading"></div>
-				</div>
-				<div id="checkClip_resp_place_holder" style="display:none">
-					&nbsp;
-				</div>
-			</li>
-			<li>
-				{include file=$uploadFormTpl}
-			</li>
-			<li>
-				{$embedForm}
-			</li>			
-		</ul>
-		</div>
+{literal}
+<script type="text/javascript">
+var SPVideo;
+$(function (){
+	{/literal}SPVideo = new SPVideoClass(
+		'{{url_for_route for="spvideolite.base"}}',
+		$('#checkClip_loading'),
+		$('#checkClip_resp_place_holder')
+	);{literal}
 
-	</div>
+	$('#SPVIDEOLITE_btn_check').click(function() {
+		SPVideo.checkClip( $('#fetch_url').val() );
+		$('#SPVIDEOLITE_btn_check').addClass('ow_inprogress');
+	});
+});
 
-	{literal}
-	<script type="text/javascript">
-	var SPVideo;
-	$(function (){
-		{/literal}SPVideo = new SPVideoClass(
-			'{{url_for_route for="spvideolite.base"}}',
-			$('#checkClip_loading'),
-			$('#checkClip_resp_place_holder')
-		);{literal}
+function ClearClasses(){
+	$("#videoTypeNav li").removeClass();
+}
 
-		$('#SPVIDEOLITE_btn_check').click(function() {
-			SPVideo.checkClip( $('#fetch_url').val() );
-			$('#SPVIDEOLITE_btn_check').addClass('ow_inprogress');
-		});
+$(function (){
+	$("#formsWrapper li").css('width',$("#formsWrapper li .ow_table_1").first().width()-1+'px');
+	$("#formsWrapper li").css('float','left');
+	$("#formsWrapper li").css('display','inline-block');
+	$("#formsWrapper li").css('margin-right','10px');
+	$('#formsWrapper ul').css('position','relative');
+	$('#formsWrapper ul').css('left','0');
+	$('#formsWrapper ul').css('width','3000px');
+
+	$("#videoTypeNav a").click(function(e){
+		e.preventDefault();
+		//check which tab has been clicked
+		var getID = $(this).attr('id');
+		if(getID == "vidLink"){
+			$("#formsWrapper ul").animate({left: "0px"}, { duration: 350, easing: 'easeInOutCirc' });
+			ClearClasses();
+			$(this).parent("li").addClass("active");
+		} else if(getID == "vidEmbed"){
+			$("#formsWrapper ul").animate({left: "-" + (($("#formsWrapper li .ow_table_1").first().width()+10)) + "px"}, { duration: 350, easing: 'easeInOutCirc' });
+			ClearClasses();
+			$(this).parent("li").addClass("active");
+		}
 	});
 
-	function ClearClasses(){
-		$("#videoTypeNav li").removeClass();
-	}
+});
 
-	$(function (){
-		$("#formsWrapper li").css('width',$("#formsWrapper li .ow_table_1").first().width()-1+'px');
-		$("#formsWrapper li").css('float','left');
-		$("#formsWrapper li").css('display','inline-block');
-		$("#formsWrapper li").css('margin-right','10px');
-		$('#formsWrapper ul').css('position','relative');
-		$('#formsWrapper ul').css('left','0');
-		$('#formsWrapper ul').css('width','3000px');
 
-		$("#videoTypeNav a").click(function(e){
-			e.preventDefault();
-			//check which tab has been clicked
-			var getID = $(this).attr('id');
-			if(getID == "vidLink"){
-				$("#formsWrapper ul").animate({left: "0px"}, { duration: 350, easing: 'easeInOutCirc' });
-				ClearClasses();
-				$(this).parent("li").addClass("active");
-			} else if(getID == "vidUpload"){
-				$("#formsWrapper ul").animate({left: "-" +($("#formsWrapper li .ow_table_1").first().width()+10)+'px'}, { duration: 350, easing: 'easeInOutCirc' });
-				ClearClasses();
-				$(this).parent("li").addClass("active");			
-			} else if(getID == "vidEmbed"){
-				$("#formsWrapper ul").animate({left: "-" + (($("#formsWrapper li .ow_table_1").first().width()+10)*2) + "px"}, { duration: 350, easing: 'easeInOutCirc' });
-				ClearClasses();
-				$(this).parent("li").addClass("active");
-			}
-		});
-
-	});
-
-	
-	</script>
-	{/literal}
+</script>
+{/literal}
