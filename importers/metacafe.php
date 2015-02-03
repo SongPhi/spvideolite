@@ -3,7 +3,7 @@
 /**
 * 
 */
-class SPVIDEO_IMP_Metacafe implements SPVIDEO_CLASS_IImporter
+class SPVIDEOLITE_IMP_Metacafe implements SPVIDEOLITE_CLASS_IImporter
 {
 	private static $regexp = '#metacafe\.com/watch/(.[^/]*)#i';
 	private static $regexpIdIndex = 1;

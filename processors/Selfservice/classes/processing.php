@@ -1,11 +1,11 @@
 <?php
 
-class SPVIDEO_PRO_SELFSERVICE_CLASS_Processing
+class SPVIDEOLITE_PRO_SELFSERVICE_CLASS_Processing
 {
   public static function processTemporaryUpload($token, $videoId, $userId) {
 
     $dbo = OW::getDbo();
-    $userfilesDir = SPVIDEO_DIR_USERFILES.DS.($userId);
+    $userfilesDir = SPVIDEOLITE_DIR_USERFILES.DS.($userId);
     if ( !file_exists($userfilesDir) ) {
         mkdir($userfilesDir);
         chmod($userfilesDir, 0777);
@@ -13,8 +13,8 @@ class SPVIDEO_PRO_SELFSERVICE_CLASS_Processing
 
     $temp = $dbo->queryForObject('SELECT * FROM `'.OW_DB_PREFIX.'spvideo_upl_temp` WHERE `token`="'.$token.'"','OW_Entity');
     $storeFilePath = $userfilesDir.DS.$videoId.'_'.$temp->filename;
-    rename(SPVIDEO_DIR_PLUGINFILES.DS.$token.DS.$temp->filename, $storeFilePath);
-    UTIL_File::removeDir(SPVIDEO_DIR_PLUGINFILES.DS.$token);
+    rename(SPVIDEOLITE_DIR_PLUGINFILES.DS.$token.DS.$temp->filename, $storeFilePath);
+    UTIL_File::removeDir(SPVIDEOLITE_DIR_PLUGINFILES.DS.$token);
 
     $totalSize = $temp->filesize;
     $spClipId = $dbo->insert('INSERT INTO `'.OW_DB_PREFIX.'spvideo_clip` (videoId,userId,totalSize,`module`,`status`) VALUES ('.($videoId).','.($userId).','.$totalSize.',\'selfservice\',\'ok\')');

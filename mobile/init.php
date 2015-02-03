@@ -2,9 +2,9 @@
 
 OW::getRouter()->addRoute(
   new OW_Route(
-    'spvideo.embed',
+    'spvideolite.embed',
     'spvideo/embed/:videoId',
-    'SPVIDEO_CTRL_Spvideo',
+    'SPVIDEOLITE_CTRL_Spvideo',
     'embed'
   )
 );

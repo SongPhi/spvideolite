@@ -1,6 +1,6 @@
 <?php
 
-class SPVIDEO_CLASS_UploadHandler
+class SPVIDEOLITE_CLASS_UploadHandler
 {
     protected $options;
     // PHP File Upload error message codes:

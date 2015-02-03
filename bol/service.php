@@ -3,9 +3,9 @@
 /**
 * 
 */
-class SPVIDEO_BOL_Service
+class SPVIDEOLITE_BOL_Service
 {
-  const PLUGIN_NAME = 'spvideo';
+  const PLUGIN_NAME = 'spvideolite';
   protected static $classInstance = null;
   protected static $processors = null;
 
@@ -67,14 +67,14 @@ class SPVIDEO_BOL_Service
     }
 
     self::$processors[$name] = array(
-      'className' => ('SPVIDEO_PRO_'.$name),
+      'className' => ('SPVIDEOLITE_PRO_'.$name),
       'instance' => null
     );
   }
 
   public static function getProcessorInstance($name) {
     if (is_array(self::$processors[$name])) {
-      $className = 'SPVIDEO_PRO_'.$name;
+      $className = 'SPVIDEOLITE_PRO_'.$name;
       if (empty(self::$processors[$name]['instance'])) {
         self::$processors[$name]['instance'] = $className::getInstance($className);
       }

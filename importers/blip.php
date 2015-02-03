@@ -3,7 +3,7 @@
 /**
 * 
 */
-class SPVIDEO_IMP_Blip implements SPVIDEO_CLASS_IImporter
+class SPVIDEOLITE_IMP_Blip implements SPVIDEOLITE_CLASS_IImporter
 {
   private static $regexp = '#blip\.tv.*/*#i';
   private static $regexpIdIndex = 0;

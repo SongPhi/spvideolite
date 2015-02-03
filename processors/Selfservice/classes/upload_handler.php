@@ -1,6 +1,6 @@
 <?php
 
-class SPVIDEO_PRO_SELFSERVICE_CLASS_UploadHandler extends SPVIDEO_CLASS_UploadHandler {
+class SPVIDEOLITE_PRO_SELFSERVICE_CLASS_UploadHandler extends SPVIDEOLITE_CLASS_UploadHandler {
     protected function handle_file_upload($uploaded_file, $name, $size, $type, $error, $index = null, $content_range = null) {
         $file = parent::handle_file_upload(
             $uploaded_file, $name, $size, $type, $error, $index, $content_range

@@ -3,7 +3,7 @@
 /**
 * 
 */
-class SPVIDEO_IMP_GoogleVideo implements SPVIDEO_CLASS_IImporter
+class SPVIDEOLITE_IMP_GoogleVideo implements SPVIDEOLITE_CLASS_IImporter
 {
   private static $regexp = '#video\.google\..{0,5}/.*[\?&]docid=([^&]*)#i';
   private static $regexpIdIndex = 1;

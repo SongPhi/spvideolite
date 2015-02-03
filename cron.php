@@ -1,7 +1,7 @@
 <?php
 
 
-class SPVIDEO_Cron extends OW_Cron
+class SPVIDEOLITE_Cron extends OW_Cron
 {
   public function __construct() {
     // $this->addJob('updateActivities', 10);

@@ -3,7 +3,7 @@
 /**
  *
  */
-class SPVIDEO_CTRL_Admin extends ADMIN_CTRL_Abstract {
+class SPVIDEOLITE_CTRL_Admin extends ADMIN_CTRL_Abstract {
 
 	private $menu = null;
 
@@ -14,7 +14,7 @@ class SPVIDEO_CTRL_Admin extends ADMIN_CTRL_Abstract {
 	}
 
 	function setPageHeading( $heading ) {
-		$heading = $heading . ' - SPVideo';
+		$heading = $heading . ' - SPVIDEO LITE';
 
 		return parent::setPageHeading( $heading );
 	}
@@ -23,9 +23,9 @@ class SPVIDEO_CTRL_Admin extends ADMIN_CTRL_Abstract {
     $language = OW::getLanguage();
 		$this->setPageHeading( 'General - Settings' );
 
-    OW::getDocument()->addStyleSheet( SPVIDEO_BOL_Service::getCssUrl('spvideo_admin') );
-    OW::getDocument()->addStyleSheet( SPVIDEO_BOL_Service::getCssUrl('toggles-light') );
-    OW::getDocument()->addScript( SPVIDEO_BOL_Service::getJsUrl('jquery.toggles.min') );
+    OW::getDocument()->addStyleSheet( SPVIDEOLITE_BOL_Service::getCssUrl('spvideo_admin') );
+    OW::getDocument()->addStyleSheet( SPVIDEOLITE_BOL_Service::getCssUrl('toggles-light') );
+    OW::getDocument()->addScript( SPVIDEOLITE_BOL_Service::getJsUrl('jquery.toggles.min') );
 
     OW::getDocument()->addOnloadScript("
       $('#features input[type=checkbox]').each(function(index,obj){
@@ -35,8 +35,8 @@ class SPVIDEO_CTRL_Admin extends ADMIN_CTRL_Abstract {
           drag: true,
           width: 55,
           text: {
-            on: '".$language->text( 'spvideo', 'chk_on' )."',
-            off: '".$language->text( 'spvideo', 'chk_off' )."'
+            on: '".$language->text( 'spvideolite', 'chk_on' )."',
+            off: '".$language->text( 'spvideolite', 'chk_off' )."'
           },
           on: $(obj).is(':checked'),
           checkbox: $(obj)
@@ -60,7 +60,7 @@ class SPVIDEO_CTRL_Admin extends ADMIN_CTRL_Abstract {
             });            
           }
           $.post(
-            '".OW::getRouter()->urlForRoute('spvideo.admin_saveconfig')."',
+            '".OW::getRouter()->urlForRoute('spvideolite.admin_saveconfig')."',
             postData,
             function( data ) {
             },
@@ -88,10 +88,10 @@ class SPVIDEO_CTRL_Admin extends ADMIN_CTRL_Abstract {
         }
       });
     ");
-    $features = SPVIDEO_BOL_Configs::getInstance()->searchKey('#^features\..+?$#im');
+    $features = SPVIDEOLITE_BOL_Configs::getInstance()->searchKey('#^features\..+?$#im');
     $featuresConfig = array();
     foreach ($features as $feature) {
-      $featuresConfig[substr($feature, 9)] = SPVIDEO_BOL_Configs::getInstance()->get($feature);
+      $featuresConfig[substr($feature, 9)] = SPVIDEOLITE_BOL_Configs::getInstance()->get($feature);
     }
     $this->assign('features',$featuresConfig);
 	}
@@ -103,48 +103,48 @@ class SPVIDEO_CTRL_Admin extends ADMIN_CTRL_Abstract {
 		$menuItems = array();
 
 		$item = new BASE_MenuItem();
-		$item->setLabel( $language->text( 'spvideo', 'adm_menu_general' ) );
-		$item->setUrl( OW::getRouter()->urlForRoute( 'spvideo.admin' ) );
+		$item->setLabel( $language->text( 'spvideolite', 'adm_menu_general' ) );
+		$item->setUrl( OW::getRouter()->urlForRoute( 'spvideolite.admin' ) );
 		$item->setKey( 'general' );
 		$item->setIconClass( 'ow_ic_gear_wheel' );
 		$item->setOrder( 0 );
 		$menuItems[] = $item;
 
 		$item = new BASE_MenuItem();
-		$item->setLabel( $language->text( 'spvideo', 'adm_menu_quota' ) );
-		$item->setUrl( OW::getRouter()->urlForRoute( 'spvideo.admin_quota' ) );
+		$item->setLabel( $language->text( 'spvideolite', 'adm_menu_quota' ) );
+		$item->setUrl( OW::getRouter()->urlForRoute( 'spvideolite.admin_quota' ) );
 		$item->setKey( 'quota' );
 		$item->setIconClass( 'ow_ic_dashboard' );
 		$item->setOrder( 1 );
 		$menuItems[] = $item;
 
 		$item = new BASE_MenuItem();
-		$item->setLabel( $language->text( 'spvideo', 'adm_menu_processor' ) );
-		$item->setUrl( OW::getRouter()->urlForRoute( 'spvideo.admin_processor' ) );
+		$item->setLabel( $language->text( 'spvideolite', 'adm_menu_processor' ) );
+		$item->setUrl( OW::getRouter()->urlForRoute( 'spvideolite.admin_processor' ) );
 		$item->setKey( 'quota' );
 		$item->setIconClass( 'ow_ic_files' );
 		$item->setOrder( 2 );
 		$menuItems[] = $item;
 
 		$item = new BASE_MenuItem();
-		$item->setLabel( $language->text( 'spvideo', 'adm_menu_categories' ) );
-		$item->setUrl( OW::getRouter()->urlForRoute( 'spvideo.admin_categories' ) );
+		$item->setLabel( $language->text( 'spvideolite', 'adm_menu_categories' ) );
+		$item->setUrl( OW::getRouter()->urlForRoute( 'spvideolite.admin_categories' ) );
 		$item->setKey( 'categories' );
 		$item->setIconClass( 'ow_ic_folder' );
 		$item->setOrder( 3 );
 		$menuItems[] = $item;
 
 		$item = new BASE_MenuItem();
-		$item->setLabel( $language->text( 'spvideo', 'adm_menu_tweaks' ) );
-		$item->setUrl( OW::getRouter()->urlForRoute( 'spvideo.admin_tweaks' ) );
+		$item->setLabel( $language->text( 'spvideolite', 'adm_menu_tweaks' ) );
+		$item->setUrl( OW::getRouter()->urlForRoute( 'spvideolite.admin_tweaks' ) );
 		$item->setKey( 'quota' );
 		$item->setIconClass( 'ow_ic_star' );
 		$item->setOrder( 4 );
 		$menuItems[] = $item;
 
 		$item = new BASE_MenuItem();
-		$item->setLabel( $language->text( 'spvideo', 'adm_menu_help' ) );
-		$item->setUrl( OW::getRouter()->urlForRoute( 'spvideo.admin_help' ) );
+		$item->setLabel( $language->text( 'spvideolite', 'adm_menu_help' ) );
+		$item->setUrl( OW::getRouter()->urlForRoute( 'spvideolite.admin_help' ) );
 		$item->setKey( 'quota' );
 		$item->setIconClass( 'ow_ic_help' );
 		$item->setOrder( 5 );
@@ -192,8 +192,8 @@ class SPVIDEO_CTRL_Admin extends ADMIN_CTRL_Abstract {
 		$language = OW::getLanguage();
 		$this->setPageHeading( 'Tweaks' );
 
-    OW::getDocument()->addStyleSheet( SPVIDEO_BOL_Service::getCssUrl('toggles-light') );
-    OW::getDocument()->addScript( SPVIDEO_BOL_Service::getJsUrl('jquery.toggles.min') );
+    OW::getDocument()->addStyleSheet( SPVIDEOLITE_BOL_Service::getCssUrl('toggles-light') );
+    OW::getDocument()->addScript( SPVIDEOLITE_BOL_Service::getJsUrl('jquery.toggles.min') );
 
     OW::getDocument()->addOnloadScript("
 	  	$('.tweaksForm input[type=checkbox]').each(function(index,obj){
@@ -203,8 +203,8 @@ class SPVIDEO_CTRL_Admin extends ADMIN_CTRL_Abstract {
 	        drag: true,
 	        width: 55,
 	        text: {
-	          on: '".$language->text( 'spvideo', 'chk_on' )."',
-	          off: '".$language->text( 'spvideo', 'chk_off' )."'
+	          on: '".$language->text( 'spvideolite', 'chk_on' )."',
+	          off: '".$language->text( 'spvideolite', 'chk_off' )."'
 	        },
 	        on: $(obj).is(':checked'),
 	        checkbox: $(obj)
@@ -218,7 +218,7 @@ class SPVIDEO_CTRL_Admin extends ADMIN_CTRL_Abstract {
 	      	else
 	      		postData.value = 0;
 	      	$.post(
-	      		'".OW::getRouter()->urlForRoute('spvideo.admin_saveconfig')."',
+	      		'".OW::getRouter()->urlForRoute('spvideolite.admin_saveconfig')."',
 	      		postData,
 		      	function( data ) {
 						},
@@ -227,10 +227,10 @@ class SPVIDEO_CTRL_Admin extends ADMIN_CTRL_Abstract {
 	      });
 	    });
     ");
-    $tweaks = SPVIDEO_BOL_Configs::getInstance()->searchKey('#^tweaks\..+?$#im');
+    $tweaks = SPVIDEOLITE_BOL_Configs::getInstance()->searchKey('#^tweaks\..+?$#im');
     $tweaksConfig = array();
     foreach ($tweaks as $tweak) {
-    	$tweaksConfig[substr($tweak, 7)] = SPVIDEO_BOL_Configs::getInstance()->get($tweak);
+    	$tweaksConfig[substr($tweak, 7)] = SPVIDEOLITE_BOL_Configs::getInstance()->get($tweak);
     }
     $this->assign('tweaks',$tweaksConfig);
 	}
@@ -245,7 +245,7 @@ class SPVIDEO_CTRL_Admin extends ADMIN_CTRL_Abstract {
   }
 
   public function saveconfig( array $params) {
-  	SPVIDEO_BOL_Configs::getInstance()->set($_POST['key'],$_POST['value']);
+  	SPVIDEOLITE_BOL_Configs::getInstance()->set($_POST['key'],$_POST['value']);
   	die();
   }
 

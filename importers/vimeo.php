@@ -3,7 +3,7 @@
 /**
 * 
 */
-class SPVIDEO_IMP_Vimeo implements SPVIDEO_CLASS_IImporter
+class SPVIDEOLITE_IMP_Vimeo implements SPVIDEOLITE_CLASS_IImporter
 {
   private static $regexp = '#vimeo\.com\/([0-9]*)[\/\?]?#i';
   private static $regexpIdIndex = 1;

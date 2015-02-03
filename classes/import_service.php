@@ -3,9 +3,9 @@
 /**
 * 
 */
-class SPVIDEO_CLASS_ImportService
+class SPVIDEOLITE_CLASS_ImportService
 {
-	const IMPORTER_CLASS_PREFIX = 'SPVIDEO_IMP_';
+	const IMPORTER_CLASS_PREFIX = 'SPVIDEOLITE_IMP_';
 
 	private static $classInstance = null;
 
@@ -13,7 +13,7 @@ class SPVIDEO_CLASS_ImportService
 	private $importers;
 
     public static function getInstance() {
-        if ( !( self::$classInstance instanceof SPVIDEO_CLASS_ImportService ) ) {
+        if ( !( self::$classInstance instanceof SPVIDEOLITE_CLASS_ImportService ) ) {
             self::$classInstance = new self();
         }
         return self::$classInstance;
@@ -32,7 +32,7 @@ class SPVIDEO_CLASS_ImportService
     }
 
     protected function __construct() {
-    	$this->importerModulePath = OW::getPluginManager()->getPlugin( 'spvideo' )->getRootDir() . 'importers' . DS;
+    	$this->importerModulePath = OW::getPluginManager()->getPlugin( 'spvideolite' )->getRootDir() . 'importers' . DS;
     	$this->loadModules();
     }
 
@@ -42,7 +42,7 @@ class SPVIDEO_CLASS_ImportService
     	$files = scandir($this->importerModulePath);
         foreach ($files as $file) {
             if ($this->strEndWith($file,'.php')) {
-                $className = OW::getAutoloader()->filenameToClass($file,'SPVIDEO_IMP');
+                $className = OW::getAutoloader()->filenameToClass($file,'SPVIDEOLITE_IMP');
                 $shortname = strtolower(substr($className,0-strlen($file)+11));
                 $importer = array(
                 	'className' => $className,

@@ -3,7 +3,7 @@
 /**
 * 
 */
-class SPVIDEO_CTRL_Add extends OW_ActionController
+class SPVIDEOLITE_CTRL_Add extends OW_ActionController
 {
 	/**
 	 * @var String embedForm
@@ -15,14 +15,14 @@ class SPVIDEO_CTRL_Add extends OW_ActionController
 	}
 
 	public function index() {
-		$this->assign('staticUrl',OW::getPluginManager()->getPlugin( 'spvideo' )->getStaticUrl());
+		$this->assign('staticUrl',OW::getPluginManager()->getPlugin( 'spvideolite' )->getStaticUrl());
 		$this->assign('embedForm', $this->embedForm);
 		// call selected module upload template
 		$module = 'Selfservice';
 		$func = 'add';
-		$viewPath = SPVIDEO_BOL_Service::callProcessorFunction($module, 'getViewPath', $this);
+		$viewPath = SPVIDEOLITE_BOL_Service::callProcessorFunction($module, 'getViewPath', $this);
 		$view = $func.'.html';
 		$this->assign('uploadFormTpl', $viewPath. DS . $view);
-		SPVIDEO_BOL_Service::callProcessorFunction($module, $func, $this);
+		SPVIDEOLITE_BOL_Service::callProcessorFunction($module, $func, $this);
 	}
 }

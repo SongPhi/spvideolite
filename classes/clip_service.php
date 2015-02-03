@@ -1,11 +1,11 @@
 <?php
 
-class SPVIDEO_CLASS_ClipService {
+class SPVIDEOLITE_CLASS_ClipService {
     private static $classInstance = null;
     private $originalClassInstance;
 
     public static function getInstance() {
-        if ( !( self::$classInstance instanceof SPVIDEO_CLASS_ClipService ) ) {
+        if ( !( self::$classInstance instanceof SPVIDEOLITE_CLASS_ClipService ) ) {
             self::$classInstance = new self();
             $class = new ReflectionClass( 'VIDEO_BOL_ClipService' );
             $property = $class->getProperty( 'classInstance' );

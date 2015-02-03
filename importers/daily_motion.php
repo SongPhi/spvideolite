@@ -3,7 +3,7 @@
 /**
 * 
 */
-class SPVIDEO_IMP_DailyMotion implements SPVIDEO_CLASS_IImporter
+class SPVIDEOLITE_IMP_DailyMotion implements SPVIDEOLITE_CLASS_IImporter
 {
 	private static $regexp = '#dailymotion\.com.*/video/([^_]*)#i';
 	private static $regexpIdIndex = 1;

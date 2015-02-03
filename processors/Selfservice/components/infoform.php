@@ -1,6 +1,6 @@
 <?php
 
-class SPVIDEO_PRO_SELFSERVICE_CMP_Infoform extends Form
+class SPVIDEOLITE_PRO_SELFSERVICE_CMP_Infoform extends Form
 {
   /**
    * Class constructor
@@ -28,7 +28,7 @@ class SPVIDEO_PRO_SELFSERVICE_CMP_Infoform extends Form
     $this->addElement($tokenField);
 
     $submit = new Submit('save');
-    $submit->setValue($language->text('spvideo', 'btn_save'));
+    $submit->setValue($language->text('spvideolite', 'btn_save'));
     $this->addElement($submit);
   }
 
@@ -70,7 +70,7 @@ class SPVIDEO_PRO_SELFSERVICE_CMP_Infoform extends Form
     
     if ( $clipService->addClip($clip) )
     {
-      SPVIDEO_PRO_SELFSERVICE_CLASS_Processing::processTemporaryUpload($values['token'],$clip->id,$clip->userId);
+      SPVIDEOLITE_PRO_SELFSERVICE_CLASS_Processing::processTemporaryUpload($values['token'],$clip->id,$clip->userId);
 
       BOL_TagService::getInstance()->updateEntityTags($clip->id, 'video', $values['tags']);
 

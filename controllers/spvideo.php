@@ -3,7 +3,7 @@
 /**
 * 
 */
-class SPVIDEO_CTRL_Spvideo extends OW_ActionController
+class SPVIDEOLITE_CTRL_Spvideo extends OW_ActionController
 {
 
 	public function index() {
@@ -43,7 +43,7 @@ class SPVIDEO_CTRL_Spvideo extends OW_ActionController
         $module = $params['module'];
         $func = $params['func'];
         $args = isset($params['args'])?$params['args']:'';        
-        SPVIDEO_BOL_Service::callProcessorFunction($module, $func, $this);
+        SPVIDEOLITE_BOL_Service::callProcessorFunction($module, $func, $this);
     }
 	
 	public function ajaxGetClip() {
@@ -51,17 +51,17 @@ class SPVIDEO_CTRL_Spvideo extends OW_ActionController
 			throw new Redirect404Exception();
         }
 
-		$importService = SPVIDEO_CLASS_ImportService::getInstance();		
+		$importService = SPVIDEOLITE_CLASS_ImportService::getInstance();		
 
 		try {
 			$video = $importService->checkClip($_POST['clipUrl']);
 
-			$this->setTemplate( OW::getPluginManager()->getPlugin( 'spvideo' )->getCmpViewDir() . 'add_form.html' );
+			$this->setTemplate( OW::getPluginManager()->getPlugin( 'spvideolite' )->getCmpViewDir() . 'add_form.html' );
 			$this->assign('auth_msg', null);
 
             $spVideoAddForm = new spVideoAddForm();
 
-            $spVideoAddForm->setAction( OW::getRouter()->urlForRoute('spvideo.import') );
+            $spVideoAddForm->setAction( OW::getRouter()->urlForRoute('spvideolite.import') );
 
             $thumbnail = '';
 
@@ -124,8 +124,8 @@ class SPVIDEO_CTRL_Spvideo extends OW_ActionController
                 $item->setLabel($language->text('video', 'menu_' . $type));
                 $item->setUrl(OW::getRouter()->urlForRoute('view_list', array('listType' => $type)));
             } else {
-                $item->setLabel($language->text('spvideo', 'menu_' . $type));
-                $item->setUrl(OW::getRouter()->urlForRoute('spvideo.categories'));
+                $item->setLabel($language->text('spvideolite', 'menu_' . $type));
+                $item->setUrl(OW::getRouter()->urlForRoute('spvideolite.categories'));
             }
             $item->setKey($type);
             $item->setIconClass($classes[$order]);
@@ -144,7 +144,7 @@ class SPVIDEO_CTRL_Spvideo extends OW_ActionController
     public function categories() {
         OW::getDocument()->setHeading(OW::getLanguage()->text('video', 'page_title_browse_video'));
         OW::getDocument()->setHeadingIconClass('ow_ic_video');
-        OW::getDocument()->setTitle(OW::getLanguage()->text('spvideo', 'meta_title_video_categories'));
+        OW::getDocument()->setTitle(OW::getLanguage()->text('spvideolite', 'meta_title_video_categories'));
         $this->addComponent('videoMenu', $this->getVideoMenu());
     }
 
@@ -158,10 +158,10 @@ class SPVIDEO_CTRL_Spvideo extends OW_ActionController
             $supplied .= ','.$value['format'];
         }
         $supplied = ltrim($supplied,',');
-        $this->setTemplate( OW::getPluginManager()->getPlugin( 'spvideo' )->getCtrlViewDir() . 'spvideo_embed.html' );
-        $this->assign('staticUrl',OW::getPluginManager()->getPlugin( 'spvideo' )->getStaticUrl());
-        $this->assign('staticJsUrl',OW::getPluginManager()->getPlugin( 'spvideo' )->getStaticJsUrl());
-        $this->assign('staticCssUrl',OW::getPluginManager()->getPlugin( 'spvideo' )->getStaticCssUrl());
+        $this->setTemplate( OW::getPluginManager()->getPlugin( 'spvideolite' )->getCtrlViewDir() . 'spvideo_embed.html' );
+        $this->assign('staticUrl',OW::getPluginManager()->getPlugin( 'spvideolite' )->getStaticUrl());
+        $this->assign('staticJsUrl',OW::getPluginManager()->getPlugin( 'spvideolite' )->getStaticJsUrl());
+        $this->assign('staticCssUrl',OW::getPluginManager()->getPlugin( 'spvideolite' )->getStaticCssUrl());
         $this->assign('sources',$sources);
         $this->assign('supplied',$supplied);
         die($this->render());

@@ -3,9 +3,9 @@
 /**
 * 
 */
-class SPVIDEO_BOL_Configs
+class SPVIDEOLITE_BOL_Configs
 {
-  const PLUGINKEY = 'spvideo';
+  const PLUGINKEY = 'spvideolite';
   /**
    * Default configurations
    */

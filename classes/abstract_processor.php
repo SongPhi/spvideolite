@@ -3,7 +3,7 @@
 /**
 * 
 */
-abstract class SPVIDEO_CLASS_AbstractProcessor
+abstract class SPVIDEOLITE_CLASS_AbstractProcessor
 {
   protected static $classInstance = null;
   protected $ctrl = null;
@@ -35,12 +35,12 @@ abstract class SPVIDEO_CLASS_AbstractProcessor
   }
 
   public function getClassPath() {
-    return SPVIDEO_DIR_PROCESSORS . DS .$this->getName();
+    return SPVIDEOLITE_DIR_PROCESSORS . DS .$this->getName();
   }
 
   public function getName() {
     $className = get_class($this);
-    return substr($className, 0-strlen($className)+strlen('SPVIDEO_PRO_'));
+    return substr($className, 0-strlen($className)+strlen('SPVIDEOLITE_PRO_'));
   }
 
   public function getViewPath() {

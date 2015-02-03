@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin>
-	<name>Super Video</name>
-	<key>spvideo</key>
-	<description>Super power charges your core video plugin with: Upload video (via Uploadlux). Custom video thumbnail (either upload or from remote Url)</description>
+	<name>Super Video Lite</name>
+	<key>spvideolite</key>
+	<description>Give more powers and flexibilities for Oxwall base video plugin</description>
     <author>Thao Le</author>
     <authorEmail>thaolt@songphi.com</authorEmail>
 	<authorUrl>http://oxwall.songphi.com</authorUrl>

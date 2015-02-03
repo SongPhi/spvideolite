@@ -3,13 +3,13 @@
 /**
  *
  */
-class SPVIDEO_CLASS_EventHandler {
+class SPVIDEOLITE_CLASS_EventHandler {
 
   /**
    *
    */
   public function replaceVideoAddView( $event ) {
-    if ( !SPVIDEO_BOL_Service::isRoute( 'VIDEO_CTRL_Add' ) )
+    if ( !SPVIDEOLITE_BOL_Service::isRoute( 'VIDEO_CTRL_Add' ) )
       return;
     if ( OW::getRequest()->isPost() )
       return;
@@ -23,25 +23,25 @@ class SPVIDEO_CLASS_EventHandler {
     // add scripts
     OW::getDocument()->addScript(
       OW::getPluginManager()
-      ->getPlugin( 'spvideo' )
+      ->getPlugin( 'spvideolite' )
       ->getStaticUrl().'js/base64.js'
     );
     OW::getDocument()->addScript(
       OW::getPluginManager()
-      ->getPlugin( 'spvideo' )
+      ->getPlugin( 'spvideolite' )
       ->getStaticUrl().'js/spvideo.js'
     );
     OW::getDocument()->addScript(
       OW::getPluginManager()
-      ->getPlugin( 'spvideo' )
+      ->getPlugin( 'spvideolite' )
       ->getStaticUrl().'js/jquery.easing.min.js'
     );
 
     // add stylesheets
     OW::getDocument()->addStyleSheet(
       OW::getPluginManager()
-      ->getPlugin( 'spvideo' )
-      ->getStaticCssUrl().'spvideo.css'
+      ->getPlugin( 'spvideolite' )
+      ->getStaticCssUrl().'spvideolite.css'
     );
 
     // inject & modify the adding form
@@ -50,8 +50,8 @@ class SPVIDEO_CLASS_EventHandler {
     preg_match_all( "/<form.*<\/form>/is", $embedForm, $matches );
     if (count($matches[0]) > 0)
       $embedForm = $matches[0][0];
-    $spVideoCtrl = new SPVIDEO_CTRL_Add();
-    $spVideoCtrl->setTemplate( OW::getPluginManager()->getPlugin( 'spvideo' )->getCtrlViewDir() . 'add_index.html' );
+    $spVideoCtrl = new SPVIDEOLITE_CTRL_Add();
+    $spVideoCtrl->setTemplate( OW::getPluginManager()->getPlugin( 'spvideolite' )->getCtrlViewDir() . 'add_index.html' );
     $spVideoCtrl->setEmbedForm( $embedForm );
 
     $spVideoCtrl->index();
@@ -62,10 +62,10 @@ class SPVIDEO_CLASS_EventHandler {
   }
 
   function addCategoriesList( $event ) {
-    if ( !SPVIDEO_BOL_Service::isRoute( 'VIDEO_CTRL_Video','viewList' ) && !SPVIDEO_BOL_Service::isRoute( 'VIDEO_CTRL_Video','viewTaggedList' ) )
+    if ( !SPVIDEOLITE_BOL_Service::isRoute( 'VIDEO_CTRL_Video','viewList' ) && !SPVIDEOLITE_BOL_Service::isRoute( 'VIDEO_CTRL_Video','viewTaggedList' ) )
       return;
     OW::getDocument()->addOnloadScript("
-      $('<li class=\"_categories\"><a href=\"".OW::getRouter()->urlForRoute('spvideo.categories')."\"><span class=\"ow_ic_folder\">Categories</span></a></li>').insertBefore($('.ow_content_menu li').last());
+      $('<li class=\"_categories\"><a href=\"".OW::getRouter()->urlForRoute('spvideolite.categories')."\"><span class=\"ow_ic_folder\">Categories</span></a></li>').insertBefore($('.ow_content_menu li').last());
       $('<div id=\"categories-list\" style=\"display:none;position:absolute;\"><ul><li>Teen</li><li>Amateur</li></ul></div>').appendTo($('body'));
       $('.ow_content_menu ._categories').mouseenter(function(){
         if ($('#categories-list').css('display')!='none') {
@@ -103,7 +103,7 @@ class SPVIDEO_CLASS_EventHandler {
    *
    */
   function on_add_console_item( BASE_CLASS_EventCollector $event ) {
-    $event->add( array( 'label' => 'My Videos', 'url' => OW_Router::getInstance()->urlForRoute( 'spvideo.my_video' ) ) );
+    $event->add( array( 'label' => 'My Videos', 'url' => OW_Router::getInstance()->urlForRoute( 'spvideolite.my_video' ) ) );
   }
 
   /**
@@ -184,7 +184,7 @@ class SPVIDEO_CLASS_EventHandler {
     );
     OW::getDocument()->addStyleSheet(
         OW::getPluginManager()
-        ->getPlugin( 'spvideo' )
+        ->getPlugin( 'spvideolite' )
         ->getStaticCssUrl().'spvideo_player.css'
     );
     OW::getDocument()->addOnloadScript("

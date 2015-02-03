@@ -1,11 +1,11 @@
 <?php
 
-@BOL_LanguageService::getInstance()->addPrefix('spvideo','Super Video');
+@BOL_LanguageService::getInstance()->addPrefix('spvideolite','Super Video Lite');
 
-$path = OW::getPluginManager()->getPlugin('spvideo')->getRootDir() . 'langs.zip';
-@BOL_LanguageService::getInstance()->importPrefixFromZip($path, 'spvideo');
+@$path = OW::getPluginManager()->getPlugin('spvideolite')->getRootDir() . 'langs.zip';
+@BOL_LanguageService::getInstance()->importPrefixFromZip($path, 'spvideolite');
 
-@OW::getPluginManager()->addPluginSettingsRouteName('spvideo', 'spvideo.admin');
+@OW::getPluginManager()->addPluginSettingsRouteName('spvideolite', 'spvideolite.admin');
 
 
 // CREATE TABLE IF NOT EXISTS `ow_spvideo_upl_temp` (

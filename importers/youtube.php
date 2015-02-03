@@ -3,7 +3,7 @@
 /**
 * 
 */
-class SPVIDEO_IMP_Youtube implements SPVIDEO_CLASS_IImporter
+class SPVIDEOLITE_IMP_Youtube implements SPVIDEOLITE_CLASS_IImporter
 {
 	private static $regexp = '%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i';
 	private static $regexpIdIndex = 1;

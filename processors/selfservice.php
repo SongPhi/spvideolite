@@ -3,16 +3,16 @@
 /**
 * 
 */
-class SPVIDEO_PRO_Selfservice extends SPVIDEO_CLASS_AbstractProcessor
+class SPVIDEOLITE_PRO_Selfservice extends SPVIDEOLITE_CLASS_AbstractProcessor
 {
   protected function init() {
     $autoloader = OW::getAutoloader();
     $autoloader->addPackagePointer(
-      'SPVIDEO_PRO_SELFSERVICE_CMP',
+      'SPVIDEOLITE_PRO_SELFSERVICE_CMP',
       $this->getClassPath() . DS . 'components'
     );
     $autoloader->addPackagePointer(
-      'SPVIDEO_PRO_SELFSERVICE_CLASS',
+      'SPVIDEOLITE_PRO_SELFSERVICE_CLASS',
       $this->getClassPath() . DS . 'classes'
     );
 
@@ -23,7 +23,7 @@ class SPVIDEO_PRO_Selfservice extends SPVIDEO_CLASS_AbstractProcessor
       if($namespace === 'PHPVideoToolkit')
       {
         $class = str_replace('_', DS, array_pop($parts));
-        $path = SPVIDEO_DIR_ROOT . DS . 'libs' . DS.'PHPVideoToolkit'.DS.ltrim(implode(DS, $parts).DS, DS).$class.'.php';
+        $path = SPVIDEOLITE_DIR_ROOT . DS . 'libs' . DS.'PHPVideoToolkit'.DS.ltrim(implode(DS, $parts).DS, DS).$class.'.php';
         if(is_file($path) === true)
         {
           require_once $path;
@@ -33,7 +33,7 @@ class SPVIDEO_PRO_Selfservice extends SPVIDEO_CLASS_AbstractProcessor
   }
 
   public function add() {
-    $service = SPVIDEO_BOL_Service::getInstance();
+    $service = SPVIDEOLITE_BOL_Service::getInstance();
     $uploadToken = md5(OW::getUser()->getEmail().'/'.microtime());
     $this->ctrl->assign('token',$uploadToken);
 
@@ -43,7 +43,7 @@ class SPVIDEO_PRO_Selfservice extends SPVIDEO_CLASS_AbstractProcessor
 
     $this->ctrl->assign('uploadDest', OW::getRouter()->getBaseUrl().'spvideo/proxy/Selfservice/upload');
 
-    $infoForm = new SPVIDEO_PRO_SELFSERVICE_CMP_Infoform();
+    $infoForm = new SPVIDEOLITE_PRO_SELFSERVICE_CMP_Infoform();
     $infoForm->setAction( OW::getRouter()->getBaseUrl().'spvideo/proxy/Selfservice/postupload' );
     $infoForm->setValues(array(
       'token' => $uploadToken
@@ -52,9 +52,9 @@ class SPVIDEO_PRO_Selfservice extends SPVIDEO_CLASS_AbstractProcessor
   }
 
   public function upload() {
-    $uploadPath = SPVIDEO_DIR_PLUGINFILES . DS . $_POST['token'] . DS;
+    $uploadPath = SPVIDEOLITE_DIR_PLUGINFILES . DS . $_POST['token'] . DS;
     @mkdir($uploadPath, 0777);
-    $upload_handler = new SPVIDEO_PRO_SELFSERVICE_CLASS_UploadHandler(array(
+    $upload_handler = new SPVIDEOLITE_PRO_SELFSERVICE_CLASS_UploadHandler(array(
         'upload_dir' => $uploadPath,
         'accept_file_types' => '/\.(mp4|m4v|flv|f4v|ogv|ogg|webm)$/i',
         'param_name' => 'videoClip',
@@ -64,7 +64,7 @@ class SPVIDEO_PRO_Selfservice extends SPVIDEO_CLASS_AbstractProcessor
 
   public function postupload() {
     $this->ctrl->setPageHeading('Video Upload');
-    $infoForm = new SPVIDEO_PRO_SELFSERVICE_CMP_Infoform(true);
+    $infoForm = new SPVIDEOLITE_PRO_SELFSERVICE_CMP_Infoform(true);
     $infoForm->setAction( OW::getRouter()->getBaseUrl().'spvideo/proxy/Selfservice/saveclip' );
     $infoForm->setValues($_POST);
     $this->ctrl->addForm($infoForm);
@@ -76,7 +76,7 @@ class SPVIDEO_PRO_Selfservice extends SPVIDEO_CLASS_AbstractProcessor
       throw new Redirect404Exception();
     }
 
-    $infoForm = new SPVIDEO_PRO_SELFSERVICE_CMP_Infoform(true);
+    $infoForm = new SPVIDEOLITE_PRO_SELFSERVICE_CMP_Infoform(true);
 
     if ( $infoForm->isValid($_POST) ) {
       $language = OW::getLanguage();
