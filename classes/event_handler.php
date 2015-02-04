@@ -3,69 +3,47 @@
 /**
  *
  */
-class SPVIDEOLITE_CLASS_EventHandler {
-
-  /**
-   *
-   */
-  public function replaceVideoAddView( $event ) {
-    if ( !SPVIDEOLITE_BOL_Service::isRoute( 'VIDEO_CTRL_Add' ) )
-      return;
-    if ( OW::getRequest()->isPost() )
-      return;
-    if ( OW::getRequest()->isAjax() )
-      return;
-    if( !OW::getUser()->isAuthenticated() )
-      return;
-
-    $doc = OW::getDocument();
-
-    // add scripts
-    OW::getDocument()->addScript(
-      OW::getPluginManager()
-      ->getPlugin( 'spvideolite' )
-      ->getStaticUrl().'js/base64.js'
-    );
-    OW::getDocument()->addScript(
-      OW::getPluginManager()
-      ->getPlugin( 'spvideolite' )
-      ->getStaticUrl().'js/spvideo.js'
-    );
-    OW::getDocument()->addScript(
-      OW::getPluginManager()
-      ->getPlugin( 'spvideolite' )
-      ->getStaticUrl().'js/jquery.easing.min.js'
-    );
-
-    // add stylesheets
-    OW::getDocument()->addStyleSheet(
-      OW::getPluginManager()
-      ->getPlugin( 'spvideolite' )
-      ->getStaticCssUrl().'spvideolite.css'
-    );
-
-    // inject & modify the adding form
-    $embedForm = $doc->getBody();
-    $matches = array();
-    preg_match_all( "/<form.*<\/form>/is", $embedForm, $matches );
-    if (count($matches[0]) > 0)
-      $embedForm = $matches[0][0];
-    $spVideoCtrl = new SPVIDEOLITE_CTRL_Add();
-    $spVideoCtrl->setTemplate( OW::getPluginManager()->getPlugin( 'spvideolite' )->getCtrlViewDir() . 'add_index.html' );
-    $spVideoCtrl->setEmbedForm( $embedForm );
-
-    $spVideoCtrl->index();
-
-    // commit body changes
-    $doc->setBody( $spVideoCtrl->render() );
-
-  }
-
-  function addCategoriesList( $event ) {
-    if ( !SPVIDEOLITE_BOL_Service::isRoute( 'VIDEO_CTRL_Video','viewList' ) && !SPVIDEOLITE_BOL_Service::isRoute( 'VIDEO_CTRL_Video','viewTaggedList' ) )
-      return;
-    OW::getDocument()->addOnloadScript("
-      $('<li class=\"_categories\"><a href=\"".OW::getRouter()->urlForRoute('spvideolite.categories')."\"><span class=\"ow_ic_folder\">Categories</span></a></li>').insertBefore($('.ow_content_menu li').last());
+class SPVIDEOLITE_CLASS_EventHandler
+{
+    
+    /**
+     *
+     */
+    public function replaceVideoAddView($event) {
+        if (!SPVIDEOLITE_BOL_Service::isRoute('VIDEO_CTRL_Add')) return;
+        if (OW::getRequest()->isPost()) return;
+        if (OW::getRequest()->isAjax()) return;
+        if (!OW::getUser()->isAuthenticated()) return;
+        
+        $doc = OW::getDocument();
+        
+        // add scripts
+        OW::getDocument()->addScript(OW::getPluginManager()->getPlugin('spvideolite')->getStaticUrl() . 'js/base64.js');
+        OW::getDocument()->addScript(OW::getPluginManager()->getPlugin('spvideolite')->getStaticUrl() . 'js/spvideo.js');
+        OW::getDocument()->addScript(OW::getPluginManager()->getPlugin('spvideolite')->getStaticUrl() . 'js/jquery.easing.min.js');
+        
+        // add stylesheets
+        OW::getDocument()->addStyleSheet(OW::getPluginManager()->getPlugin('spvideolite')->getStaticCssUrl() . 'spvideo.css');
+        
+        // inject & modify the adding form
+        $embedForm = $doc->getBody();
+        $matches = array();
+        preg_match_all("/<form.*<\/form>/is", $embedForm, $matches);
+        if (count($matches[0]) > 0) $embedForm = $matches[0][0];
+        $spVideoCtrl = new SPVIDEOLITE_CTRL_Add();
+        $spVideoCtrl->setTemplate(OW::getPluginManager()->getPlugin('spvideolite')->getCtrlViewDir() . 'add_index.html');
+        $spVideoCtrl->setEmbedForm($embedForm);
+        
+        $spVideoCtrl->index();
+        
+        // commit body changes
+        $doc->setBody($spVideoCtrl->render());
+    }
+    
+    function addCategoriesList($event) {
+        if (!SPVIDEOLITE_BOL_Service::isRoute('VIDEO_CTRL_Video', 'viewList') && !SPVIDEOLITE_BOL_Service::isRoute('VIDEO_CTRL_Video', 'viewTaggedList')) return;
+        OW::getDocument()->addOnloadScript("
+      $('<li class=\"_categories\"><a href=\"" . OW::getRouter()->urlForRoute('spvideolite.categories') . "\"><span class=\"ow_ic_folder\">Categories</span></a></li>').insertBefore($('.ow_content_menu li').last());
       $('<div id=\"categories-list\" style=\"display:none;position:absolute;\"><ul><li>Teen</li><li>Amateur</li></ul></div>').appendTo($('body'));
       $('.ow_content_menu ._categories').mouseenter(function(){
         if ($('#categories-list').css('display')!='none') {
@@ -97,24 +75,24 @@ class SPVIDEOLITE_CLASS_EventHandler {
         $('.ow_content_menu ._categories').data('timeoutId',timeoutId);
       });
     ");
-  }
-
-  /**
-   *
-   */
-  function on_add_console_item( BASE_CLASS_EventCollector $event ) {
-    $event->add( array( 'label' => 'My Videos', 'url' => OW_Router::getInstance()->urlForRoute( 'spvideolite.my_video' ) ) );
-  }
-
-  /**
-   * ============= TWEAKS =============
-   */
-
-  /**
-   * 
-   */
-  public static function showLessVideoDescription(BASE_CLASS_EventCollector $event) {
-    OW::getDocument()->addOnloadScript("
+    }
+    
+    /**
+     *
+     */
+    function on_add_console_item(BASE_CLASS_EventCollector $event) {
+        $event->add(array('label' => 'My Videos', 'url' => OW_Router::getInstance()->urlForRoute('spvideolite.my_video')));
+    }
+    
+    /**
+     * ============= TWEAKS =============
+     */
+    
+    /**
+     *
+     */
+    public static function showLessVideoDescription(BASE_CLASS_EventCollector $event) {
+        OW::getDocument()->addOnloadScript("
       if ($('.ow_video_description').height()>60) {
         $('.ow_video_description').attr('origheight',$('.ow_video_description').height());
         $('.ow_video_description').css({'max-height':'60px','overflow':'hidden'});
@@ -138,10 +116,10 @@ class SPVIDEOLITE_CLASS_EventHandler {
         });
       }     
     ");
-  }
-
-  public function fixLongTitles() {
-    OW::getDocument()->addOnloadScript("
+    }
+    
+    public function fixLongTitles() {
+        OW::getDocument()->addOnloadScript("
       $('.ow_video_item_title').each(function(index, e){
         var \$e= $(e);
         var title = \$e.html().trim();
@@ -152,13 +130,13 @@ class SPVIDEOLITE_CLASS_EventHandler {
         }
       });
     ");
-  }
-
-  /**
-   * 
-   */
-  public static function correctPlayerSize(BASE_CLASS_EventCollector $event) {
-    OW::getDocument()->addOnloadScript("
+    }
+    
+    /**
+     *
+     */
+    public static function correctPlayerSize(BASE_CLASS_EventCollector $event) {
+        OW::getDocument()->addOnloadScript("
       var parent = $('.ow_video_player').parent();
       var player = $('.ow_video_player');
       var iframe = $('.ow_video_player iframe');
@@ -168,26 +146,15 @@ class SPVIDEOLITE_CLASS_EventHandler {
       iframe.height(newHeight);
       iframe.width(player.width());
     ");
-  }
-
-  /**
-   * 
-   */
-  public static function addLargerPlayerButton(BASE_CLASS_EventCollector $event) {
-    $event->add(
-      array(
-        'href' => 'javascript:;',
-        'id' => 'btn-resize-player',
-        'class' => 'btn-resize-player',
-        'label' => 'Larger'
-      )
-    );
-    OW::getDocument()->addStyleSheet(
-        OW::getPluginManager()
-        ->getPlugin( 'spvideolite' )
-        ->getStaticCssUrl().'spvideo_player.css'
-    );
-    OW::getDocument()->addOnloadScript("
+    }
+    
+    /**
+     *
+     */
+    public static function addLargerPlayerButton(BASE_CLASS_EventCollector $event) {
+        $event->add(array('href' => 'javascript:;', 'id' => 'btn-resize-player', 'class' => 'btn-resize-player', 'label' => 'Larger'));
+        OW::getDocument()->addStyleSheet(OW::getPluginManager()->getPlugin('spvideolite')->getStaticCssUrl() . 'spvideo_player.css');
+        OW::getDocument()->addOnloadScript("
       $('<div id=\"enlarged-remaining\" class=\"ow_superwide ow_left\" style=\"display:none\"></div>').insertAfter($('.ow_video_player').parent());
       $('#btn-resize-player').click(function(){
         var parent = $('.ow_video_player').parent();
@@ -238,5 +205,5 @@ class SPVIDEOLITE_CLASS_EventHandler {
         }
       });
     ");
-  }
+    }
 }

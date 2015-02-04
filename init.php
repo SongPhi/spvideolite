@@ -1,7 +1,6 @@
 <?php
 
 define('SPVIDEOLITE_DIR_ROOT',dirname(__FILE__));
-define('SPVIDEOLITE_DIR_PROCESSORS',SPVIDEOLITE_DIR_ROOT.DS.'processors');
 define('SPVIDEOLITE_DIR_IMPORTERS',SPVIDEOLITE_DIR_ROOT.DS.'importers');
 define('SPVIDEOLITE_DIR_USERFILES',OW::getPluginManager()->getPlugin('spvideolite')->getUserFilesDir());
 define('SPVIDEOLITE_DIR_PLUGINFILES',OW::getPluginManager()->getPlugin('spvideolite')->getPluginFilesDir());
@@ -16,7 +15,7 @@ SPVIDEOLITE_CLASS_ClipService::getInstance();
 OW::getRouter()->addRoute(
 	new OW_Route(
 		'spvideolite.admin',
-		'admin/plugins/spvideo',
+		'admin/plugins/spvideolite',
 		'SPVIDEOLITE_CTRL_Admin',
 		'index'
 	)
@@ -25,7 +24,7 @@ OW::getRouter()->addRoute(
 OW::getRouter()->addRoute(
 	new OW_Route(
 		'spvideolite.admin_quota',
-		'admin/plugins/spvideo/quota',
+		'admin/plugins/spvideolite/quota',
 		'SPVIDEOLITE_CTRL_Admin',
 		'quota'
 	)
@@ -34,7 +33,7 @@ OW::getRouter()->addRoute(
 OW::getRouter()->addRoute(
 	new OW_Route(
 		'spvideolite.admin_processor',
-		'admin/plugins/spvideo/processor',
+		'admin/plugins/spvideolite/processor',
 		'SPVIDEOLITE_CTRL_Admin',
 		'processor'
 	)
@@ -43,7 +42,7 @@ OW::getRouter()->addRoute(
 OW::getRouter()->addRoute(
 	new OW_Route(
 		'spvideolite.admin_categories',
-		'admin/plugins/spvideo/categories',
+		'admin/plugins/spvideolite/categories',
 		'SPVIDEOLITE_CTRL_Admin',
 		'categories'
 	)
@@ -52,7 +51,7 @@ OW::getRouter()->addRoute(
 OW::getRouter()->addRoute(
 	new OW_Route(
 		'spvideolite.admin_tweaks',
-		'admin/plugins/spvideo/tweaks',
+		'admin/plugins/spvideolite/tweaks',
 		'SPVIDEOLITE_CTRL_Admin',
 		'tweaks'
 	)
@@ -61,7 +60,7 @@ OW::getRouter()->addRoute(
 OW::getRouter()->addRoute(
 	new OW_Route(
 		'spvideolite.admin_help',
-		'admin/plugins/spvideo/help',
+		'admin/plugins/spvideolite/help',
 		'SPVIDEOLITE_CTRL_Admin',
 		'help'
 	)
@@ -70,7 +69,7 @@ OW::getRouter()->addRoute(
 OW::getRouter()->addRoute(
 	new OW_Route(
 		'spvideolite.admin_saveconfig',
-		'admin/plugins/spvideo/saveconfig',
+		'admin/plugins/spvideolite/saveconfig',
 		'SPVIDEOLITE_CTRL_Admin',
 		'saveconfig'
 	)
@@ -88,7 +87,7 @@ OW::getRouter()->addRoute(
 OW::getRouter()->addRoute(
 	new OW_Route(
 		'spvideolite.ajax_get_clip',
-		'spvideo/ajax_get_clip',
+		'spvideolite/ajax_get_clip',
 		'SPVIDEOLITE_CTRL_Spvideo',
 		'ajaxGetClip'
 	)
@@ -97,7 +96,7 @@ OW::getRouter()->addRoute(
 OW::getRouter()->addRoute(
 	new OW_Route(
 		'spvideolite.my_video',
-		'spvideo/my',
+		'spvideolite/my',
 		'SPVIDEOLITE_CTRL_Spvideo',
 		'myVideo'
 	)
@@ -106,7 +105,7 @@ OW::getRouter()->addRoute(
 OW::getRouter()->addRoute(
 	new OW_Route(
 		'spvideolite.embed',
-		'spvideo/embed/:videoId',
+		'spvideolite/embed/:videoId',
 		'SPVIDEOLITE_CTRL_Spvideo',
 		'embed'
 	)
@@ -115,7 +114,7 @@ OW::getRouter()->addRoute(
 OW::getRouter()->addRoute(
 	new OW_Route(
 		'spvideolite.import',
-		'spvideo/import',
+		'spvideolite/import',
 		'SPVIDEOLITE_CTRL_Spvideo',
 		'import'
 	)
@@ -124,7 +123,7 @@ OW::getRouter()->addRoute(
 OW::getRouter()->addRoute(
 	new OW_Route(
 		'spvideolite.proxy',
-		'spvideo/proxy/:module/:func',
+		'spvideolite/proxy/:module/:func',
 		'SPVIDEOLITE_CTRL_Spvideo',
 		'proxy',
 		array('module','func','args'=>'')
@@ -134,7 +133,7 @@ OW::getRouter()->addRoute(
 OW::getRouter()->addRoute(
 	new OW_Route(
 		'spvideolite.proxy_args',
-		'spvideo/proxy/:module/:func/:args',
+		'spvideolite/proxy/:module/:func/:args',
 		'SPVIDEOLITE_CTRL_Spvideo',
 		'proxy',
 		array('module','func','args')
@@ -144,7 +143,7 @@ OW::getRouter()->addRoute(
 OW::getRouter()->addRoute(
 	new OW_Route(
 		'spvideolite.categories',
-		'spvideo/categories',
+		'spvideolite/categories',
 		'SPVIDEOLITE_CTRL_Spvideo',
 		'categories'
 	)
@@ -165,10 +164,4 @@ if ( !OW::getRequest()->isAjax() && !OW::getRequest()->isPost() ) {
 // adding package pointers for importers
 $autoloader = OW::getAutoloader();
 $autoloader->addPackagePointer('SPVIDEOLITE_IMP', SPVIDEOLITE_DIR_IMPORTERS);
-// adding package pointers for processors
-$autoloader->addPackagePointer('SPVIDEOLITE_PRO', SPVIDEOLITE_DIR_PROCESSORS);
 
-// registering processors
-SPVIDEOLITE_BOL_Service::registerProcessor('Selfservice');
-SPVIDEOLITE_BOL_Service::registerProcessor('Transloadit');
-// SPVIDEOLITE_BOL_Service::getProcessorInstance('Selfservice');

@@ -57,37 +57,4 @@ class SPVIDEOLITE_BOL_Service
     return false;
   }
 
-  /**
-   * ============= PROCESSORS FUNCTIONS =============
-   */
-
-  public static function registerProcessor($name) {
-    if (null == self::$processors) {
-      self::$processors = array();
-    }
-
-    self::$processors[$name] = array(
-      'className' => ('SPVIDEOLITE_PRO_'.$name),
-      'instance' => null
-    );
-  }
-
-  public static function getProcessorInstance($name) {
-    if (is_array(self::$processors[$name])) {
-      $className = 'SPVIDEOLITE_PRO_'.$name;
-      if (empty(self::$processors[$name]['instance'])) {
-        self::$processors[$name]['instance'] = $className::getInstance($className);
-      }
-      $processorInstance = self::$processors[$name]['instance'];
-      return $processorInstance;
-    } else {
-      throw new Exception("Error Processing Request", 1);
-    }
-  }
-
-  public static function callProcessorFunction($name,$function,&$controller) {
-    $processorInstance = self::getProcessorInstance($name);
-    $processorInstance->setController($controller);
-    return $processorInstance->$function();
-  }
 }
