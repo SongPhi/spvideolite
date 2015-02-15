@@ -208,4 +208,8 @@ class SPVIDEOLITE_CLASS_EventHandler
       });
     ");
     }
+
+    function initServiceHooking() {
+        SPVIDEOLITE_CLASS_ClipService::getInstance();
+    }
 }

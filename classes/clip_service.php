@@ -23,13 +23,10 @@ class SPVIDEOLITE_CLASS_ClipService {
         if ( !strlen($code) )
             return '';
 
-        //adjust width and height
-        // $code = preg_replace("/width=(\"|')?[\d]+(px)?(\"|')?/i", 'width=${1}' . $width . '${3}', $code);
-        // $code = preg_replace("/height=(\"|')?[\d]+(px)?(\"|')?/i", 'height=${1}' . $height . '${3}', $code);
+        return $code;
+    }
 
-        // $code = preg_replace("/width:( )?[\d]+(px)?/i", 'width:' . $width . 'px', $code);
-        // $code = preg_replace("/height:( )?[\d]+(px)?/i", 'height:' . $height . 'px', $code);
-
+    public function validateClipCode( $code, $provider = null ) {
         return $code;
     }
 
