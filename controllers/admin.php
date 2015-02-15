@@ -14,21 +14,20 @@ class SPVIDEOLITE_CTRL_Admin extends ADMIN_CTRL_Abstract {
 	}
 
 	function setPageHeading( $heading ) {
-		$heading = $heading . ' - SPVIDEO LITE';
+		$heading = 'SPVIDEO LITE :: ' . $heading;
 
 		return parent::setPageHeading( $heading );
 	}
 
 	function index() {
     $language = OW::getLanguage();
-		$this->setPageHeading( 'General - Settings' );
+    $this->setPageHeading( 'Tweaks' );
 
-    OW::getDocument()->addStyleSheet( SPVIDEOLITE_BOL_Service::getCssUrl('spvideo_admin') );
     OW::getDocument()->addStyleSheet( SPVIDEOLITE_BOL_Service::getCssUrl('toggles-light') );
     OW::getDocument()->addScript( SPVIDEOLITE_BOL_Service::getJsUrl('jquery.toggles.min') );
 
     OW::getDocument()->addOnloadScript("
-      $('#features input[type=checkbox]').each(function(index,obj){
+      $('.tweaksForm input[type=checkbox]').each(function(index,obj){
         var togglerId = $(obj).attr('id')+'_toggler';
         $(obj).parent().append('<div class=\"toggle-light\" id=\"'+togglerId+'\"></div>');
         $('#'+togglerId).toggles({
@@ -43,22 +42,12 @@ class SPVIDEOLITE_CTRL_Admin extends ADMIN_CTRL_Abstract {
         });
         $(obj).hide();
         $('#'+togglerId).on('toggle',function(e,active){
-          var thisKey = $(this).attr('id');
-          var configKey = 'features.' + $(this).attr('id').replace('_toggler','');
-          var formKey = $(this).attr('id').replace('_toggler','') + '_cfg_form';
-
+          var configKey = 'tweaks.' + $(this).attr('id').replace('_toggler','');
           var postData = { key : configKey, value : active };
-          if (active) {
+          if (active)
             postData.value = 1;
-            $('#'+formKey).slideDown('fast');
-            $('#'+thisKey).parents('table').find('tr').first().removeClass('ow_tr_last');
-          } else {
+          else
             postData.value = 0;
-            $('#'+formKey).slideUp('fast',function(){
-              $('#'+formKey).hide();
-              $('#' + thisKey).parents('table').find('tr').first().addClass('ow_tr_last');
-            });            
-          }
           $.post(
             '".OW::getRouter()->urlForRoute('spvideolite.admin_saveconfig')."',
             postData,
@@ -66,34 +55,15 @@ class SPVIDEOLITE_CTRL_Admin extends ADMIN_CTRL_Abstract {
             },
             'text'
           );
-          
         });
-
-        if (!$('#upload_video').is(':checked')) {
-          $('#upload_video_cfg_form').hide();
-        } else {
-          $('#upload_video').parents('table').find('tr').first().removeClass('ow_tr_last');
-        }
-
-        if (!$('#categories').is(':checked')) {
-          $('#categories_cfg_form').hide();
-        } else {
-          $('#categories').parents('table').find('tr').first().removeClass('ow_tr_last');
-        }
-
-        if (!$('#importers').is(':checked')) {
-          $('#importers_cfg_form').hide();
-        } else {
-          $('#importers').parents('table').find('tr').first().removeClass('ow_tr_last');
-        }
       });
     ");
-    $features = SPVIDEOLITE_BOL_Configs::getInstance()->searchKey('#^features\..+?$#im');
-    $featuresConfig = array();
-    foreach ($features as $feature) {
-      $featuresConfig[substr($feature, 9)] = SPVIDEOLITE_BOL_Configs::getInstance()->get($feature);
+    $tweaks = SPVIDEOLITE_BOL_Configs::getInstance()->searchKey('#^tweaks\..+?$#im');
+    $tweaksConfig = array();
+    foreach ($tweaks as $tweak) {
+      $tweaksConfig[substr($tweak, 7)] = SPVIDEOLITE_BOL_Configs::getInstance()->get($tweak);
     }
-    $this->assign('features',$featuresConfig);
+    $this->assign('tweaks',$tweaksConfig);
 	}
 
 	function getMenu() {
@@ -103,51 +73,19 @@ class SPVIDEOLITE_CTRL_Admin extends ADMIN_CTRL_Abstract {
 		$menuItems = array();
 
 		$item = new BASE_MenuItem();
-		$item->setLabel( $language->text( 'spvideolite', 'adm_menu_general' ) );
-		$item->setUrl( OW::getRouter()->urlForRoute( 'spvideolite.admin' ) );
-		$item->setKey( 'general' );
-		$item->setIconClass( 'ow_ic_gear_wheel' );
-		$item->setOrder( 0 );
-		$menuItems[] = $item;
-
-		$item = new BASE_MenuItem();
-		$item->setLabel( $language->text( 'spvideolite', 'adm_menu_quota' ) );
-		$item->setUrl( OW::getRouter()->urlForRoute( 'spvideolite.admin_quota' ) );
-		$item->setKey( 'quota' );
-		$item->setIconClass( 'ow_ic_dashboard' );
-		$item->setOrder( 1 );
-		$menuItems[] = $item;
-
-		$item = new BASE_MenuItem();
-		$item->setLabel( $language->text( 'spvideolite', 'adm_menu_processor' ) );
-		$item->setUrl( OW::getRouter()->urlForRoute( 'spvideolite.admin_processor' ) );
-		$item->setKey( 'quota' );
-		$item->setIconClass( 'ow_ic_files' );
-		$item->setOrder( 2 );
-		$menuItems[] = $item;
-
-		$item = new BASE_MenuItem();
-		$item->setLabel( $language->text( 'spvideolite', 'adm_menu_categories' ) );
-		$item->setUrl( OW::getRouter()->urlForRoute( 'spvideolite.admin_categories' ) );
-		$item->setKey( 'categories' );
-		$item->setIconClass( 'ow_ic_folder' );
-		$item->setOrder( 3 );
-		$menuItems[] = $item;
-
-		$item = new BASE_MenuItem();
 		$item->setLabel( $language->text( 'spvideolite', 'adm_menu_tweaks' ) );
-		$item->setUrl( OW::getRouter()->urlForRoute( 'spvideolite.admin_tweaks' ) );
-		$item->setKey( 'quota' );
+		$item->setUrl( OW::getRouter()->urlForRoute( 'spvideolite.admin' ) );
+		$item->setKey( 'tweaks' );
 		$item->setIconClass( 'ow_ic_star' );
-		$item->setOrder( 4 );
+		$item->setOrder( 0 );
 		$menuItems[] = $item;
 
 		$item = new BASE_MenuItem();
 		$item->setLabel( $language->text( 'spvideolite', 'adm_menu_help' ) );
 		$item->setUrl( OW::getRouter()->urlForRoute( 'spvideolite.admin_help' ) );
-		$item->setKey( 'quota' );
+		$item->setKey( 'help' );
 		$item->setIconClass( 'ow_ic_help' );
-		$item->setOrder( 5 );
+		$item->setOrder( 1 );
 		$menuItems[] = $item;
 
 		$menu->setMenuItems( $menuItems );
@@ -189,50 +127,7 @@ class SPVIDEOLITE_CTRL_Admin extends ADMIN_CTRL_Abstract {
 	}
 
 	function tweaks() {
-		$language = OW::getLanguage();
-		$this->setPageHeading( 'Tweaks' );
-
-    OW::getDocument()->addStyleSheet( SPVIDEOLITE_BOL_Service::getCssUrl('toggles-light') );
-    OW::getDocument()->addScript( SPVIDEOLITE_BOL_Service::getJsUrl('jquery.toggles.min') );
-
-    OW::getDocument()->addOnloadScript("
-	  	$('.tweaksForm input[type=checkbox]').each(function(index,obj){
-	      var togglerId = $(obj).attr('id')+'_toggler';
-	      $(obj).parent().append('<div class=\"toggle-light\" id=\"'+togglerId+'\"></div>');
-	      $('#'+togglerId).toggles({
-	        drag: true,
-	        width: 55,
-	        text: {
-	          on: '".$language->text( 'spvideolite', 'chk_on' )."',
-	          off: '".$language->text( 'spvideolite', 'chk_off' )."'
-	        },
-	        on: $(obj).is(':checked'),
-	        checkbox: $(obj)
-	      });
-	      $(obj).hide();
-	      $('#'+togglerId).on('toggle',function(e,active){
-	      	var configKey = 'tweaks.' + $(this).attr('id').replace('_toggler','');
-	      	var postData = { key : configKey, value : active };
-	      	if (active)
-	      		postData.value = 1;
-	      	else
-	      		postData.value = 0;
-	      	$.post(
-	      		'".OW::getRouter()->urlForRoute('spvideolite.admin_saveconfig')."',
-	      		postData,
-		      	function( data ) {
-						},
-						'text'
-					);
-	      });
-	    });
-    ");
-    $tweaks = SPVIDEOLITE_BOL_Configs::getInstance()->searchKey('#^tweaks\..+?$#im');
-    $tweaksConfig = array();
-    foreach ($tweaks as $tweak) {
-    	$tweaksConfig[substr($tweak, 7)] = SPVIDEOLITE_BOL_Configs::getInstance()->get($tweak);
-    }
-    $this->assign('tweaks',$tweaksConfig);
+		
 	}
 
 	function help() {
@@ -241,7 +136,6 @@ class SPVIDEOLITE_CTRL_Admin extends ADMIN_CTRL_Abstract {
 
 	public function categories() {
     $this->setPageHeading( 'Categories' );    
-    // http://ow16.dev/admin/languages?prefix=spvideo&search=category_
   }
 
   public function saveconfig( array $params) {

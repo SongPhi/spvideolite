@@ -17,6 +17,7 @@ class SPVIDEOLITE_BOL_Configs
     'tweaks.fix_long_titles' => true,
     'tweaks.correct_player_size' => true,
     'tweaks.player_enlargable' => true,    
+    'tweaks.link_import' => true,    
     'processor' => 'Selfservice'
   );
 

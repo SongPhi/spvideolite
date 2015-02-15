@@ -81,7 +81,7 @@ class SPVIDEOLITE_CLASS_EventHandler
      *
      */
     function on_add_console_item(BASE_CLASS_EventCollector $event) {
-        $event->add(array('label' => 'My Videos', 'url' => OW_Router::getInstance()->urlForRoute('spvideolite.my_video')));
+        $event->add(array('label' => 'Video Manager', 'url' => OW_Router::getInstance()->urlForRoute('spvideolite.my_video')));
     }
     
     /**
@@ -92,12 +92,13 @@ class SPVIDEOLITE_CLASS_EventHandler
      *
      */
     public static function showLessVideoDescription(BASE_CLASS_EventCollector $event) {
+        $language = OW::getLanguage();
         OW::getDocument()->addOnloadScript("
       if ($('.ow_video_description').height()>60) {
         $('.ow_video_description').attr('origheight',$('.ow_video_description').height());
         $('.ow_video_description').css({'max-height':'60px','overflow':'hidden'});
-        $('<div id=\"video-show-less\" class=\"ow_small ow_txtcenter\" style=\"margin-top:5px;margin-bottom:10px;border-top:1px dashed #aaa;display:none\"><span id=\"spvideo-desc-show-less\" class=\"ow_lbutton\" style=\"margin-top:-8px\">Show less</span></div>').insertAfter($('.ow_video_description'));
-        $('<div id=\"video-show-more\" class=\"ow_small ow_txtcenter\" style=\"margin-top:5px;margin-bottom:10px;border-top:1px dashed #aaa\"><span id=\"spvideo-desc-show-more\" class=\"ow_lbutton\" style=\"margin-top:-8px\">Show more</span></div>').insertAfter($('.ow_video_description'));      
+        $('<div id=\"video-show-less\" class=\"ow_small ow_txtcenter\" style=\"margin-top:5px;margin-bottom:10px;border-top:1px dashed #aaa;display:none\"><span id=\"spvideo-desc-show-less\" class=\"ow_lbutton\" style=\"margin-top:-8px\">" . $language->text('spvideolite', 'btn_show_less') . "</span></div>').insertAfter($('.ow_video_description'));
+        $('<div id=\"video-show-more\" class=\"ow_small ow_txtcenter\" style=\"margin-top:5px;margin-bottom:10px;border-top:1px dashed #aaa\"><span id=\"spvideo-desc-show-more\" class=\"ow_lbutton\" style=\"margin-top:-8px\">" . $language->text('spvideolite', 'btn_show_more') . "</span></div>').insertAfter($('.ow_video_description'));      
 
         $('#spvideo-desc-show-more').click(function(){
           $('.ow_video_description').animate({'max-height':$('.ow_video_description').attr('origheight')+'px'},300,function(){
@@ -152,7 +153,8 @@ class SPVIDEOLITE_CLASS_EventHandler
      *
      */
     public static function addLargerPlayerButton(BASE_CLASS_EventCollector $event) {
-        $event->add(array('href' => 'javascript:;', 'id' => 'btn-resize-player', 'class' => 'btn-resize-player', 'label' => 'Larger'));
+        $language = OW::getLanguage();
+        $event->add(array('href' => 'javascript:;', 'id' => 'btn-resize-player', 'class' => 'btn-resize-player', 'label' => $language->text('spvideolite', 'btn_larger')));
         OW::getDocument()->addStyleSheet(OW::getPluginManager()->getPlugin('spvideolite')->getStaticCssUrl() . 'spvideo_player.css');
         OW::getDocument()->addOnloadScript("
       $('<div id=\"enlarged-remaining\" class=\"ow_superwide ow_left\" style=\"display:none\"></div>').insertAfter($('.ow_video_player').parent());
@@ -181,7 +183,7 @@ class SPVIDEOLITE_CLASS_EventHandler
               iframe.height(newHeight);
             }
             iframe.width(player.width());
-            $('#btn-resize-player a').html('Smaller');          
+            $('#btn-resize-player a').html('" . $language->text('spvideolite', 'btn_smaller') . "');          
             remains.show();
             $('.ow_video_description').appendTo(remains);
             $('#video-show-more').appendTo(remains);
@@ -195,7 +197,7 @@ class SPVIDEOLITE_CLASS_EventHandler
           parent.addClass('ow_left');
           iframe.width(player.width());
           iframe.height(origHeight);
-          $('#btn-resize-player a').html('Larger');
+          $('#btn-resize-player a').html('" . $language->text('spvideolite', 'btn_larger') . "');
           $('.ow_video_description').appendTo(parent);
           $('#video-show-more').appendTo(parent);
           $('#video-show-less').appendTo(parent);

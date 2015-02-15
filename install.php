@@ -7,7 +7,6 @@
 
 @OW::getPluginManager()->addPluginSettingsRouteName('spvideolite', 'spvideolite.admin');
 
-
 // CREATE TABLE IF NOT EXISTS `ow_spvideo_upl_temp` (
 //   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
 //   `userId` int(10) unsigned DEFAULT NULL,
