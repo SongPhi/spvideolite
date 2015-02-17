@@ -39,6 +39,13 @@ class SPVIDEOLITE_CTRL_Spvideo extends OW_ActionController
         }
     }
 
+    public function jsTextKeys() {
+        ob_clean();
+        header("Content-type: text-javascript");
+        $language = OW::getLanguage();
+        die();
+    }
+
     public function proxy( array $params ) {
         $module = $params['module'];
         $func = $params['func'];
