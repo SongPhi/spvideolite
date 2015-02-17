@@ -49,9 +49,9 @@ class SPVIDEOLITE_CLASS_EventHandler
     }
     
     function addCategoriesList($event) {
-        self::requireSpvideoJs();
         if (!SPVIDEOLITE_BOL_Service::isRoute('VIDEO_CTRL_Video', 'viewList') && !SPVIDEOLITE_BOL_Service::isRoute('VIDEO_CTRL_Video', 'viewTaggedList')) return;
         
+        self::requireSpvideoJs();
         OW::getDocument()->addOnloadScript("SPVideo.addCategoriesList('" . OW::getRouter()->urlForRoute('spvideolite.categories') . "')");
     }
     
@@ -70,14 +70,16 @@ class SPVIDEOLITE_CLASS_EventHandler
      *
      */
     public static function showLessVideoDescription(BASE_CLASS_EventCollector $event) {
-        self::requireSpvideoJs();
         $language = OW::getLanguage();
+        self::requireSpvideoJs();
         OW::getDocument()->addOnloadScript("SPVideo.showLessDescription();");
         $language->addKeyForJs('spvideolite', 'btn_show_more');
         $language->addKeyForJs('spvideolite', 'btn_show_less');
     }
     
     public function fixLongTitles() {
+        if (!SPVIDEOLITE_BOL_Service::isRoute('VIDEO_CTRL_Video', 'viewList')) return;
+
         self::requireSpvideoJs();
         OW::getDocument()->addOnloadScript("SPVideo.fixLongTitles();");
     }
@@ -96,12 +98,14 @@ class SPVIDEOLITE_CLASS_EventHandler
     public static function addLargerPlayerButton(BASE_CLASS_EventCollector $event) {
         self::requireSpvideoJs();
         $language = OW::getLanguage();
-        $event->add(array('href' => 'javascript:;', 'id' => 'btn-resize-player', 'class' => 'btn-resize-player', 'label' => $language->text('spvideolite', 'btn_larger')));
+
         OW::getDocument()->addStyleSheet(OW::getPluginManager()->getPlugin('spvideolite')->getStaticCssUrl() . 'spvideo_player.css');
         OW::getDocument()->addOnloadScript("SPVideo.addEnlargeButton();");
         
         $language->addKeyForJs('spvideolite', 'btn_larger');
         $language->addKeyForJs('spvideolite', 'btn_smaller');
+        
+        $event->add(array('href' => 'javascript:;', 'id' => 'btn-resize-player', 'class' => 'btn-resize-player', 'label' => $language->text('spvideolite', 'btn_larger')));
     }
     
     function initServiceHooking() {

@@ -21,10 +21,13 @@ class SPVIDEOLITE_CLASS_ClipService
     public function formatClipDimensions($code, $width, $height) {
         if (!strlen($code)) return '';
         
+        // keep the imported clip default size ratio
+
         return $code;
     }
     
     public function validateClipCode($code, $provider = null) {
+        // alternative way to validate embed code
         $iframeTag = "/<iframe.+?<\/iframe>/is";
         $embedTag = "/<embed.+?<\/embed>/is";
         $objectTag = "/<object.+?<\/object>/is";
@@ -46,6 +49,7 @@ class SPVIDEOLITE_CLASS_ClipService
     }
     
     public function getClipThumbUrl($clipId, $code = null, $thumbUrl = null) {
+        // some thumb caching mechanism here
         return $this->originalClassInstance->getClipThumbUrl($clipId, $code, $thumbUrl);
     }
     
