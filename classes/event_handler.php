@@ -6,13 +6,14 @@
 class SPVIDEOLITE_CLASS_EventHandler
 {
     protected static $jsIncluded = false;
-
+    
     public static function requireSpvideoJs() {
         if (!self::$jsIncluded) {
             OW::getDocument()->addScript(OW::getPluginManager()->getPlugin('spvideolite')->getStaticUrl() . 'js/spvideo.js');
             self::$jsIncluded = true;
         }
     }
+    
     /**
      *
      */
@@ -51,7 +52,7 @@ class SPVIDEOLITE_CLASS_EventHandler
         self::requireSpvideoJs();
         if (!SPVIDEOLITE_BOL_Service::isRoute('VIDEO_CTRL_Video', 'viewList') && !SPVIDEOLITE_BOL_Service::isRoute('VIDEO_CTRL_Video', 'viewTaggedList')) return;
         
-        OW::getDocument()->addOnloadScript("SPVideo.addCategoriesList('".OW::getRouter()->urlForRoute('spvideolite.categories')."')");
+        OW::getDocument()->addOnloadScript("SPVideo.addCategoriesList('" . OW::getRouter()->urlForRoute('spvideolite.categories') . "')");
     }
     
     /**
@@ -98,11 +99,11 @@ class SPVIDEOLITE_CLASS_EventHandler
         $event->add(array('href' => 'javascript:;', 'id' => 'btn-resize-player', 'class' => 'btn-resize-player', 'label' => $language->text('spvideolite', 'btn_larger')));
         OW::getDocument()->addStyleSheet(OW::getPluginManager()->getPlugin('spvideolite')->getStaticCssUrl() . 'spvideo_player.css');
         OW::getDocument()->addOnloadScript("SPVideo.addEnlargeButton();");
-
+        
         $language->addKeyForJs('spvideolite', 'btn_larger');
         $language->addKeyForJs('spvideolite', 'btn_smaller');
     }
-
+    
     function initServiceHooking() {
         SPVIDEOLITE_CLASS_ClipService::getInstance();
     }

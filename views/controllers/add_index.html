@@ -39,7 +39,7 @@
 $(function (){
 	SPVideo.baseUrl = {/literal}'{{url_for_route for="spvideolite.base"}}'{literal};
 	SPVideo.loadingElement = $('#checkClip_loading');
-	this.detailElement = $('#checkClip_resp_place_holder');
+	SPVideo.detailElement = $('#checkClip_resp_place_holder');
 	SPVideo.checkClipUrl = SPVideo.baseUrl + '/ajax_get_clip';
 
 	$('#spvideo_btn_check').click(function() {
