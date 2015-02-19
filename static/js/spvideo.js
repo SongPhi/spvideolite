@@ -17,8 +17,6 @@ var SPVideoClass = function(_baseUrl, _loadingEl, _detailElement) {
         }, jQuery.proxy(this.handleCheckClipResponse, this), "json").fail(jQuery.proxy(this.handleCheckClipError, this));
     }
     this.handleCheckClipResponse = function(data) {
-        //TODO: code here
-        console.log(data);
         // hide loadingel, show detailel
         this.detailElement.css('display', 'block');
         this.loadingElement.css('display', 'none');
