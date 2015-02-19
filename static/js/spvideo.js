@@ -27,19 +27,9 @@ var SPVideoClass = function(_baseUrl, _loadingEl, _detailElement) {
         if (!data.error) {
             this.detailElement.html(Base64.decode(data.formHtml));
             var tagsField = $('form[name=SPVideoAddForm]').find('input[name=tags]');
-            $(tagsField).tagsInput({
-                'pseudoDelimiter': ["."],
-                'height': 'auto',
-                'width': 'auto',
-                'interactive': true,
-                'defaultText': 'Enter tags here...',
-                'removeWithBackspace': true,
-                'minChars': 3,
-                'maxChars': 0,
-                'placeholderColor': '#666666'
-            });
+            eval(Base64.decode(data.script));
         } else {
-            alert(data.errMsg);
+            OW.warning(data.errMsg);
         }
         $('#spvideo_btn_check').removeClass('ow_inprogress');
     }

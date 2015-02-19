@@ -61,7 +61,7 @@ class SPVIDEOLITE_CTRL_Spvideo extends OW_ActionController
 		$importService = SPVIDEOLITE_CLASS_ImportService::getInstance();		
 
 		try {
-			$video = $importService->checkClip($_POST['clipUrl']);
+			$video = $importService->checkClip($_REQUEST['clipUrl']);
 
 			$this->setTemplate( OW::getPluginManager()->getPlugin( 'spvideolite' )->getCmpViewDir() . 'add_form.html' );
 			$this->assign('auth_msg', null);
@@ -95,8 +95,8 @@ class SPVIDEOLITE_CTRL_Spvideo extends OW_ActionController
 			$result = array(
 				'error' => false,
 				'formHtml' => $formHtml,
+                'script' => base64_encode( $spVideoAddForm->getFormJs() )
 			);
-			
 			exit(json_encode($result));
 		} catch (Exception $e) {
 			$result = array(
@@ -276,5 +276,56 @@ class spVideoAddForm extends Form
         }
 
         return false;
+    }
+
+    public function getFormJs() {
+        $formElementJS = '';
+
+        /* @var $element FormElement */
+        foreach ( $this->elements as $element )
+        {
+            $formElementJS .= $element->getElementJs() . PHP_EOL;
+            $formElementJS .= "form.addElement(formElement);" . PHP_EOL;
+        }
+
+        $formInitParams = array(
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'reset' => $this->getAjaxResetOnSuccess(),
+            'ajax' => $this->isAjax(),
+            'ajaxDataType' => $this->getAjaxDataType(),
+            'validateErrorMessage' => $this->emptyElementsErrorMessage,
+        );
+
+        $jsString = " var form = new OwForm(" . json_encode($formInitParams) . ");window.owForms[form.name] = form;
+            " . PHP_EOL . $formElementJS . "
+
+            if ( form.form ) 
+            {
+                $(form.form).bind( 'submit', {form:form},
+                        function(e){
+                            return e.data.form.submitForm();
+                        }
+                );
+                        }
+                        
+                        OW.trigger('base.onFormReady.' + form.name, [], form);
+                        OW.trigger('base.onFormReady', [form]);
+        ";
+
+        foreach ( $this->bindedFunctions as $bindType => $binds )
+        {
+            if ( empty($binds) )
+            {
+                continue;
+            }
+
+            foreach ( $binds as $function )
+            {
+                $jsString .= "form.bind('" . trim($bindType) . "', " . $function . ");";
+            }
+        }
+
+        return $jsString;
     }
 }

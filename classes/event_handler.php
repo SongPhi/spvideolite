@@ -9,7 +9,7 @@ class SPVIDEOLITE_CLASS_EventHandler
     
     public static function requireSpvideoJs() {
         if (!self::$jsIncluded) {
-            OW::getDocument()->addScript(OW::getPluginManager()->getPlugin('spvideolite')->getStaticUrl() . 'js/spvideo.js');
+            OW::getDocument()->addScript(OW::getPluginManager()->getPlugin('spvideolite')->getStaticUrl() . 'js/spvideo.js?v1.0.0');
             self::$jsIncluded = true;
         }
     }
