@@ -9,7 +9,7 @@ class SPVIDEOLITE_CLASS_EventHandler
     
     public static function requireSpvideoJs() {
         if (!self::$jsIncluded) {
-            OW::getDocument()->addScript(OW::getPluginManager()->getPlugin('spvideolite')->getStaticUrl() . 'js/spvideo.js?v1.0.0');
+            OW::getDocument()->addScript(OW::getPluginManager()->getPlugin('spvideolite')->getStaticUrl() . 'js/spvideo.js?'.SPVIDEOLITE_BOL_Service::PLUGIN_VER);
             self::$jsIncluded = true;
         }
     }
@@ -31,7 +31,7 @@ class SPVIDEOLITE_CLASS_EventHandler
         OW::getDocument()->addScript(OW::getPluginManager()->getPlugin('spvideolite')->getStaticUrl() . 'js/jquery.easing.min.js');
         
         // add stylesheets
-        OW::getDocument()->addStyleSheet(OW::getPluginManager()->getPlugin('spvideolite')->getStaticCssUrl() . 'spvideo.css');
+        OW::getDocument()->addStyleSheet(OW::getPluginManager()->getPlugin('spvideolite')->getStaticCssUrl() . 'spvideo.css?'.SPVIDEOLITE_BOL_Service::PLUGIN_VER);
         
         // inject & modify the adding form
         $embedForm = $doc->getBody();
@@ -99,7 +99,7 @@ class SPVIDEOLITE_CLASS_EventHandler
         self::requireSpvideoJs();
         $language = OW::getLanguage();
 
-        OW::getDocument()->addStyleSheet(OW::getPluginManager()->getPlugin('spvideolite')->getStaticCssUrl() . 'spvideo_player.css');
+        OW::getDocument()->addStyleSheet(OW::getPluginManager()->getPlugin('spvideolite')->getStaticCssUrl() . 'spvideo_player.css?'.SPVIDEOLITE_BOL_Service::PLUGIN_VER);
         OW::getDocument()->addOnloadScript("SPVideo.addEnlargeButton();");
         
         $language->addKeyForJs('spvideolite', 'btn_larger');

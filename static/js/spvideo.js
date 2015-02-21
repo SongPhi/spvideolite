@@ -6,7 +6,7 @@ var SPVideoClass = function(_baseUrl, _loadingEl, _detailElement) {
     this.checkClipFromElement = function(inputHandle) {
         var url = jQuery(inputHandle).val();
         this.checkClip(url);
-    }
+    };
     this.checkClip = function(url) {
         var reqUrl = this.checkClipUrl;
         // show loadingel, hide detailel
@@ -15,7 +15,7 @@ var SPVideoClass = function(_baseUrl, _loadingEl, _detailElement) {
         jQuery.post(reqUrl, {
             "clipUrl": url
         }, jQuery.proxy(this.handleCheckClipResponse, this), "json").fail(jQuery.proxy(this.handleCheckClipError, this));
-    }
+    };
     this.handleCheckClipResponse = function(data) {
         // hide loadingel, show detailel
         this.detailElement.css('display', 'block');
@@ -30,10 +30,10 @@ var SPVideoClass = function(_baseUrl, _loadingEl, _detailElement) {
             OW.warning(data.errMsg);
         }
         $('#spvideo_btn_check').removeClass('ow_inprogress');
-    }
+    };
     this.handleCheckClipError = function(data) {
         //TODO: code here
-    }
+    };
     this.addEnlargeButton = function() {
         $('<div id="enlarged-remaining" class="ow_superwide ow_left" style="display:none"></div>').insertAfter($('.ow_video_player').parent());
         $('#btn-resize-player').click(function() {
@@ -86,16 +86,17 @@ var SPVideoClass = function(_baseUrl, _loadingEl, _detailElement) {
                 }, 500);
             }
         });
-    }
+    };
     this.correctPlayerSize = function() {
         var parent = $('.ow_video_player').parent();
         var player = $('.ow_video_player');
         var iframe = $('.ow_video_player iframe');
+        var iframeWidth = parseInt($(iframe).attr("width"));
         var remains = $('#enlarged-remaining');
-        var newHeight = iframe.height() * (player.width() / iframe.width());
+        var newHeight = Math.round(iframe.height() * (player.width() / iframeWidth));
         iframe.height(newHeight);
         iframe.width(player.width());
-    }
+    };
     this.fixLongTitles = function() {
         $('.ow_video_item_title').each(function(index, e) {
             var $e = $(e);
@@ -109,7 +110,7 @@ var SPVideoClass = function(_baseUrl, _loadingEl, _detailElement) {
                 $e.parent().attr('onmouseout', "$(this).find('.ow_video_item_title').css({'max-height':'40px','overflow':'hidden'})");
             }
         });
-    }
+    };
     this.showLessDescription = function() {
         if ($('.ow_video_description').height() > 60) {
             $('.ow_video_description').attr('origheight', $('.ow_video_description').height());
@@ -139,7 +140,7 @@ var SPVideoClass = function(_baseUrl, _loadingEl, _detailElement) {
                 });
             });
         }
-    }
+    };
     this.addCategoriesList = function(url) {
         $('<li class="_categories"><a href="' + url + '"><span class="ow_ic_folder">Categories</span></a></li>').insertBefore($('.ow_content_menu li').last());
         $('<div id="categories-list" style="display:none;position:absolute;"><ul><li>Teen</li><li>Amateur</li></ul></div>').appendTo($('body'));
@@ -172,6 +173,6 @@ var SPVideoClass = function(_baseUrl, _loadingEl, _detailElement) {
             }, 400);
             $('.ow_content_menu ._categories').data('timeoutId', timeoutId);
         });
-    }
+    };
 }
 var SPVideo = new SPVideoClass();
