@@ -235,7 +235,7 @@ class spVideoAddForm extends Form
         $description = nl2br($description, true);
         $clip->description = $description;
         $clip->userId = OW::getUser()->getId();
-        $clip->thumbUrl = $values['thumbnail'];
+        $clip->thumbUrl = preg_replace("#(http://|https://)#i", "//",$values['thumbnail']);
 
         $clip->code = UTIL_HtmlTag::stripJs($values['code']);
 

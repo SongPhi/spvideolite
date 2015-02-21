@@ -50,7 +50,7 @@ class SPVIDEOLITE_CLASS_ClipService
     
     public function getClipThumbUrl($clipId, $code = null, $thumbUrl = null) {
         // some thumb caching mechanism here
-        return $this->originalClassInstance->getClipThumbUrl($clipId, $code, $thumbUrl);
+        return preg_replace("#(http://|https://)#i", "//", $this->originalClassInstance->getClipThumbUrl($clipId, $code, $thumbUrl));
     }
     
     public function __call($method, $args) {

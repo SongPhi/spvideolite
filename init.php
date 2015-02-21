@@ -1,4 +1,5 @@
 <?php
+
 define('SPVIDEOLITE_DIR_ROOT', dirname(__FILE__));
 define('SPVIDEOLITE_DIR_IMPORTERS', SPVIDEOLITE_DIR_ROOT . DS . 'importers');
 define('SPVIDEOLITE_DIR_USERFILES', OW::getPluginManager()->getPlugin('spvideolite')->getUserFilesDir());
