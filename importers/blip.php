@@ -74,12 +74,13 @@ class SPVIDEOLITE_IMP_Blip implements SPVIDEOLITE_CLASS_IImporter
     $video->date_updated = null;
 
     # Thumbnails
-    $thumbnails_query = $xml->xpath('/rss/channel/item/blip:picture');
+    $thumbnails_query = $xml->xpath('/rss/channel/item/media:thumbnail/@url');
     $thumbnail = new stdClass;
     $thumbnail->url = strval($thumbnails_query[0]);
     list($thumbnail->width, $thumbnail->height) = getimagesize($thumbnail->url);
     $video->thumbnails[] = $thumbnail;
-    $thumbnails_query = $xml->xpath('/rss/channel/item/media:thumbnail/@url');
+    
+    $thumbnails_query = $xml->xpath('/rss/channel/item/blip:picture');
     $thumbnail = new stdClass;
     $thumbnail->url = strval($thumbnails_query[0]);
     list($thumbnail->width, $thumbnail->height) = getimagesize($thumbnail->url);
