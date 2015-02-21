@@ -13,6 +13,45 @@ class SPVIDEOLITE_CLASS_EventHandler
             self::$jsIncluded = true;
         }
     }
+
+    public function integrateForum() {
+        if (!SPVIDEOLITE_BOL_Service::isRoute('FORUM_CTRL_Topic') 
+            && !SPVIDEOLITE_BOL_Service::isRoute('FORUM_CTRL_AddTopic')
+            && !SPVIDEOLITE_BOL_Service::isRoute('FORUM_CTRL_EditPost')
+            && !SPVIDEOLITE_BOL_Service::isRoute('FORUM_CTRL_EditTopic')
+            ) return;
+
+        self::requireSpvideoJs();
+
+        OW::getDocument()->addStyleDeclaration(".floatbox_container .floatbox_body textarea[name=code] {display:none}");
+
+        OW::getDocument()->addOnloadScript("
+            SPVideo.baseUrl = '".OW::getRouter()->urlForRoute('spvideolite.base')."';
+            SPVideo.loadingElement = $('#checkClip_loading');
+            SPVideo.detailElement = $('#checkClip_resp_place_holder');
+            SPVideo.checkClipUrl = SPVideo.baseUrl + '/ajax_get_clip';
+            SPVideo.connectHtmlArea();
+        ");
+
+    }
+
+    public function integrateBlog() {
+        if (!SPVIDEOLITE_BOL_Service::isRoute('BLOGS_CTRL_Save') 
+            && !SPVIDEOLITE_BOL_Service::isRoute('BLOGS_CTRL_Blog')
+            ) return;
+
+        self::requireSpvideoJs();
+
+        OW::getDocument()->addStyleDeclaration(".floatbox_container .floatbox_body textarea[name=code] {display:none}");
+
+        OW::getDocument()->addOnloadScript("
+            SPVideo.baseUrl = '".OW::getRouter()->urlForRoute('spvideolite.base')."';
+            SPVideo.loadingElement = $('#checkClip_loading');
+            SPVideo.detailElement = $('#checkClip_resp_place_holder');
+            SPVideo.checkClipUrl = SPVideo.baseUrl + '/ajax_get_clip';
+            SPVideo.connectHtmlArea();
+        ");
+    }
     
     /**
      *

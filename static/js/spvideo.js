@@ -118,8 +118,8 @@ var SPVideoClass = function(_baseUrl, _loadingEl, _detailElement) {
                 'max-height': '60px',
                 'overflow': 'hidden'
             });
-            $('<div id="video-show-less" class="ow_small ow_txtcenter" style="margin-top:5px;margin-bottom:10px;border-top:1px dashed #aaa;display:none"><span id="spvideo-desc-show-less" class="ow_lbutton" style="margin-top:-8px">'+OW.getLanguageText('spvideolite', 'btn_show_less')+'</span></div>').insertAfter($('.ow_video_description'));
-            $('<div id="video-show-more" class="ow_small ow_txtcenter" style="margin-top:5px;margin-bottom:10px;border-top:1px dashed #aaa"><span id="spvideo-desc-show-more" class="ow_lbutton" style="margin-top:-8px">'+OW.getLanguageText('spvideolite', 'btn_show_more')+'</span></div>').insertAfter($('.ow_video_description'));
+            $('<div id="video-show-less" class="ow_small ow_txtcenter" style="margin-top:5px;margin-bottom:10px;border-top:1px dashed #aaa;display:none"><span id="spvideo-desc-show-less" class="ow_lbutton" style="margin-top:-8px">' + OW.getLanguageText('spvideolite', 'btn_show_less') + '</span></div>').insertAfter($('.ow_video_description'));
+            $('<div id="video-show-more" class="ow_small ow_txtcenter" style="margin-top:5px;margin-bottom:10px;border-top:1px dashed #aaa"><span id="spvideo-desc-show-more" class="ow_lbutton" style="margin-top:-8px">' + OW.getLanguageText('spvideolite', 'btn_show_more') + '</span></div>').insertAfter($('.ow_video_description'));
             $('#spvideo-desc-show-more').click(function() {
                 $('.ow_video_description').animate({
                     'max-height': $('.ow_video_description').attr('origheight') + 'px'
@@ -174,5 +174,57 @@ var SPVideoClass = function(_baseUrl, _loadingEl, _detailElement) {
             $('.ow_content_menu ._categories').data('timeoutId', timeoutId);
         });
     };
+    this.connectHtmlArea = function() {
+        setTimeout(jQuery.proxy(function() {
+            $('.jhtmlarea .toolbar .video').click(jQuery.proxy(function() {
+                setTimeout(jQuery.proxy(function() {
+                    var origCode = $('.floatbox_container .floatbox_body textarea[name=code]').detach();
+                    var origButton = $('.floatbox_container .floatbox_body > div > div').detach();
+                    var container = $('.floatbox_container .floatbox_body > div');
+                    container.html('');
+                    $('<span>Paste video link or embed code here</span>').appendTo(container);
+                    var pasteZone = $('<textarea id="pasteZone" style="width:100%; height:60px"></textarea>');
+                    pasteZone.appendTo(container);
+                    origCode.css('display', 'none');
+                    origCode.appendTo(container);
+                    $('<br>').appendTo(container);
+                    $('<br>').appendTo(container);
+                    origButton.appendTo(container);
+                    $('<br>').appendTo(container);
+                    var handle = function(kue) {
+                        var embedTags = /<iframe.*>/i;
+                        if (embedTags.test($('#pasteZone').val())) {
+                            setTimeout(jQuery.proxy(function() {
+                                jQuery.post(this.checkClipUrl, {
+                                    "clipUrl": $('#pasteZone').val(),
+                                    external: 1
+                                }, jQuery.proxy(function(data) {
+                                    container.find('.preview').remove();
+                                    var preview = $(data.code);
+                                    preview.addClass('preview');
+                                    origCode.val(data.code);
+                                    preview.width(320);
+                                    preview.height(200);
+                                    $('<label class="preview"><b>Preview:</b><br/></label>').appendTo(container);
+                                    preview.appendTo(container);
+                                }, this), "json").fail(jQuery.proxy(function() {}, this));
+                            },this),200);
+                        } else {
+                            container.find('.preview').remove();
+                            var preview = $($('#pasteZone').val());
+                            preview.addClass('preview');
+                            origCode.val(data.code);
+                            preview.width(320);
+                            preview.height(200);
+                            $('<label class="preview"><b>Preview:</b><br/></label>').appendTo(container);
+                            preview.appendTo(container);
+                        }
+                    }
+                    jQuery(document).on('paste',jQuery.proxy(handle,this));
+                    pasteZone.keyup(jQuery.proxy(handle, this));
+                }, this), 200);
+            }, this));
+        }, this), 200);
+    }
 }
 var SPVideo = new SPVideoClass();
