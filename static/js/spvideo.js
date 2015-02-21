@@ -55,8 +55,8 @@ var SPVideoClass = function(_baseUrl, _loadingEl, _detailElement) {
                     parent.removeClass();
                     parent.addClass('ow_stdmargin');
                     var newHeight = iframe.height() * (player.width() / iframe.width());
-                    if (newHeight > 520) {
-                        iframe.height(520);
+                    if (newHeight > 600) {
+                        iframe.height(600);
                     } else {
                         iframe.height(newHeight);
                     }
