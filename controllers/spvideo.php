@@ -54,9 +54,9 @@ class SPVIDEOLITE_CTRL_Spvideo extends OW_ActionController
     }
 	
 	public function ajaxGetClip() {
-		if (!OW::getRequest()->isAjax()) { 
-			throw new Redirect404Exception();
-        }
+		// if (!OW::getRequest()->isAjax()) { 
+		// 	throw new Redirect404Exception();
+  //       }
 
 		$importService = SPVIDEOLITE_CLASS_ImportService::getInstance();		
 

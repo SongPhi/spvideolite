@@ -29,6 +29,8 @@ OW::getRouter()->addRoute(new OW_Route('spvideolite.my_video', 'spvideolite/my',
 
 OW::getRouter()->addRoute(new OW_Route('spvideolite.embed', 'spvideolite/embed/:videoId', 'SPVIDEOLITE_CTRL_Spvideo', 'embed'));
 
+OW::getRouter()->addRoute(new OW_Route('spvideolite.videojs.fbembed', 'spvideolite/fbembed/:videoId', 'SPVIDEOLITE_CTRL_Videojs', 'fbEmbed'));
+
 OW::getRouter()->addRoute(new OW_Route('spvideolite.import', 'spvideolite/import', 'SPVIDEOLITE_CTRL_Spvideo', 'import'));
 
 OW::getRouter()->addRoute(new OW_Route('spvideolite.proxy', 'spvideolite/proxy/:module/:func', 'SPVIDEOLITE_CTRL_Spvideo', 'proxy', array('module', 'func', 'args' => '')));
