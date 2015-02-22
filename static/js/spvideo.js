@@ -91,11 +91,11 @@ var SPVideoClass = function(_baseUrl, _loadingEl, _detailElement) {
         var parent = $('.ow_video_player').parent();
         var player = $('.ow_video_player');
         var iframe = $('.ow_video_player iframe');
-        var iframeWidth = parseInt($(iframe).attr("width"));
+        var iframeWidth = parseInt($(iframe).attr("width"));        
         var remains = $('#enlarged-remaining');
         var newHeight = Math.round(iframe.height() * (player.width() / iframeWidth));
-        iframe.height(newHeight);
-        iframe.width(player.width());
+        iframe.css("height",newHeight+"px",'important');
+        iframe.css("width",player.width()+"px",'important');
     };
     this.fixLongTitles = function() {
         $('.ow_video_item_title').each(function(index, e) {
