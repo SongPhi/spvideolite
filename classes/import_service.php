@@ -20,8 +20,8 @@ class SPVIDEOLITE_CLASS_ImportService
     }
 
     public function checkClip($url) {
-    	foreach ($this->importers as $name => $importer) {
-    		$matches = array();
+        foreach ($this->importers as $name => $importer) {
+            $matches = array();
     		if (preg_match($importer['regexp'], $url, $matches)) {
     			$video = $this->getImporterInstance($name)->getClipDetailByUrl($url);
     			return $video;
@@ -43,7 +43,7 @@ class SPVIDEOLITE_CLASS_ImportService
         foreach ($files as $file) {
             if ($this->strEndWith($file,'.php')) {
                 $className = OW::getAutoloader()->filenameToClass($file,'SPVIDEOLITE_IMP');
-                $shortname = strtolower(substr($className,0-strlen($file)+11));
+                $shortname = strtolower(substr($className,16));
                 $importer = array(
                 	'className' => $className,
                 	'regexp' => $className::getRegExp(),

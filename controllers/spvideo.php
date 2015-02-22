@@ -99,9 +99,10 @@ class SPVIDEOLITE_CTRL_Spvideo extends OW_ActionController
 			);
 			exit(json_encode($result));
 		} catch (Exception $e) {
+            $msg = $e->getMessage();
 			$result = array(
 				'error' => true,
-				'errMsg' => $e->getMessage()
+				'errMsg' => $msg
 			);
 			exit(json_encode($result));
 		}
