@@ -22,16 +22,6 @@ class SPVIDEOLITE_CLASS_ClipService
         if (!strlen($code)) return '';
         
         // keep the imported clip default size ratio
-        // remove %
-        // $code = preg_replace("/width=(\"|')?[\d]+(%)?(\"|')?/i", 'width=${1}' . $width . '${3}', $code);
-        // $code = preg_replace("/height=(\"|')?[\d]+(%)?(\"|')?/i", 'height=${1}' . $height . '${3}', $code);
-
-        // // adjust width and height
-        // $code = preg_replace("/width=(\"|')?[\d]+(px)?(\"|')?/i", 'width=${1}' . $width . '${3}', $code);
-        // $code = preg_replace("/height=(\"|')?[\d]+(px)?(\"|')?/i", 'height=${1}' . $height . '${3}', $code);
-
-        // $code = preg_replace("/width:( )?[\d]+(px)?/i", 'width:' . $width . 'px', $code);
-        // $code = preg_replace("/height:( )?[\d]+(px)?/i", 'height:' . $height . 'px', $code);
 
         return $code;
     }
