@@ -192,9 +192,10 @@ var SPVideoClass = function(_baseUrl, _loadingEl, _detailElement) {
                     origButton.appendTo(container);
                     $('<br>').appendTo(container);
                     var handle = function(kue) {
-                        var embedTags = /<iframe.*>/i;
-                        if (embedTags.test($('#pasteZone').val())) {
-                            setTimeout(jQuery.proxy(function() {
+                       
+                        setTimeout(jQuery.proxy(function() {
+                            var embedTags = /\<(iframe|embed|object|video|audio).*\>/i;
+                            if (!embedTags.test($('#pasteZone').val())) {
                                 jQuery.post(this.checkClipUrl, {
                                     "clipUrl": $('#pasteZone').val(),
                                     external: 1
@@ -208,17 +209,18 @@ var SPVideoClass = function(_baseUrl, _loadingEl, _detailElement) {
                                     $('<label class="preview"><b>Preview:</b><br/></label>').appendTo(container);
                                     preview.appendTo(container);
                                 }, this), "json").fail(jQuery.proxy(function() {}, this));
-                            },this),200);
-                        } else {
-                            container.find('.preview').remove();
-                            var preview = $($('#pasteZone').val());
-                            preview.addClass('preview');
-                            origCode.val(data.code);
-                            preview.width(320);
-                            preview.height(200);
-                            $('<label class="preview"><b>Preview:</b><br/></label>').appendTo(container);
-                            preview.appendTo(container);
-                        }
+                            } else {
+                                container.find('.preview').remove();
+                                var preview = $($('#pasteZone').val());
+                                preview.addClass('preview');
+                                origCode.val(data.code);
+                                preview.width(320);
+                                preview.height(200);
+                                $('<label class="preview"><b>Preview:</b><br/></label>').appendTo(container);
+                                preview.appendTo(container);
+                            }
+                        },this),200);
+                        
                     }
                     jQuery(document).on('paste',jQuery.proxy(handle,this));
                     pasteZone.keyup(jQuery.proxy(handle, this));
