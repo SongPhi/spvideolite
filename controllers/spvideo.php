@@ -97,6 +97,18 @@ class SPVIDEOLITE_CTRL_Spvideo extends OW_ActionController
 				'formHtml' => $formHtml,
                 'script' => base64_encode( $spVideoAddForm->getFormJs() )
 			);
+
+            if (isset($_REQUEST['external'])) {
+                die( json_encode( array (
+                    'title' => $video->title,
+                    'description' => $video->description,
+                    'code' => $video->embedCode,
+                    'tags' => implode(',', (array)$video->tags ),
+                    'thumbnail' => $thumbnail,
+                    'error' => false
+                ),true) );
+            }
+
 			exit(json_encode($result));
 		} catch (Exception $e) {
             $msg = $e->getMessage();

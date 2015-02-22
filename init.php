@@ -63,6 +63,9 @@ try {
         if ($spvlConfig->get('tweaks.player_enlargable')) OW::getEventManager()->bind('video.collect_video_toolbar_items', array($eventHandler, 'addLargerPlayerButton'));
         
         if ($spvlConfig->get('tweaks.fix_long_titles')) OW::getEventManager()->bind(OW_EventManager::ON_BEFORE_DOCUMENT_RENDER, array($eventHandler, 'fixLongTitles'));
+
+        OW::getEventManager()->bind(OW_EventManager::ON_BEFORE_DOCUMENT_RENDER, array($eventHandler, 'integrateForum'));
+        OW::getEventManager()->bind(OW_EventManager::ON_BEFORE_DOCUMENT_RENDER, array($eventHandler, 'integrateBlog'));
     }
     
     // adding package pointers for importers
