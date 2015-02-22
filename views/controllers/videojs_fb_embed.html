@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title> - SPVideo Embeded Player</title>
+        <script src="{$staticJsUrl}videojs/video.js"></script>
+        <link rel="stylesheet" href="{$staticCssUrl}videojs/video-js.min.css">
+        <style>
+            html,body {
+                margin:0;
+                padding:0;
+                overflow: hidden;
+            }
+            .vjs-fill {
+            	width: 100%;
+            	height: 100%;
+            }
+        </style>
+        <script type="text/javascript">{literal}
+        videojs.options.flash.swf = "{$staticUrl}swf/video-js.swf";
+
+        // Once the video is ready
+        var resizeVideoJS = function() {
+			// Get the parent element's actual width
+			var width = window.innerWidth;
+			var height = window.innerHeight;
+			// Set width to fill parent element, Set height
+			videojs("embedvideo").width(width).height(height);
+			console.log('resizing');
+		};
+
+        function onload(){
+        	var player = videojs("embedvideo",{},function(){
+				resizeVideoJS();
+       		});
+        }
+		{/literal}
+        </script>
+    </head>
+    <body onload="onload()" onresize="resizeVideoJS()">
+        <video id="embedvideo" class="video-js vjs-default-skin vjs-fill"
+            {literal}
+            controls preload="auto"
+            poster="{/literal}{$poster}{literal}">
+            {/literal}
+            {foreach from=$clipSources item="clipSource"}
+            <source src="{$clipSource}" type='video/mp4' />
+            {/foreach}
+            {literal}
+            <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+            {/literal}
+        </video>
+		
+    </body>
+</html>
