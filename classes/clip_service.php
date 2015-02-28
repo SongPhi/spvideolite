@@ -32,6 +32,12 @@ class SPVIDEOLITE_CLASS_ClipService
     }
     
     public function validateClipCode($code, $provider = null) {
+
+        if (SPVIDEOLITE_BOL_Configs::getInstance()->get('tweaks.force_https_compat')) {
+            $code = str_replace("http://", "//", $code);
+            $code = str_replace("https://", "//", $code);
+        }
+
         // alternative way to validate embed code
         $iframeTag = "/<iframe.+?<\/iframe>/is";
         $embedTag = "/<embed.+?<\/embed>/is";

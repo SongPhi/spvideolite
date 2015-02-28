@@ -15,4 +15,16 @@ catch ( Exception $e ){ }
 
 @Updater::getLanguageService()->importPrefixFromZip(SPVIDEOLITE_DIR_ROOT.DS.'langs.zip', 'spvideolite');
 
+// refresh static cache
+$plugin = OW::getPluginManager()->getPlugin('spvideolite');
+$staticDir = OW_DIR_STATIC_PLUGIN . $plugin->getModuleName() . DS;
+$pluginStaticDir = OW_DIR_PLUGIN . $plugin->getModuleName() . DS . 'static' . DS;
+
+if ( file_exists($staticDir) ) {
+	UTIL_File::removeDir($staticDir);
+}
+
+mkdir($staticDir);
+chmod($staticDir, 0777);
+UTIL_File::copyDir($pluginStaticDir, $staticDir );
 

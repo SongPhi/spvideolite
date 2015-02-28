@@ -21,6 +21,7 @@ class SPVIDEOLITE_BOL_Configs
         'tweaks.link_import' => true, 
         'tweaks.forum_bridge' => true, 
         'tweaks.blog_bridge' => true, 
+        'tweaks.force_https_compat' => false,
         'processor' => 'Selfservice'
     );
     
