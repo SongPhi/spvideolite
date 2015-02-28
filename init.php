@@ -47,7 +47,7 @@ try {
     // Initialize helper instance
     SPVIDEOLITE_BOL_Service::getInstance();
     
-    if (!OW::getRequest()->isAjax() && !OW::getRequest()->isPost()) {
+    if ((!OW::getRequest()->isAjax() || isset($_SERVER['HTTP_X_PJAX'])) && !OW::getRequest()->isPost()) {
         
         // Events handling
         $eventHandler = new SPVIDEOLITE_CLASS_EventHandler();
