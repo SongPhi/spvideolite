@@ -7,6 +7,17 @@
 
 @OW::getPluginManager()->addPluginSettingsRouteName('spvideolite', 'spvideolite.admin');
 
+OW::getDbo()->query($sql);
+
+$sql = "SHOW COLUMNS FROM `".OW_DB_PREFIX."video_clip` LIKE 'plugin';";
+$cols = OW::getDbo()->queryForList($sql);
+
+if (!count($cols)) {
+  $sql = "ALTER TABLE `".OW_DB_PREFIX."video_clip` ADD `plugin` VARCHAR(255) NULL DEFAULT 'video' ; ";
+  OW::getDbo()->queryForList($sql);
+}
+
+
 // CREATE TABLE IF NOT EXISTS `ow_spvideo_upl_temp` (
 //   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
 //   `userId` int(10) unsigned DEFAULT NULL,

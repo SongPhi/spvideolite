@@ -2,16 +2,21 @@
 class SPVIDEOLITE_CLASS_ClipService
 {
     private static $classInstance = null;
-    private $originalClassInstance;
+    protected $originalClassInstance;
     
     public static function getInstance() {
         if (!(self::$classInstance instanceof SPVIDEOLITE_CLASS_ClipService)) {
             self::$classInstance = new self();
             $class = new ReflectionClass('VIDEO_BOL_ClipService');
-            $property = $class->getProperty('classInstance');
             
+            $property = $class->getProperty('classInstance');
             $property->setAccessible(true);
             $property->setValue(self::$classInstance);
+            $property->setAccessible(false);
+
+            $property = $class->getProperty('clipDao');
+            $property->setAccessible(true);
+            $property->setValue(self::$classInstance->originalClassInstance,SPVIDEOLITE_BOL_ClipDao::getInstance());
             $property->setAccessible(false);
         }
         
