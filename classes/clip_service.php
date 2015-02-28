@@ -32,6 +32,10 @@ class SPVIDEOLITE_CLASS_ClipService
     }
     
     public function validateClipCode($code, $provider = null) {
+        // replace http/https for solving mixed content warning
+        $code = str_replace("http://", "//", $code);
+        $code = str_replace("https://", "//", $code);
+
         // alternative way to validate embed code
         $iframeTag = "/<iframe.+?<\/iframe>/is";
         $embedTag = "/<embed.+?<\/embed>/is";
@@ -50,6 +54,7 @@ class SPVIDEOLITE_CLASS_ClipService
         if (preg_match_all($videoTag, $code, $matches)) {
             return $matches[0][0];
         }
+
         return '';
     }
     

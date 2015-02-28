@@ -62,6 +62,7 @@ class SPVIDEOLITE_CLASS_EventHandler
         if (OW::getRequest()->isAjax()) return;
         if (!OW::getUser()->isAuthenticated()) return;
         
+        $language = OW::getLanguage();
         $doc = OW::getDocument();
         
         // add scripts
@@ -80,9 +81,12 @@ class SPVIDEOLITE_CLASS_EventHandler
         $spVideoCtrl = new SPVIDEOLITE_CTRL_Add();
         $spVideoCtrl->setTemplate(OW::getPluginManager()->getPlugin('spvideolite')->getCtrlViewDir() . 'add_index.html');
         $spVideoCtrl->setEmbedForm($embedForm);
+
+        $language->addKeyForJs('spvideolite', 'tab_from_link');
+        $language->addKeyForJs('spvideolite', 'tab_embed_code');
         
         $spVideoCtrl->index();
-        
+
         // commit body changes
         $doc->setBody($spVideoCtrl->render());
     }
