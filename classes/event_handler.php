@@ -25,6 +25,9 @@ class SPVIDEOLITE_CLASS_EventHandler
             return false;
 
         self::requireSpvideoJs();
+        $language = OW::getLanguage();
+        $language->addKeyForJs('spvideolite', 'htmlarea_explain');
+        $language->addKeyForJs('spvideolite', 'htmlarea_preview');
 
         OW::getDocument()->addStyleDeclaration(".floatbox_container .floatbox_body textarea[name=code] {display:none}");
 
@@ -47,6 +50,9 @@ class SPVIDEOLITE_CLASS_EventHandler
             return false;
 
         self::requireSpvideoJs();
+        $language = OW::getLanguage();
+        $language->addKeyForJs('spvideolite', 'htmlarea_explain');
+        $language->addKeyForJs('spvideolite', 'htmlarea_preview');
 
         OW::getDocument()->addStyleDeclaration(".floatbox_container .floatbox_body textarea[name=code] {display:none}");
 

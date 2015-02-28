@@ -13,3 +13,6 @@ try
 }
 catch ( Exception $e ){ }
 
+@Updater::getLanguageService()->importPrefixFromZip(SPVIDEOLITE_DIR_ROOT.DS.'langs.zip', 'spvideolite');
+
+

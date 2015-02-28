@@ -182,7 +182,7 @@ var SPVideoClass = function(_baseUrl, _loadingEl, _detailElement) {
                     var origButton = $('.floatbox_container .floatbox_body > div > div').detach();
                     var container = $('.floatbox_container .floatbox_body > div');
                     container.html('');
-                    $('<span>Paste video link or embed code here</span>').appendTo(container);
+                    $('<span>'+OW.getLanguageText('spvideolite', 'htmlarea_explain')+'</span>').appendTo(container);
                     var pasteZone = $('<textarea id="pasteZone" style="width:100%; height:60px"></textarea>');
                     pasteZone.appendTo(container);
                     origCode.css('display', 'none');
@@ -206,7 +206,7 @@ var SPVideoClass = function(_baseUrl, _loadingEl, _detailElement) {
                                     origCode.val(data.code);
                                     preview.width(320);
                                     preview.height(200);
-                                    $('<label class="preview"><b>Preview:</b><br/></label>').appendTo(container);
+                                    $('<label class="preview"><b>'+OW.getLanguageText('spvideolite', 'htmlarea_preview')+'</b><br/></label>').appendTo(container);
                                     preview.appendTo(container);
                                 }, this), "json").fail(jQuery.proxy(function() {}, this));
                             } else {
@@ -216,7 +216,7 @@ var SPVideoClass = function(_baseUrl, _loadingEl, _detailElement) {
                                 origCode.val(data.code);
                                 preview.width(320);
                                 preview.height(200);
-                                $('<label class="preview"><b>Preview:</b><br/></label>').appendTo(container);
+                                $('<label class="preview"><b>'+OW.getLanguageText('spvideolite', 'htmlarea_preview')+'</b><br/></label>').appendTo(container);
                                 preview.appendTo(container);
                             }
                         },this),200);
