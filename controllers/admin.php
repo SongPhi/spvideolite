@@ -21,7 +21,7 @@ class SPVIDEOLITE_CTRL_Admin extends ADMIN_CTRL_Abstract {
 
 	function index() {
     $language = OW::getLanguage();
-    $this->setPageHeading( 'Tweaks' );
+    $this->setPageHeading( $language->text( 'spvideolite', 'adm_menu_tweaks' ) );
 
     OW::getDocument()->addStyleSheet( SPVIDEOLITE_BOL_Service::getCssUrl('toggles-light') );
     OW::getDocument()->addScript( SPVIDEOLITE_BOL_Service::getJsUrl('jquery.toggles.min') );
@@ -131,7 +131,8 @@ class SPVIDEOLITE_CTRL_Admin extends ADMIN_CTRL_Abstract {
 	}
 
 	function help() {
-		$this->setPageHeading( 'Help and Support' );
+    $language = OW::getLanguage();
+		$this->setPageHeading( $language->text( 'spvideolite', 'adm_menu_help' ) );
 	}
 
 	public function categories() {
