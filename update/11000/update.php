@@ -13,7 +13,7 @@ try
 }
 catch ( Exception $e ){ }
 
-@Updater::getLanguageService()->importPrefixFromZip(SPVIDEOLITE_DIR_ROOT.DS.'langs.zip', 'spvideolite');
+@Updater::getLanguageService()->importPrefixFromZip(dirname(dirname(dirname(__FILE__))).DS.'langs.zip', 'spvideolite');
 
 // refresh static cache
 $plugin = OW::getPluginManager()->getPlugin('spvideolite');
