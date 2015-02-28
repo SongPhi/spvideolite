@@ -10,7 +10,19 @@ class SPVIDEOLITE_BOL_Configs
     /**
      * Default configurations
      */
-    public $defaults = array('features.upload_video' => true, 'features.categories' => true, 'features.importers' => true, 'tweaks.desc_show_more' => true, 'tweaks.fix_long_titles' => true, 'tweaks.correct_player_size' => true, 'tweaks.player_enlargable' => true, 'tweaks.link_import' => true, 'processor' => 'Selfservice');
+    public $defaults = array(
+        'features.upload_video' => true, 
+        'features.categories' => true, 
+        'features.importers' => true, 
+        'tweaks.desc_show_more' => true, 
+        'tweaks.fix_long_titles' => true, 
+        'tweaks.correct_player_size' => true, 
+        'tweaks.player_enlargable' => true, 
+        'tweaks.link_import' => true, 
+        'tweaks.forum_bridge' => true, 
+        'tweaks.blog_bridge' => true, 
+        'processor' => 'Selfservice'
+    );
     
     protected static $classInstance = null;
     

@@ -21,6 +21,9 @@ class SPVIDEOLITE_CLASS_EventHandler
             && !SPVIDEOLITE_BOL_Service::isRoute('FORUM_CTRL_EditTopic')
             ) return;
 
+        if (SPVIDEOLITE_BOL_Service::isPluginInstalled('cool_ckeditor'))
+            return false;
+
         self::requireSpvideoJs();
 
         OW::getDocument()->addStyleDeclaration(".floatbox_container .floatbox_body textarea[name=code] {display:none}");
@@ -39,6 +42,9 @@ class SPVIDEOLITE_CLASS_EventHandler
         if (!SPVIDEOLITE_BOL_Service::isRoute('BLOGS_CTRL_Save') 
             && !SPVIDEOLITE_BOL_Service::isRoute('BLOGS_CTRL_Blog')
             ) return;
+
+        if (SPVIDEOLITE_BOL_Service::isPluginInstalled('cool_ckeditor'))
+            return false;
 
         self::requireSpvideoJs();
 

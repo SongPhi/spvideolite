@@ -40,6 +40,14 @@ class SPVIDEOLITE_BOL_Service
     return false;
   }
 
+  public static function isPluginInstalled( $key ) {
+    try {
+      OW::getPluginManager()->getPlugin($key);
+      return true;
+    } catch (Exception $e) {  }
+    return false;
+  }
+
   /**
    *
    */

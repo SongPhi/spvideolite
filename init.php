@@ -64,8 +64,9 @@ try {
         
         if ($spvlConfig->get('tweaks.fix_long_titles')) OW::getEventManager()->bind(OW_EventManager::ON_BEFORE_DOCUMENT_RENDER, array($eventHandler, 'fixLongTitles'));
 
-        OW::getEventManager()->bind(OW_EventManager::ON_BEFORE_DOCUMENT_RENDER, array($eventHandler, 'integrateForum'));
-        OW::getEventManager()->bind(OW_EventManager::ON_BEFORE_DOCUMENT_RENDER, array($eventHandler, 'integrateBlog'));
+        if ($spvlConfig->get('tweaks.forum_bridge')) OW::getEventManager()->bind(OW_EventManager::ON_BEFORE_DOCUMENT_RENDER, array($eventHandler, 'integrateForum'));
+
+        if ($spvlConfig->get('tweaks.blog_bridge'))  OW::getEventManager()->bind(OW_EventManager::ON_BEFORE_DOCUMENT_RENDER, array($eventHandler, 'integrateBlog'));
     }
     
     // adding package pointers for importers
