@@ -7,8 +7,6 @@
 
 @OW::getPluginManager()->addPluginSettingsRouteName('spvideolite', 'spvideolite.admin');
 
-OW::getDbo()->query($sql);
-
 $sql = "SHOW COLUMNS FROM `".OW_DB_PREFIX."video_clip` LIKE 'plugin';";
 $cols = OW::getDbo()->queryForList($sql);
 
