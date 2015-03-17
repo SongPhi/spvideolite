@@ -160,7 +160,7 @@ class SPVIDEOLITE_CLASS_EventHandler
         $language->addKeyForJs('spvideolite', 'btn_larger');
         $language->addKeyForJs('spvideolite', 'btn_smaller');
         
-        $event->add(array('href' => 'javascript:;', 'id' => 'btn-resize-player', 'class' => 'btn-resize-player', 'label' => $language->text('spvideolite', 'btn_larger')));
+        $event->add(array('href' => 'javascript://', 'id' => 'btn-resize-player', 'class' => 'btn-resize-player', 'label' => $language->text('spvideolite', 'btn_larger')));
     }
     
     function initServiceHooking() {

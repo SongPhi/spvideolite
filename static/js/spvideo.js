@@ -94,6 +94,7 @@ var SPVideoClass = function(_baseUrl, _loadingEl, _detailElement) {
         var iframeWidth = parseInt($(iframe).attr("width"));        
         var remains = $('#enlarged-remaining');
         var newHeight = Math.round(iframe.height() * (player.width() / iframeWidth));
+        if (newHeight > 600) newHeight = 600;
         iframe.css("height",newHeight+"px",'important');
         iframe.css("width",player.width()+"px",'important');
     };
