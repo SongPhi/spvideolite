@@ -1,12 +1,12 @@
 SPVIDEO LITE (OXWALL PLUGIN)
 ====
 
-#ABOUT
+##ABOUT
 
 This plugin powers up basic Oxwall video plugin with useful tweaks. This lite version is a stripped down version of SPVIDEO Full which support even more features (upload, user video manager dashboard, categories, etc.).
 
 
-#FEATURES
+##FEATURES
 
 * Import video from link (no more copy and paste embeded code). Currently supports video sites: BlipTV, DailyMotion, GoogleVideo, MetaCafe, Vimeo, Youtube.
 * Show more/less video description (Youtube idea).
@@ -15,13 +15,11 @@ This plugin powers up basic Oxwall video plugin with useful tweaks. This lite ve
 * Fix long video title that make the listing ugly.
 
 
-#FEATURE REQUEST & BUG REPORT
+##FEATURE REQUEST & BUG REPORT
 
 Visit our Issues Tracking page [https://code.songphi.org/projects/spvideolite/issues]. Registering an account is required for creating issues. 
 
-#INSTALLATION
-
-
+##INSTALLATION
 
 ```Bash
 cd path/to/ow_plugins
