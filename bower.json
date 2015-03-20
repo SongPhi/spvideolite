@@ -27,6 +27,8 @@
     "tests"
   ],
   "dependencies": {
-    "videojs": "~4.12.5"
+    "videojs": "~4.12.5",
+    "js-base64": "~2.1.7",
+    "jquery-toggles": "~3.1.5"
   }
 }

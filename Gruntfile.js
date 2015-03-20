@@ -13,11 +13,11 @@ module.exports = function(grunt) {
           {expand: true, cwd: 'bower_components/videojs/dist/video-js/', src: ['font/*'], dest: 'static/css/videojs/'},
         ]
       }          
-    }         
+    }
   });
 
-  // Load the plugin that provides the "uglify" task.
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-clean');
   
   // Default task(s).
   grunt.registerTask('default', ['copy']);
