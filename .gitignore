@@ -1,2 +1,6 @@
 *Thumbs.db
 *.sublime-*
+bower_components/*
+static/css/videojs/*
+static/js/videojs/*
+node_modules/*

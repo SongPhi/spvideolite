@@ -1,0 +1,32 @@
+{
+  "name": "spvideolite",
+  "version": "1.1.2",
+  "authors": [
+    "Thao Le <thaolt@songphi.com>"
+  ],
+  "description": "Oxwall plugin :: Give more power and flexibilities to original Video plugin from Oxwall Software",
+  "main": "plugin.xml",
+  "keywords": [
+    "oxwall",
+    "video",
+    "plugin",
+    "spvideo",
+    "spvideolite",
+    "clip",
+    "link",
+    "import"
+  ],
+  "license": "Apache 2.0",
+  "homepage": "https://github.com/SongPhi/spvideolite",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "videojs": "~4.12.5"
+  }
+}
