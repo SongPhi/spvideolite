@@ -6,3 +6,4 @@ static/js/videojs/*
 node_modules/*
 static/css/vendor/*
 static/js/vendor/*
+static/swf/vendor/*

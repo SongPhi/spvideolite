@@ -3,8 +3,8 @@
     <head>
         <meta charset="UTF-8">
         <title> - SPVideo Embeded Player</title>
-        <link rel="stylesheet" href="{$staticCssUrl}videojs/video-js.min.css">
-        <link rel="stylesheet" href="{$staticCssUrl}videojs/videojs-sublime-skin.min.css">
+        <link rel="stylesheet" href="{$staticCssUrl}vendor/videojs/video-js.min.css">
+        <link rel="stylesheet" href="{$staticCssUrl}vendor/videojs/videojs-sublime-skin.min.css">
         <style type="text/css">
             #embedvideo {
                 display: none;
@@ -117,7 +117,7 @@
                 }
             </style>
         </noscript>
-		<script src="{$staticJsUrl}videojs/video.js"></script>
+		<script src="{$staticJsUrl}vendor/videojs/video.js"></script>
         
         <style>
             html,body {
@@ -132,7 +132,7 @@
         </style>
         <script type="text/javascript">{literal}
         var initialized = false;
-        videojs.options.flash.swf = "{$staticUrl}swf/video-js.swf";
+        videojs.options.flash.swf = "{$staticUrl}swf/vendor/videojs/video-js.swf";
 
         // Once the video is ready
         var resizeVideoJS = function() {
