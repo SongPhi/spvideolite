@@ -1,0 +1,34 @@
+{
+  "name": "spvideolite",
+  "version": "1.1.2",
+  "description": "Oxwall plugin :: give more power and flexibilities to basic video plugin from Oxwall Software Foundation",
+  "main": "plugin.xml",
+  "dependencies": {
+    "grunt-contrib-copy": "^0.8.0",
+    "grunt": "^0.4.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@vcs.songphi.org/spvideolite.git"
+  },
+  "keywords": [
+    "oxwall",
+    "plugin",
+    "video",
+    "spvideo",
+    "spvideolite",
+    "lite",
+    "import",
+    "clip",
+    "link",
+    "without",
+    "embed",
+    "code"
+  ],
+  "author": "SongPhi",
+  "license": "Apache 2.0"
+}
