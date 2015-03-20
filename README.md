@@ -28,7 +28,7 @@ npm install -g bower grunt-cli
 cd path/to/ow_plugins
 git clone git@github.com:SongPhi/spvideolite.git
 cd spvideolite
-npm install --dev
+npm install
 bower install
 grunt
 ```
