@@ -4,3 +4,5 @@ bower_components/*
 static/css/videojs/*
 static/js/videojs/*
 node_modules/*
+static/css/vendor/*
+static/js/vendor/*
