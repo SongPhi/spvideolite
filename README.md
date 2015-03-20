@@ -22,6 +22,9 @@ Visit our Issues Tracking page [https://code.songphi.org/projects/spvideolite/is
 ##INSTALLATION
 
 ```Bash
+# optional if you have not installed "bower" and "grunt-cli" already
+npm install -g bower grunt-cli
+
 cd path/to/ow_plugins
 git clone git@github.com:SongPhi/spvideolite.git
 cd spvideolite
