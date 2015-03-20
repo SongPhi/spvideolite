@@ -8,7 +8,7 @@ This plugin powers up basic Oxwall video plugin with useful tweaks. This lite ve
 
 ##FEATURES
 
-* Import video from link (no more copy and paste embeded code). Currently supports video sites: BlipTV, DailyMotion, GoogleVideo, MetaCafe, Vimeo, Youtube.
+* Import video from link (no more copy and paste embeded code). See list of supported sites below.
 * Show more/less video description (Youtube idea).
 * Resize video player larger and restore (Youtube idea).
 * Correct default video player size to fit the container.
@@ -32,3 +32,13 @@ npm install
 bower install
 grunt
 ```
+
+##SUPPORTED SITES
+* BlipTV
+* DailyMotion
+* GoogleVideo
+* MetaCafe
+* Vimeo
+* Youtube
+* Facebook
+* Vk
