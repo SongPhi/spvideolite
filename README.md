@@ -42,3 +42,4 @@ grunt
 * Youtube
 * Facebook
 * Vk
+* Allmyvideos.net
