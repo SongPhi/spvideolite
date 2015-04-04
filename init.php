@@ -36,23 +36,25 @@ OW::getRouter()->addRoute(new OW_Route('spvideolite.admin_help', 'admin/plugins/
 
 OW::getRouter()->addRoute(new OW_Route('spvideolite.admin_saveconfig', 'admin/plugins/spvideolite/saveconfig', 'SPVIDEOLITE_CTRL_Admin', 'saveconfig'));
 
-OW::getRouter()->addRoute(new OW_Route('spvideolite.base', 'spvideolite', 'SPVIDEOLITE_CTRL_Spvideo', 'index'));
+OW::getRouter()->addRoute(new OW_Route('spvideolite.ajax_get_clip', 'spvideo/ajax_get_clip', 'SPVIDEOLITE_CTRL_Spvideo', 'ajaxGetClip'));
 
-OW::getRouter()->addRoute(new OW_Route('spvideolite.ajax_get_clip', 'spvideolite/ajax_get_clip', 'SPVIDEOLITE_CTRL_Spvideo', 'ajaxGetClip'));
+OW::getRouter()->addRoute(new OW_Route('spvideolite.base', 'spvideo', 'SPVIDEOLITE_CTRL_Spvideo', 'index'));
 
-OW::getRouter()->addRoute(new OW_Route('spvideolite.my_video', 'spvideolite/my', 'SPVIDEOLITE_CTRL_Spvideo', 'myVideo'));
+OW::getRouter()->addRoute(new OW_Route('spvideolite.my_video', 'spvideo/my', 'SPVIDEOLITE_CTRL_Spvideo', 'myVideo'));
 
-OW::getRouter()->addRoute(new OW_Route('spvideolite.embed', 'spvideolite/embed/:videoId', 'SPVIDEOLITE_CTRL_Spvideo', 'embed'));
+OW::getRouter()->addRoute(new OW_Route('spvideolite.embed', 'spvideo/embed/:videoId', 'SPVIDEOLITE_CTRL_Spvideo', 'embed'));
 
-OW::getRouter()->addRoute(new OW_Route('spvideolite.videojs.fbembed', 'spvideolite/fbembed/:videoId', 'SPVIDEOLITE_CTRL_Videojs', 'fbEmbed'));
+OW::getRouter()->addRoute(new OW_Route('spvideolite.videojs.fbembed', 'spvideo/fbembed/:videoId', 'SPVIDEOLITE_CTRL_Videojs', 'fbEmbed'));
+// compatible with older version
+OW::getRouter()->addRoute(new OW_Route('spvideolite.videojs.old_fbembed', 'spvideolite/fbembed/:videoId', 'SPVIDEOLITE_CTRL_Videojs', 'fbEmbed'));
 
-OW::getRouter()->addRoute(new OW_Route('spvideolite.import', 'spvideolite/import', 'SPVIDEOLITE_CTRL_Spvideo', 'import'));
+OW::getRouter()->addRoute(new OW_Route('spvideolite.import', 'spvideo/import', 'SPVIDEOLITE_CTRL_Spvideo', 'import'));
 
-OW::getRouter()->addRoute(new OW_Route('spvideolite.proxy', 'spvideolite/proxy/:module/:func', 'SPVIDEOLITE_CTRL_Spvideo', 'proxy', array('module', 'func', 'args' => '')));
+OW::getRouter()->addRoute(new OW_Route('spvideolite.proxy', 'spvideo/proxy/:module/:func', 'SPVIDEOLITE_CTRL_Spvideo', 'proxy', array('module', 'func', 'args' => '')));
 
-OW::getRouter()->addRoute(new OW_Route('spvideolite.proxy_args', 'spvideolite/proxy/:module/:func/:args', 'SPVIDEOLITE_CTRL_Spvideo', 'proxy', array('module', 'func', 'args')));
+OW::getRouter()->addRoute(new OW_Route('spvideolite.proxy_args', 'spvideo/proxy/:module/:func/:args', 'SPVIDEOLITE_CTRL_Spvideo', 'proxy', array('module', 'func', 'args')));
 
-OW::getRouter()->addRoute(new OW_Route('spvideolite.categories', 'spvideolite/categories', 'SPVIDEOLITE_CTRL_Spvideo', 'categories'));
+OW::getRouter()->addRoute(new OW_Route('spvideolite.categories', 'spvideo/categories', 'SPVIDEOLITE_CTRL_Spvideo', 'categories'));
 
 try {
     
