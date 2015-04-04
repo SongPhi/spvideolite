@@ -45,10 +45,9 @@ class SPVIDEOLITE_CTRL_Admin extends ADMIN_CTRL_Abstract {
     OW::getDocument()->addOnloadScript("
       $('.tweaksForm input[type=checkbox]').each(function(index,obj){
         var togglerId = $(obj).attr('id')+'_toggler';
-        $(obj).parent().append('<div class=\"toggle-light\" id=\"'+togglerId+'\"></div>');
+        $(obj).parent().append('<div class=\"toggle-light\" id=\"'+togglerId+'\" style=\"width:55px\"></div>');
         $('#'+togglerId).toggles({
           drag: true,
-          width: 55,
           text: {
             on: '".$language->text( 'spvideolite', 'chk_on' )."',
             off: '".$language->text( 'spvideolite', 'chk_off' )."'
@@ -72,6 +71,7 @@ class SPVIDEOLITE_CTRL_Admin extends ADMIN_CTRL_Abstract {
             'text'
           );
         });
+
       });
     ");
     $tweaks = SPVIDEOLITE_BOL_Configs::getInstance()->searchKey('#^tweaks\..+?$#im');
