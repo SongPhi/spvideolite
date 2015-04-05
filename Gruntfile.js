@@ -13,6 +13,9 @@ module.exports = function(grunt) {
           {expand: true, cwd: 'bower_components/videojs/dist/video-js/', src: ['*.css'], dest: 'static/css/vendor/videojs/'},
           {expand: true, cwd: 'bower_components/videojs/dist/video-js/', src: ['font/*'], dest: 'static/css/vendor/videojs/'},
           {expand: true, cwd: 'bower_components/videojs/dist/video-js/', src: ['*.swf'], dest: 'static/swf/vendor/videojs/'},
+          // blueimp-file-upload
+          {expand: true, cwd: 'bower_components/blueimp-file-upload/js/', src: ['**'], dest: 'static/js/vendor/blueimp-file-upload/'},
+          
           // jquery easing
           {expand: true, cwd: 'bower_components/jquery.easing/js/', src: ['*.min.js'], dest: 'static/js/vendor/'},
           // js base64 encoder

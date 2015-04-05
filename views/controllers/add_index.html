@@ -1,7 +1,8 @@
 <div class="ow_superwide ow_automargin">
 	<ul id="videoTypeNav" class="ow_content_menu clearfix">
-		<li class="active"><a id="vidLink" href="#"><span class="ow_ic_link">{text key='spvideolite+tab_from_link'}</span></a></li>
-		<li class=""><a id="vidEmbed" href="#"><span class="ow_ic_script">{text key='spvideolite+tab_embed_code'}</span></a></li>
+		<li class="active"><a id="vidLink" href="javascript://"><span class="ow_ic_link">{text key='spvideolite+tab_from_link'}</span></a></li>
+		<li class=""><a id="vidUpload" href="javascript://"><span class="ow_ic_script">{text key='spvideolite+tab_upload'}</span></a></li>
+		<li class=""><a id="vidEmbed" href="javascript://"><span class="ow_ic_script">{text key='spvideolite+tab_embed_code'}</span></a></li>
 	</ul>
 </div>
 
@@ -9,7 +10,7 @@
 
 	<div id="formsWrapper">
 	<ul>
-		<li>
+		<li id="tab-link-import" style="display:none">
 			<table class="ow_table_1 ow_form">
 			    <tbody>
 			    	<tr class="ow_alt2 ow_tr_first">
@@ -25,9 +26,15 @@
 				&nbsp;
 			</div>
 		</li>
-		<li>
+		{if isset($uploadFormTpl)}
+		<li id="tab-upload" style="display:none">
+			{include file=$uploadFormTpl}
+		</li>
+		{/if}
+		<li id="tab-embed" style="visibility:hidden">
 			{$embedForm}
-		</li>			
+		</li>
+
 	</ul>
 	</div>
 
@@ -50,34 +57,34 @@ $(function (){
 
 function ClearClasses(){
 	$("#videoTypeNav li").removeClass();
+	$("#formsWrapper > ul > li").css('display','none');
 }
 
 $(function (){
-	$("#formsWrapper li").css('width',$("#formsWrapper li .ow_table_1").first().width()-1+'px');
-	$("#formsWrapper li").css('float','left');
-	$("#formsWrapper li").css('display','inline-block');
-	$("#formsWrapper li").css('margin-right','10px');
-	$('#formsWrapper ul').css('position','relative');
-	$('#formsWrapper ul').css('left','0');
-	$('#formsWrapper ul').css('width','3000px');
-
+	$('#formsWrapper').css('min-height',$('#tab-embed').outerHeight() + 240 + 'px');
+	$('#tab-embed').hide();
+	$('#tab-embed').css('visibility','visible');
+	$("#tab-link-import").show();
 	$("#videoTypeNav a").click(function(e){
 		e.preventDefault();
 		//check which tab has been clicked
 		var getID = $(this).attr('id');
 		if(getID == "vidLink"){
-			$("#formsWrapper ul").animate({left: "0px"}, { duration: 350, easing: 'easeInOutCirc' });
 			ClearClasses();
 			$(this).parent("li").addClass("active");
+			$('#tab-link-import').show();
+		} else if(getID == "vidUpload"){
+			ClearClasses();
+			$(this).parent("li").addClass("active");
+			$('#tab-upload').show();
 		} else if(getID == "vidEmbed"){
-			$("#formsWrapper ul").animate({left: "-" + (($("#formsWrapper li .ow_table_1").first().width()+10)) + "px"}, { duration: 350, easing: 'easeInOutCirc' });
 			ClearClasses();
 			$(this).parent("li").addClass("active");
+			$('#tab-embed').show();
 		}
+
 	});
-
 });
-
 
 </script>
 {/literal}

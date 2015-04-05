@@ -97,12 +97,20 @@ class SPVIDEOLITE_CTRL_Admin extends ADMIN_CTRL_Abstract {
 		$menuItems[] = $item;
 
 		$item = new BASE_MenuItem();
-		$item->setLabel( $language->text( 'spvideolite', 'adm_menu_help' ) );
-		$item->setUrl( OW::getRouter()->urlForRoute( 'spvideolite.admin_help' ) );
+		$item->setLabel( $language->text( 'spvideolite', 'adm_menu_upload' ) );
+		$item->setUrl( OW::getRouter()->urlForRoute( 'spvideolite.admin_upload' ) );
 		$item->setKey( 'help' );
-		$item->setIconClass( 'ow_ic_help' );
+		$item->setIconClass( 'ow_ic_attach' );
 		$item->setOrder( 1 );
 		$menuItems[] = $item;
+
+    $item = new BASE_MenuItem();
+    $item->setLabel( $language->text( 'spvideolite', 'adm_menu_help' ) );
+    $item->setUrl( OW::getRouter()->urlForRoute( 'spvideolite.admin_help' ) );
+    $item->setKey( 'help' );
+    $item->setIconClass( 'ow_ic_help' );
+    $item->setOrder( 2 );
+    $menuItems[] = $item;
 
 		$menu->setMenuItems( $menuItems );
 		$menu->deactivateElements();
@@ -110,40 +118,13 @@ class SPVIDEOLITE_CTRL_Admin extends ADMIN_CTRL_Abstract {
 		return $menu;
 	}
 
-	function quota() {
-		// $userService = BOL_UserService::getInstance();
-
-        $roleService = BOL_AuthorizationService::getInstance();
-
-        $roles = $roleService->findNonGuestRoleList();
-
-        $total = 0;
-
-        foreach ( $roles as $role )
-        {
-            $userCount = $roleService->countUserByRoleId($role->getId());
-
-            $list[$role->getId()] = array(
-                'dto' => $role,
-                'userCount' => $userCount,
-            );
-
-            $total += $userCount;
-        }
-
-        $this->assign('set', $list);
-
-        // $this->assign('roles',$roles);
-
-        $this->setPageHeading( 'Quota' );
-	}
+  function upload() {
+    $language = OW::getLanguage();
+    $this->setPageHeading( $language->text( 'spvideolite', 'adm_menu_upload' ) );
+  }
 
 	function processor() {
 		$this->setPageHeading( 'Processor' );
-	}
-
-	function tweaks() {
-		
 	}
 
 	function help() {

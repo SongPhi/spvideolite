@@ -21,7 +21,7 @@
 class SPVIDEOLITE_BOL_Service
 {
   const PLUGIN_NAME = 'spvideolite';
-  const PLUGIN_VER = 'v1.1.2';
+  const PLUGIN_VER = 'v2.0.0';
   protected static $classInstance = null;
   protected static $processors = null;
 
@@ -79,6 +79,42 @@ class SPVIDEOLITE_BOL_Service
     }
 
     return false;
+  }
+
+  /**
+   * ============= PROCESSORS FUNCTIONS =============
+   */
+
+  public static function registerProcessor($name) {
+    if (null == self::$processors) {
+      self::$processors = array();
+    }
+
+    self::$processors[$name] = array(
+      'className' => ('SPVIDEOLITE_PRO_'.$name),
+      'instance' => null
+    );
+
+    // require_once SPVIDEOLITE_DIR_PROCESSORS . DS . $name . DS . 'routes.php';
+  }
+
+  public static function getProcessorInstance($name) {
+    if (is_array(self::$processors[$name])) {
+      $className = 'SPVIDEOLITE_PRO_'.$name;
+      if (empty(self::$processors[$name]['instance'])) {
+        self::$processors[$name]['instance'] = $className::getInstance($className);
+      }
+      $processorInstance = self::$processors[$name]['instance'];
+      return $processorInstance;
+    } else {
+      throw new Exception("Error Processing Request", 1);
+    }
+  }
+
+  public static function callProcessorFunction($name,$function,&$controller) {
+    $processorInstance = self::getProcessorInstance($name);
+    $processorInstance->setController($controller);
+    return $processorInstance->$function();
   }
 
 }

@@ -1,0 +1,167 @@
+<form id="fileupload" action="{$uploadDest}" method="POST" enctype="multipart/form-data">
+  <input type="file" style="display:none" name="videoClip" id="videoClip" />
+</form>
+
+<table class="ow_table_1 ow_form">
+  <tbody>
+    <tr class="ow_alt2 ow_tr_first">
+      <td class="ow_value">
+        <input type="text" id="spvideo_media_filename" placeholder="Pick video file from your computer" disabled />
+        <br><span id="" style="display:none;" class="error"></span>
+      </td>
+      <td style="width:1%">
+        <span class="ow_button">
+          <span class="ow_positive">
+            <input value="Browse" id="spvideo_btn_browse" name="browse" type="button" class="ow_ic_folder">
+          </span>
+        </span>
+      </td>
+    </tr>
+    <tr id="panel-upload-btn">
+      <td>
+        <div id="spvideo_upload_progress" class="progress-bar blue stripes">
+          <span>Starting...</span>
+        </div>
+        <div id="validation_message"></div>
+      </td>
+      <td style="width:1%;height:1%">
+        <span class="ow_button" style="display:none" id="upload_btn_container">
+          <span class="ow_positive">
+            <input value="Upload" id="spvideo_btn_upload" name="upload" type="button" />
+          </span>
+        </span>
+        <span class="ow_button" style="display:none" id="cancel_btn_container">
+          <span class="ow_positive">
+            <input value="Cancel" id="spvideo_btn_cancel" name="upload" type="button" class="ow_ic_delete" />
+          </span>
+        </span>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div id="videoInfoPanel">
+  <p class="ow_smallmargin">While waiting, feel free to enter your video clip's information. It will be saved automatically.</p>
+
+  {form name='AllmyvideosVideoInfoForm'}
+  <table class="ow_table_1 ow_form">
+    <tr class="ow_alt1">
+          <td class="ow_label">{label name='title'}</td>
+          <td class="ow_value">{input name='title'} <br /> {error name='title'}</td>
+      </tr>
+      <tr class="ow_alt2">
+          <td class="ow_label">{label name='description'}</td>
+          <td class="ow_value">{input name='description'} <br /> {error name='description'}</td>
+      </tr>
+      <tr class="ow_alt1 ow_tr_last">
+          <td class="ow_label">{label name='tags'}</td>
+          <td class="ow_value">{input name='tags'}</td>
+      </tr>
+  </table>
+  {/form}
+</div>
+
+<script>
+{literal}
+function showValidationMessage(message) {
+  $('#validation_message').html(message);
+
+  if (message.length>0) {
+    $('#upload_btn_container').hide();
+  } else {
+    $('#upload_btn_container').show();
+  }
+}
+
+function clearValidationMessage() {
+  showValidationMessage('');
+}
+
+function changeProgressMessage(message) {
+  $('#spvideo_upload_progress > span').html(message);
+}
+
+function showProgressBar() {
+  $('#spvideo_upload_progress').show();
+}
+
+function hideProgressBar() {
+  $('#spvideo_upload_progress').hide();
+}
+
+$(document).ready(function () {
+  $('form[name=AllmyvideosVideoInfoForm] input[name=protocol]').val(
+    document.location.href.split('://')[0] + '://'
+  );
+  $('#panel-upload-btn').hide();
+  $('#videoInfoPanel').hide();
+  hideProgressBar();
+  $('#videoClip').on('change',function(){
+    $('#spvideo_media_filename').val($('#videoClip').val());
+  });
+  $('#spvideo_btn_browse').click(function(){
+    $('#videoClip').click();
+  });
+  $('#fileupload').fileupload({
+    url: '{/literal}{$uploadDest}{literal}',
+    autoUpload: false,
+    maxFileSize: 500000000,
+    acceptFileTypes: /(\.|\/)(mp4|m4v|flv|f4v|ogv|webm)$/i,    
+    progressall: function (e, data) {
+      var progress = parseInt(data.loaded / data.total * 100, 10);
+      $('#spvideo_upload_progress > span').css(
+        'width',
+        progress + '%'
+      );
+      changeProgressMessage('Uploading ('+progress+'%)')
+    },
+    add: function (e, data) {
+      $('#spvideo_btn_upload').unbind('click');
+      $('#panel-upload-btn').show();
+      hideProgressBar();
+      var options = $(this).fileupload('option');
+      if (!options.acceptFileTypes.test(data.files[0].name)) {
+        showValidationMessage('Invalid file type.');
+        return;
+      }
+      if (data.files[0].size > options.maxFileSize) {
+        showValidationMessage('File size exceed the limit.');
+        return;
+      }
+      clearValidationMessage();
+      $('#spvideo_btn_upload').click(function() {
+        data.formData = {
+          token: '{/literal}{$token}{literal}'
+        }
+        var jqXHR = data.submit();
+        $('#spvideo_btn_cancel').click(function(){
+          jqXHR.abort();
+          changeProgressMessage('Aborting..');
+          window.location.reload(false);
+        });
+        $('#spvideo_btn_browse').parent().parent().parent().remove();
+        $('#spvideo_media_filename').parent().attr('colspan','2');
+      });
+    },
+    done: function (e, data) {
+      $('#spvideo_btn_cancel').parent().parent().parent().remove();
+      $('#spvideo_upload_progress').parent().attr('colspan','2');      
+      changeProgressMessage('Upload finished. Please wait..');
+      $('form[name=AllmyvideosVideoInfoForm] input[name=filename]').val(data.files[0].name);
+      $('form[name=AllmyvideosVideoInfoForm]').submit();
+    },
+    submit: function(e,data) {
+      showProgressBar();
+      $('#upload_btn_container').hide();
+      $('#cancel_btn_container').show();
+      $("#videoTypeNav a").unbind('click').click(function(e){
+        e.preventDefault();
+      });
+      $('#videoInfoPanel').show();
+    }
+  });
+  
+  
+});
+{/literal}
+</script>

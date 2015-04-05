@@ -35,7 +35,7 @@ class SPVIDEOLITE_BOL_Configs
         'tweaks.forum_bridge' => true, 
         'tweaks.blog_bridge' => true, 
         'tweaks.force_https_compat' => false,
-        'processor' => 'Selfservice'
+        'processor' => 'Allmyvideos'
     );
     
     protected static $classInstance = null;

@@ -16,6 +16,7 @@
  */
 
 define('SPVIDEOLITE_DIR_ROOT', dirname(__FILE__));
+define('SPVIDEOLITE_DIR_PROCESSORS',SPVIDEOLITE_DIR_ROOT.DS.'processors');
 define('SPVIDEOLITE_DIR_IMPORTERS', SPVIDEOLITE_DIR_ROOT . DS . 'importers');
 define('SPVIDEOLITE_DIR_USERFILES', OW::getPluginManager()->getPlugin('spvideolite')->getUserFilesDir());
 define('SPVIDEOLITE_DIR_PLUGINFILES', OW::getPluginManager()->getPlugin('spvideolite')->getPluginFilesDir());
@@ -24,13 +25,9 @@ $spvlConfig = SPVIDEOLITE_BOL_Configs::getInstance();
 // Routers declaration
 OW::getRouter()->addRoute(new OW_Route('spvideolite.admin', 'admin/plugins/spvideolite', 'SPVIDEOLITE_CTRL_Admin', 'index'));
 
-OW::getRouter()->addRoute(new OW_Route('spvideolite.admin_quota', 'admin/plugins/spvideolite/quota', 'SPVIDEOLITE_CTRL_Admin', 'quota'));
+OW::getRouter()->addRoute(new OW_Route('spvideolite.admin_upload', 'admin/plugins/spvideolite/upload', 'SPVIDEOLITE_CTRL_Admin', 'upload'));
 
 OW::getRouter()->addRoute(new OW_Route('spvideolite.admin_processor', 'admin/plugins/spvideolite/processor', 'SPVIDEOLITE_CTRL_Admin', 'processor'));
-
-OW::getRouter()->addRoute(new OW_Route('spvideolite.admin_categories', 'admin/plugins/spvideolite/categories', 'SPVIDEOLITE_CTRL_Admin', 'categories'));
-
-OW::getRouter()->addRoute(new OW_Route('spvideolite.admin_tweaks', 'admin/plugins/spvideolite/tweaks', 'SPVIDEOLITE_CTRL_Admin', 'tweaks'));
 
 OW::getRouter()->addRoute(new OW_Route('spvideolite.admin_help', 'admin/plugins/spvideolite/help', 'SPVIDEOLITE_CTRL_Admin', 'help'));
 
@@ -53,8 +50,6 @@ OW::getRouter()->addRoute(new OW_Route('spvideolite.import', 'spvideo/import', '
 OW::getRouter()->addRoute(new OW_Route('spvideolite.proxy', 'spvideo/proxy/:module/:func', 'SPVIDEOLITE_CTRL_Spvideo', 'proxy', array('module', 'func', 'args' => '')));
 
 OW::getRouter()->addRoute(new OW_Route('spvideolite.proxy_args', 'spvideo/proxy/:module/:func/:args', 'SPVIDEOLITE_CTRL_Spvideo', 'proxy', array('module', 'func', 'args')));
-
-OW::getRouter()->addRoute(new OW_Route('spvideolite.categories', 'spvideo/categories', 'SPVIDEOLITE_CTRL_Spvideo', 'categories'));
 
 try {
     
@@ -88,6 +83,12 @@ try {
     
     // adding package pointers for importers
     OW::getAutoloader()->addPackagePointer('SPVIDEOLITE_IMP', SPVIDEOLITE_DIR_IMPORTERS);
+
+    // adding package pointers for processors
+    OW::getAutoloader()->addPackagePointer('SPVIDEOLITE_PRO', SPVIDEOLITE_DIR_PROCESSORS);
+
+    // registering processors
+    SPVIDEOLITE_BOL_Service::registerProcessor('Allmyvideos');
 } catch(Exception $err) {
     
     // failed to detect base video plugin
