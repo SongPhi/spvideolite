@@ -64,7 +64,11 @@ class SPVIDEOLITE_PRO_Allmyvideos extends SPVIDEOLITE_CLASS_AbstractProcessor
 
     if (isset($token[1][0])) $token = $token[1][0];
 
-    $this->ctrl->set('token', $token);
+    $this->ctrl->assign('staticUrl',OW::getPluginManager()->getPlugin( 'spvideolite' )->getStaticUrl());
+    $this->ctrl->assign('staticJsUrl',OW::getPluginManager()->getPlugin( 'spvideolite' )->getStaticJsUrl());
+    $this->ctrl->assign('staticCssUrl',OW::getPluginManager()->getPlugin( 'spvideolite' )->getStaticCssUrl());
+
+    $this->ctrl->assign('token', $token);
     echo $this->ctrl->render(); die();
   }
 

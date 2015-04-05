@@ -3,8 +3,39 @@
 <head>
 	<meta charset="UTF-8">
 	<title></title>
+	<script src="{$staticJsUrl}vendor/jquery/jquery.min.js"></script>
+	<style>
+		html,body {
+            background-color: #666666;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            color: #EEEEEE;
+        }
+	</style>
 </head>
 <body>
-	pending
+	<p>Your video clip is being processed, please wait..</p>
+	<p id="statusmsg"></p>
+	
+	<script>
+		$(function(){
+			var checkStatus = function() {
+				$.get('http://spvideo.songphi.com/helpers/amv/check.php',
+					{
+						t:"{$token}",
+						u:Math.random()*10000
+					},
+					function(data) {
+						$('#statusmsg').html(data.state + ' : '+data.progress);
+						if (data.state == 'ready') {
+							document.location.href = data.embed_link;
+						}
+					}
+				);
+			};
+			setInterval(checkStatus, 1000);
+		});
+	</script>
 </body>
 </html>
