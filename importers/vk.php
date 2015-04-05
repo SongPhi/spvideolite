@@ -18,7 +18,7 @@
 
 class SPVIDEOLITE_IMP_Vk implements SPVIDEOLITE_CLASS_IImporter
 {
-	private static $regexp = '#vk\.com.*/video(\d+_\d+)#i';
+	private static $regexp = '#vk\.com.*/video(\-?\d+_\d+)#i';
 	private static $regexpIdIndex = 1;
 	private static $embedTemplate = '<iframe src="//vk.com/video_ext.php?oid={ownerId}&id={videoId}&hash={hash}&hd=1" width="640" height="360"  frameborder="0"></iframe>';
 
