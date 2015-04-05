@@ -9,11 +9,15 @@ class SPVIDEOLITE_PRO_ALLMYVIDEOS_CLASS_Processing
 
     $url =  $baseUrl.'ow_userfiles/plugins/spvideolite/allmyvideos/'.($token).'/'.($filename);
     $srvUrl = 'http://spvideo.songphi.com/helpers/amv/new.php?t='.$token.'&f='.base64_encode($url);
-    $parts = parse_url($srvUrl);
-
-    $fp = fsockopen($parts['host'], $port, $errno, $errstr, 30);
-
-    if ($fp) fclose($fp);
+	$ch = curl_init();
+ 
+	curl_setopt($ch, CURLOPT_URL, $srvUrl);
+	curl_setopt($ch, CURLOPT_FRESH_CONNECT, true);
+	curl_setopt($ch, CURLOPT_TIMEOUT, 1);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 0);
+	 
+	curl_exec($ch);
+	curl_close($ch);
   }
   
 }
