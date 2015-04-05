@@ -105,8 +105,8 @@ $(document).ready(function () {
   $('#fileupload').fileupload({
     url: '{/literal}{$uploadDest}{literal}',
     autoUpload: false,
-    maxFileSize: 500000000,
-    acceptFileTypes: /(\.|\/)(mp4|m4v|flv|f4v|ogv|webm)$/i,    
+    maxFileSize: 100000000,
+    acceptFileTypes: /(\.|\/)(mp4|m4v|flv|f4v|ogv|ogg|webm|avi|mkv|mov)$/i,    
     progressall: function (e, data) {
       var progress = parseInt(data.loaded / data.total * 100, 10);
       $('#spvideo_upload_progress > span').css(

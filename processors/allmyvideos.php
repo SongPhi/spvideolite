@@ -47,7 +47,7 @@ class SPVIDEOLITE_PRO_Allmyvideos extends SPVIDEOLITE_CLASS_AbstractProcessor
         'upload_dir' => $uploadPath,
         'accept_file_types' => '/\.(mp4|m4v|flv|f4v|ogv|ogg|webm|avi|mkv|mov)$/i',
         'param_name' => 'videoClip',
-        'max_file_size' => '2000000'
+        'max_file_size' => '100000000'
     ));
   }
 
