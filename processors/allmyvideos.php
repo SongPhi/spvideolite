@@ -41,7 +41,7 @@ class SPVIDEOLITE_PRO_Allmyvideos extends SPVIDEOLITE_CLASS_AbstractProcessor
     if (!isset($_POST['token'])) 
       throw new Exception("Upload file limit exceed!");
       
-    $uploadPath = SPVIDEOLITE_DIR_USERFILES . DS . 'allmyvideos' . DS . $_POST['token'] . DS;
+    $uploadPath = SPVIDEOLITE_DIR_USERFILES . DS . 'allmyvideos' . DS . $_POST['token'];
     @mkdir($uploadPath, 0777);
     $upload_handler = new SPVIDEOLITE_PRO_ALLMYVIDEOS_CLASS_UploadHandler(array(
         'upload_dir' => $uploadPath,

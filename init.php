@@ -14,7 +14,7 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-
+if (!defined('DS')) define('DS',DIRECTORY_SEPARATOR);
 define('SPVIDEOLITE_DIR_ROOT', dirname(__FILE__));
 define('SPVIDEOLITE_DIR_PROCESSORS',SPVIDEOLITE_DIR_ROOT.DS.'processors');
 define('SPVIDEOLITE_DIR_IMPORTERS', SPVIDEOLITE_DIR_ROOT . DS . 'importers');
