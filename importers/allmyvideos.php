@@ -101,9 +101,24 @@ class SPVIDEOLITE_IMP_Allmyvideos implements SPVIDEOLITE_CLASS_IImporter
 		
 		# Thumbnails
 		$thumbnail = new stdClass;
-		$thumbnail->url = $json['image'];
 		$thumbnail->width = 320;
 		$thumbnail->height = 240;
+		# Download the thumbnail
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, $json['image']);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch, CURLOPT_REFERER, $file_data2);
+		$jpeg = curl_exec($ch);
+
+		$thumbPath = SPVIDEOLITE_DIR_USERFILES . DS . 'allmyvideos' . DS . 'thumbs';
+		$thumbFile = $thumbPath . DS . $id . '.jpg';
+
+		@mkdir($thumbPath,0777,true);
+
+		file_put_contents($thumbFile, $jpeg);
+
+		$thumbnail->url = OW::getPluginManager()->getPlugin('spvideolite')->getUserFilesUrl().'/allmyvideos/thumbs/'. $id . '.jpg';
+
 		$video->thumbnails[] = $thumbnail;
 		
 		# Player URL
