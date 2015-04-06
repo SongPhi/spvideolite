@@ -1,8 +1,8 @@
 <div class="ow_superwide ow_automargin">
 	<ul id="videoTypeNav" class="ow_content_menu clearfix">
 		<li class="active"><a id="vidLink" href="#"><span class="ow_ic_link">{text key='spvideolite+tab_from_link'}</span></a></li>
-		<li class=""><a id="vidEmbed" href="#"><span class="ow_ic_script">{text key='spvideolite+tab_embed_code'}</span></a></li>
         <li class=""><a id="vidDragDrop" href="#"><span class="ow_ic_script">{text key='spvideolite+tab_drag_and_drop'}</span></a></li>
+		<li class=""><a id="vidEmbed" href="#"><span class="ow_ic_script">{text key='spvideolite+tab_embed_code'}</span></a></li>
 	</ul>
 </div>
 
@@ -26,9 +26,6 @@
 				&nbsp;
 			</div>
 		</li>
-        <li>
-			{$embedForm}
-		</li>
 		<li>
             <table class="ow_table_1 ow_form">
                 <tbody>
@@ -48,6 +45,9 @@
 				&nbsp;
 			</div>
 		</li> 
+        <li>
+			{$embedForm}
+		</li>		
 	</ul>
 	</div>
 
@@ -89,12 +89,12 @@ $(function (){
 			ClearClasses();
 			$(this).parent("li").addClass("active");
 		} else if(getID == "vidEmbed"){
-			$("#formsWrapper ul").animate({left: "-" + (($("#formsWrapper li .ow_table_1").first().width()+10)) + "px"}, { duration: 350, easing: 'easeInOutCirc' });
+			$("#formsWrapper ul").animate({left: "-" + (($("#formsWrapper li .ow_table_1").first().width()+10))*2 + "px"}, { duration: 350, easing: 'easeInOutCirc' });
 			ClearClasses();
 			$(this).parent("li").addClass("active");
 		}else if(getID == "vidDragDrop"){
             var width = ($("#formsWrapper li .ow_table_1").first().width()+10) * 2;
-			$("#formsWrapper ul").animate({left: "-" + (width) + "px"}, { duration: 350, easing: 'easeInOutCirc' });
+			$("#formsWrapper ul").animate({left: "-" + (($("#formsWrapper li .ow_table_1").first().width()+10)) + "px"}, { duration: 350, easing: 'easeInOutCirc' });
 			ClearClasses();
 			$(this).parent("li").addClass("active");
 		}

@@ -30,6 +30,18 @@ class SPVIDEOLITE_CLASS_ClipService
 
         return $code;
     }
+
+    public function findClipById( $id )
+    {
+        $clip = $this->originalClassInstance->findClipById($id);
+         // check for size lock
+        $matches = array();
+        if (preg_match_all('/sizelock/is', $clip->code, $matches)) {
+            if (!defined('SPVIDEOLITE_SIZELOCK')) define('SPVIDEOLITE_SIZELOCK',1);
+        }
+        return $clip;
+    }
+
     
     public function validateClipCode($code, $provider = null) {
 

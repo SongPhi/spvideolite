@@ -1,6 +1,22 @@
 <?php
-
 /**
+ * Copyright 2015 SongPhi
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy
+ * of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+
+ /**
  *
  */
 class SPVIDEOLITE_CLASS_EventHandler
@@ -78,9 +94,9 @@ class SPVIDEOLITE_CLASS_EventHandler
         $doc = OW::getDocument();
         
         // add scripts
-        OW::getDocument()->addScript(OW::getPluginManager()->getPlugin('spvideolite')->getStaticUrl() . 'js/base64.js');
+        OW::getDocument()->addScript(OW::getPluginManager()->getPlugin('spvideolite')->getStaticUrl() . 'js/vendor/base64.min.js');
         self::requireSpvideoJs();
-        OW::getDocument()->addScript(OW::getPluginManager()->getPlugin('spvideolite')->getStaticUrl() . 'js/jquery.easing.min.js');
+        OW::getDocument()->addScript(OW::getPluginManager()->getPlugin('spvideolite')->getStaticUrl() . 'js/vendor/jquery.easing.min.js');
         
         // add stylesheets
         OW::getDocument()->addStyleSheet(OW::getPluginManager()->getPlugin('spvideolite')->getStaticCssUrl() . 'spvideo.css?'.SPVIDEOLITE_BOL_Service::PLUGIN_VER);
@@ -93,10 +109,9 @@ class SPVIDEOLITE_CLASS_EventHandler
         $spVideoCtrl = new SPVIDEOLITE_CTRL_Add();
         $spVideoCtrl->setTemplate(OW::getPluginManager()->getPlugin('spvideolite')->getCtrlViewDir() . 'add_index.html');
         $spVideoCtrl->setEmbedForm($embedForm);
-        
+
         $language->addKeyForJs('spvideolite', 'tab_from_link');
         $language->addKeyForJs('spvideolite', 'tab_embed_code');
-        $language->addKeyForJs('spvideolite', 'tab_drag_and_drop');
         
         $spVideoCtrl->index();
 
@@ -144,6 +159,7 @@ class SPVIDEOLITE_CLASS_EventHandler
      *
      */
     public static function correctPlayerSize(BASE_CLASS_EventCollector $event) {
+        if (defined('SPVIDEOLITE_SIZELOCK')) return;
         self::requireSpvideoJs();
         OW::getDocument()->addOnloadScript("SPVideo.correctPlayerSize();");
     }
@@ -152,6 +168,7 @@ class SPVIDEOLITE_CLASS_EventHandler
      *
      */
     public static function addLargerPlayerButton(BASE_CLASS_EventCollector $event) {
+        if (defined('SPVIDEOLITE_SIZELOCK')) return;
         self::requireSpvideoJs();
         $language = OW::getLanguage();
 
@@ -168,3 +185,4 @@ class SPVIDEOLITE_CLASS_EventHandler
         SPVIDEOLITE_CLASS_ClipService::getInstance();
     }
 }
+>>>>>>> 4a50f92... implement sizelock feature for embed clip that can be enlarge

@@ -39,7 +39,7 @@ var SPVideoClass = function(_baseUrl, _loadingEl, _detailElement) {
         $('#btn-resize-player').click(function() {
             var parent = $('.ow_video_player').parent();
             var player = $('.ow_video_player');
-            var iframe = $('.ow_video_player iframe');
+            var iframe = $('.ow_video_player iframe,.ow_video_player object,.ow_video_player embed');
             var remains = $('#enlarged-remaining');
             var origHeight = iframe.height();
             if (player.attr('data-origheight')) {
@@ -90,7 +90,7 @@ var SPVideoClass = function(_baseUrl, _loadingEl, _detailElement) {
     this.correctPlayerSize = function() {
         var parent = $('.ow_video_player').parent();
         var player = $('.ow_video_player');
-        var iframe = $('.ow_video_player iframe');
+        var iframe = $('.ow_video_player iframe,.ow_video_player object,.ow_video_player embed');
         var iframeWidth = parseInt($(iframe).attr("width"));        
         var remains = $('#enlarged-remaining');
         var newHeight = Math.round(iframe.height() * (player.width() / iframeWidth));
