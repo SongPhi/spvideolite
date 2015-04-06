@@ -159,6 +159,7 @@ class SPVIDEOLITE_CLASS_EventHandler
      *
      */
     public static function correctPlayerSize(BASE_CLASS_EventCollector $event) {
+        if (defined('SPVIDEOLITE_SIZELOCK')) return;
         self::requireSpvideoJs();
         OW::getDocument()->addOnloadScript("SPVideo.correctPlayerSize();");
     }
@@ -167,6 +168,7 @@ class SPVIDEOLITE_CLASS_EventHandler
      *
      */
     public static function addLargerPlayerButton(BASE_CLASS_EventCollector $event) {
+        if (defined('SPVIDEOLITE_SIZELOCK')) return;
         self::requireSpvideoJs();
         $language = OW::getLanguage();
 
