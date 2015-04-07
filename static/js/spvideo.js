@@ -113,6 +113,7 @@ var SPVideoClass = function(_baseUrl, _loadingEl, _detailElement) {
         if (newHeight > 600) newHeight = 600;
         iframe.css("height",newHeight+"px",'important');
         iframe.css("width",player.width()+"px",'important');
+        return { width: player.width(), height: newHeight };
     };
     this.fixLongTitles = function() {
         $('.ow_video_item_title').each(function(index, e) {

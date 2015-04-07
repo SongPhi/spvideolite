@@ -41,6 +41,8 @@ OW::getRouter()->addRoute(new OW_Route('spvideolite.my_video', 'spvideo/my', 'SP
 
 OW::getRouter()->addRoute(new OW_Route('spvideolite.embed', 'spvideo/embed/:videoId', 'SPVIDEOLITE_CTRL_Spvideo', 'embed'));
 
+OW::getRouter()->addRoute(new OW_Route('spvideolite.vidzi', 'spvideo/vidzi/:videoId', 'SPVIDEOLITE_CTRL_Vidzi', 'embed'));
+
 OW::getRouter()->addRoute(new OW_Route('spvideolite.videojs.fbembed', 'spvideo/fbembed/:videoId', 'SPVIDEOLITE_CTRL_Videojs', 'fbEmbed'));
 // compatible with older version
 OW::getRouter()->addRoute(new OW_Route('spvideolite.videojs.old_fbembed', 'spvideolite/fbembed/:videoId', 'SPVIDEOLITE_CTRL_Videojs', 'fbEmbed'));
