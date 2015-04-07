@@ -112,6 +112,7 @@ class SPVIDEOLITE_CLASS_EventHandler
 
         $language->addKeyForJs('spvideolite', 'tab_from_link');
         $language->addKeyForJs('spvideolite', 'tab_embed_code');
+        $language->addKeyForJs('spvideolite', 'tab_drag_and_drop');
         
         $spVideoCtrl->index();
 

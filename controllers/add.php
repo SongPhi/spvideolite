@@ -32,6 +32,7 @@ class SPVIDEOLITE_CTRL_Add extends OW_ActionController
 	public function index() {
 		$this->assign('staticUrl',OW::getPluginManager()->getPlugin( 'spvideolite' )->getStaticUrl());
 		$this->assign('embedForm', $this->embedForm);
+        $this->addComponent('dragDropCmp', OW::getClassInstance('SPVIDEOLITE_CMP_AjaxUpload'));
 
 		// call selected module upload template
 		$module = SPVIDEOLITE_BOL_Configs::getInstance()->get('processor');
@@ -43,4 +44,5 @@ class SPVIDEOLITE_CTRL_Add extends OW_ActionController
 			SPVIDEOLITE_BOL_Service::callProcessorFunction($module, $func, $this);
 		}
 	}
+
 }
