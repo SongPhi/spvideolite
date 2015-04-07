@@ -103,7 +103,7 @@ var SPVideoClass = function(_baseUrl, _loadingEl, _detailElement) {
             }
         });
     };
-    this.correctPlayerSize = function() {
+    this.correctPlayerSize = function( callback ) {
         var parent = $('.ow_video_player').parent();
         var player = $('.ow_video_player');
         var iframe = $('.ow_video_player iframe,.ow_video_player object,.ow_video_player embed');
@@ -113,7 +113,10 @@ var SPVideoClass = function(_baseUrl, _loadingEl, _detailElement) {
         if (newHeight > 600) newHeight = 600;
         iframe.css("height",newHeight+"px",'important');
         iframe.css("width",player.width()+"px",'important');
-        return { width: player.width(), height: newHeight };
+
+        if (typeof callback != 'undefined') {
+            callback({ width: player.width(), height: newHeight });
+        }
     };
     this.fixLongTitles = function() {
         $('.ow_video_item_title').each(function(index, e) {
