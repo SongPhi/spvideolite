@@ -85,7 +85,7 @@ class SPVIDEOLITE_IMP_Vidzi implements SPVIDEOLITE_CLASS_IImporter
 		$video->date_updated = null;
 		
 		# Thumbnails
-		$thumbnailQuery = '#id=\'vplayer\'><img.*?\ src="(.+?)'.$id.'\.jpg"#i';
+		$thumbnailQuery = '#id=\'vplayer\'><img.*?\ src="(.+?)\.jpg".*?>#i';
 		$matches = array();
 		preg_match_all($thumbnailQuery, $html, $matches);
 
@@ -94,7 +94,7 @@ class SPVIDEOLITE_IMP_Vidzi implements SPVIDEOLITE_CLASS_IImporter
 			# Download the thumbnail
 			$thumbnail = new stdClass();
 			$ch = curl_init();
-			curl_setopt($ch, CURLOPT_URL, $matches[1][0].$id.'.jpg');
+			curl_setopt($ch, CURLOPT_URL, $matches[1][0].'.jpg');
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 			curl_setopt($ch, CURLOPT_REFERER, $file_data);
 			$jpeg = curl_exec($ch);
