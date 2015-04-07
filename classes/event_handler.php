@@ -185,4 +185,3 @@ class SPVIDEOLITE_CLASS_EventHandler
         SPVIDEOLITE_CLASS_ClipService::getInstance();
     }
 }
->>>>>>> 4a50f92... implement sizelock feature for embed clip that can be enlarge
