@@ -1,25 +1,24 @@
 SPVIDEO LITE (OXWALL PLUGIN)
 ====
 
-##ABOUT
+## ABOUT
 
 This plugin powers up basic Oxwall video plugin with useful tweaks. This lite version is a stripped down version of SPVIDEO Full which support even more features (upload, user video manager dashboard, categories, etc.).
 
-
-##FEATURES
+## FEATURES
 
 * Import video from link (no more copy and paste embeded code). See list of supported sites below.
 * Show more/less video description (Youtube idea).
 * Resize video player larger and restore (Youtube idea).
 * Correct default video player size to fit the container.
 * Fix long video title that make the listing ugly.
+* Drag and drop link import (thanks to Pustak Sadan contribute this feature)
 
-
-##FEATURE REQUEST & BUG REPORT
+## FEATURE REQUEST & BUG REPORT
 
 Visit our Issues Tracking page [https://code.songphi.org/projects/spvideolite/issues]. Registering an account is required for creating issues. 
 
-##INSTALLATION
+## INSTALLATION
 
 ```Bash
 # optional if you have not installed "bower" and "grunt-cli" already
@@ -33,13 +32,19 @@ bower install
 grunt
 ```
 
-##SUPPORTED SITES
+## SUPPORTED SITES
+* Allmyvideos.net
 * BlipTV
 * DailyMotion
+* Facebook
 * GoogleVideo
 * MetaCafe
-* Vimeo
+* Thevideo.me
 * Youtube
-* Facebook
 * Vk
-* Allmyvideos.net
+* Vidzi.tv
+* Vimeo
+
+## CONTRIBUTORS
+
+* Pustak Sadan ( developer )
