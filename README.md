@@ -47,4 +47,5 @@ grunt
 
 ## CONTRIBUTORS
 
+* Thao Le ( developer )
 * Pustak Sadan ( developer )
