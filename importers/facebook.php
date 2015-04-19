@@ -5,8 +5,8 @@
 */
 class SPVIDEOLITE_IMP_Facebook implements SPVIDEOLITE_CLASS_IImporter
 {
-	private static $regexp = '#facebook\.com/(video/)?video.php\??v=(\d+).*#i';
-	private static $regexpIdIndex = 2;
+	private static $regexp = '#facebook\.com/(.*?/)?(videos?/)?(video.php\??v=)?(\d+).*#i';
+	private static $regexpIdIndex = 4;
 	private static $embedTemplate = '<iframe width="{width}" height="{height}" src="{iframeSrc}" frameborder="0" allowfullscreen></iframe>';
 
 	public static function getRegExp() {
