@@ -15,7 +15,11 @@
  * under the License.
  */
 
-@BOL_LanguageService::getInstance()->addPrefix('spvideolite','Super Video Lite');
+try {
+    BOL_LanguageService::getInstance()->addPrefix('spvideolite','Super Video Lite');
+} catch (Exception $e) {
+    
+}
 
 @$path = OW::getPluginManager()->getPlugin('spvideolite')->getRootDir() . 'langs.zip';
 @BOL_LanguageService::getInstance()->importPrefixFromZip($path, 'spvideolite');
