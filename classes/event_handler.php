@@ -94,9 +94,9 @@ class SPVIDEOLITE_CLASS_EventHandler
         $doc = OW::getDocument();
         
         // add scripts
-        OW::getDocument()->addScript(OW::getPluginManager()->getPlugin('spvideolite')->getStaticUrl() . 'js/vendor/base64.min.js');
+        OW::getDocument()->addScript(OW::getPluginManager()->getPlugin('spvideolite')->getStaticUrl() . 'js/base64.js');
         self::requireSpvideoJs();
-        OW::getDocument()->addScript(OW::getPluginManager()->getPlugin('spvideolite')->getStaticUrl() . 'js/vendor/jquery.easing.min.js');
+        OW::getDocument()->addScript(OW::getPluginManager()->getPlugin('spvideolite')->getStaticUrl() . 'js/jquery.easing.min.js');
         
         // add stylesheets
         OW::getDocument()->addStyleSheet(OW::getPluginManager()->getPlugin('spvideolite')->getStaticCssUrl() . 'spvideo.css?'.SPVIDEOLITE_BOL_Service::PLUGIN_VER);
