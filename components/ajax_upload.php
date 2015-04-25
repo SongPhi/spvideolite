@@ -50,12 +50,11 @@ class SPVIDEOLITE_CMP_AjaxUpload extends OW_Component
         $userId = OW::getUser()->getId();
         $document = OW::getDocument();
         
-        $plugin = OW::getPluginManager()->getPlugin('photo');
-        $pluginSP = OW::getPluginManager()->getPlugin('spvideolite');
-        $document->addStyleSheet($pluginSP->getStaticCssUrl() . 'addvideo.css');
+        $plugin = OW::getPluginManager()->getPlugin('spvideolite');
+        $document->addStyleSheet($plugin->getStaticCssUrl() . 'addvideo.css');
         $document->addScript($plugin->getStaticJsUrl() . 'jQueryRotate.min.js');
         $document->addScript($plugin->getStaticJsUrl() . 'codemirror.min.js');
-        $document->addScript($pluginSP->getStaticJsUrl() . 'addvideo.js');
+        $document->addScript($plugin->getStaticJsUrl() . 'addvideo.js');
         
         $document->addScriptDeclarationBeforeIncludes(
             UTIL_JsGenerator::composeJsString(';window.ajaxAddVideoParams = {};
