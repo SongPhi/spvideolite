@@ -93,9 +93,10 @@ class SPVIDEOLITE_CLASS_EventHandler
         $spVideoCtrl = new SPVIDEOLITE_CTRL_Add();
         $spVideoCtrl->setTemplate(OW::getPluginManager()->getPlugin('spvideolite')->getCtrlViewDir() . 'add_index.html');
         $spVideoCtrl->setEmbedForm($embedForm);
-
+        
         $language->addKeyForJs('spvideolite', 'tab_from_link');
         $language->addKeyForJs('spvideolite', 'tab_embed_code');
+        $language->addKeyForJs('spvideolite', 'tab_drag_and_drop');
         
         $spVideoCtrl->index();
 

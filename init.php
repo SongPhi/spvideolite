@@ -39,6 +39,11 @@ OW::getRouter()->addRoute(new OW_Route('spvideolite.proxy_args', 'spvideolite/pr
 
 OW::getRouter()->addRoute(new OW_Route('spvideolite.categories', 'spvideolite/categories', 'SPVIDEOLITE_CTRL_Spvideo', 'categories'));
 
+OW::getRouter()->addRoute(new OW_Route('spvideolite.ajax_video_add', 'spvideolite/ajax-add', 'SPVIDEOLITE_CTRL_AjaxUpload', 'ajaxAdd'));
+OW::getRouter()->addRoute(new OW_Route('spvideolite.ajax_video_add_submit', 'spvideolite/ajax-add-submit', 'SPVIDEOLITE_CTRL_AjaxUpload', 'ajaxSubmitVideos'));
+OW::getRouter()->addRoute(new OW_Route('spvideolite.ajax_video_delete', 'spvideolite/ajax-video-delete', 'SPVIDEOLITE_CTRL_AjaxUpload', 'ajaxDelete'));
+
+
 try {
     
     // check if base video plugin is installed and active
