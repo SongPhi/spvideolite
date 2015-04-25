@@ -32,7 +32,7 @@
 /**
  * AJAX Upload video component
  *
- * @author Kairat Bakitow <kainisoft@gmail.com>
+ * @author Pustak Sadan <pustaksadan.india@gmail.com>
  * @package ow.plugin.spvideolite.components
  * @since 1.6.1
  */

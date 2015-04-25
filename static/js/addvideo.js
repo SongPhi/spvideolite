@@ -28,9 +28,10 @@
  */
 
 /**
- * @author Kairat Bakitow <kainisoft@gmail.com>
+ * @author Pustak Sadan <pustaksadan.india@gmail.com>
  * @package ow_plugins.spvideolite
- * @since 1.6.1
+ * @since 1.7.2
+ * @note This code is developed based on upload.js from Photo plugin. Original Credit: Kairat Bakitow
  */
 (function( window, $ ) {'use strict';
 
@@ -137,7 +138,7 @@
             var titleSlot = slot.find('[name="title"]');
             titleSlot.attr({id: titleId, name: titleId, value: title});
             titleSlot.append(tags);
-
+            
             var tagsId = 'data[' + id + '][tags]';
             var tagsSlot = slot.find('[name="tags"]');
             tagsSlot.attr({id: tagsId, name: tagsId});
@@ -270,6 +271,7 @@
             var value = editor.getValue().trim(), lineCount;
             $(editor.display.wrapper).removeClass('invitation');
             var value = editor.getValue().trim();
+
             if ( value.length === 0 || value === OW.getLanguageText('spvideolite', 'describe_video') )
             {
                 if ( _elements.descCache.hasOwnProperty(slotId) )
@@ -745,7 +747,10 @@
                 var formData = new FormData();
                 
                 data = _methods.getFormData();
-
+                if(!data.length)
+                {
+                    return false;
+                }
                 for(var i=0; i < data.length; i++)
                 {
                     for(var key in data[i])
@@ -795,6 +800,7 @@
             {
                 alert("Error");
             }
+            return true;
         }
     };
     
@@ -830,8 +836,11 @@
                 _elements.dropAreaLabel.html(OW.getLanguageText('spvideolite', 'dnd_not_support'));
             }
             $('#spvideo_btn_add').click(function() {
-                _methods.submitVideo( );
-                $('#spvideo_btn_add').addClass('ow_inprogress');
+                var result = _methods.submitVideo( );
+                if(result)
+                {
+                    $('#spvideo_btn_add').addClass('ow_inprogress');
+                }
             });
             _elements.dropArea.add(_elements.dropAreaLabel).on(
                 (function()

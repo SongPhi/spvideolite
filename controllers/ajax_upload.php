@@ -32,9 +32,9 @@
 /**
  * 
  * 
- * @author Kairat Bakitow <kainisoft@gmail.com>
+ * @author Pustak Sadan <pustaksadan.india@gmail.com>
  * @package ow_plugins.spvideolite.controllers
- * @since 1.6.1
+ * @since 1.7.2
  */
 class SPVIDEOLITE_CTRL_AjaxUpload extends OW_ActionController
 {
@@ -128,7 +128,7 @@ class SPVIDEOLITE_CTRL_AjaxUpload extends OW_ActionController
 			exit(json_encode($result));
 		}
     }
-    
+
     public function ajaxAdd( array $params = array() )
     {
         $status = BOL_AuthorizationService::getInstance()->getActionStatus('video', 'add');

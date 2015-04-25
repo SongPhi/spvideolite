@@ -32,9 +32,9 @@
 /**
  * 
  * 
- * @author Kairat Bakitow <kainisoft@gmail.com>
+ * @author Pustak Sadan <pustaksadan.india@gmail.com>
  * @package ow_plugins.spvideolite.classes
- * @since 1.6.1
+ * @since 1.7.2
  */
 class SPVIDEOLITE_CLASS_AjaxUploadForm extends Form
 {
@@ -45,7 +45,6 @@ class SPVIDEOLITE_CLASS_AjaxUploadForm extends Form
         $this->clipService = VIDEO_BOL_ClipService::getInstance();
         $this->setAjax(TRUE);
         $this->setAjaxResetOnSuccess(FALSE);
-        //$this->setAjaxDataType(Form::AJAX_DATA_TYPE_JSON);
         $this->setAction(OW::getRouter()->urlForRoute('spvideolite.ajax_video_add_submit'));
         $this->bindJsFunction('success', 
             UTIL_JsGenerator::composeJsString('function( data )
