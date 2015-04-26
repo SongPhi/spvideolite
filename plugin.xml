@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <plugin>
-	<name>spVideo Lite</name>
+	<name>SuperVideo (lite)</name>
 	<key>spvideolite</key>
 	<description>Give more powers and flexibilities for Oxwall basic video plugin</description>
     <author>Thao Le</author>
     <authorEmail>thaolt@songphi.com</authorEmail>
 	<authorUrl>http://thaolt.songphi.com</authorUrl>
 	<developerKey>f3cf04f4be78d22162470c28a80dbd93</developerKey>
-    <build>10102</build>
+    <build>10103</build>
     <copyright>(c) 2015 SongPhi LLC.</copyright>
 	<license>Apache 2.0</license>
     <licenseUrl>https://raw.githubusercontent.com/SongPhi/spvideolite/master/LICENSE</licenseUrl>
