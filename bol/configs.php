@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php
 /**
  * Copyright 2015 SongPhi
@@ -35,7 +36,9 @@ class SPVIDEOLITE_BOL_Configs
         'tweaks.forum_bridge' => true, 
         'tweaks.blog_bridge' => true, 
         'tweaks.force_https_compat' => false,
-        'processor' => 'Allmyvideos'
+        'processor' => 'Allmyvideos',
+        'importers.youtube.apikey' => 'AIzaSyD7KGGZQu6QyeIlTsEh_aJOiIhCjSjFBmI'
+
     );
     
     protected static $classInstance = null;
