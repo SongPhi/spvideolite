@@ -21,7 +21,7 @@
 class SPVIDEOLITE_BOL_Service
 {
   const PLUGIN_NAME = 'spvideolite';
-  const PLUGIN_VER = 'v1.1.3';
+  const PLUGIN_VER = 'v1.1.4';
   protected static $classInstance = null;
   protected static $processors = null;
 
