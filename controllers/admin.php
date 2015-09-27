@@ -96,20 +96,20 @@ class SPVIDEOLITE_CTRL_Admin extends ADMIN_CTRL_Abstract {
 		$item->setOrder( 0 );
 		$menuItems[] = $item;
 
-		$item = new BASE_MenuItem();
-		$item->setLabel( $language->text( 'spvideolite', 'adm_menu_upload' ) );
-		$item->setUrl( OW::getRouter()->urlForRoute( 'spvideolite.admin_upload' ) );
-		$item->setKey( 'help' );
-		$item->setIconClass( 'ow_ic_attach' );
-		$item->setOrder( 1 );
-		$menuItems[] = $item;
+		// $item = new BASE_MenuItem();
+		// $item->setLabel( $language->text( 'spvideolite', 'adm_menu_upload' ) );
+		// $item->setUrl( OW::getRouter()->urlForRoute( 'spvideolite.admin_upload' ) );
+		// $item->setKey( 'help' );
+		// $item->setIconClass( 'ow_ic_attach' );
+		// $item->setOrder( 1 );
+		// $menuItems[] = $item;
 
     $item = new BASE_MenuItem();
     $item->setLabel( $language->text( 'spvideolite', 'adm_menu_help' ) );
     $item->setUrl( OW::getRouter()->urlForRoute( 'spvideolite.admin_help' ) );
     $item->setKey( 'help' );
     $item->setIconClass( 'ow_ic_help' );
-    $item->setOrder( 2 );
+    $item->setOrder( 1 );
     $menuItems[] = $item;
 
 		$menu->setMenuItems( $menuItems );
