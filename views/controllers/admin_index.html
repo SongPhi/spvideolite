@@ -31,6 +31,17 @@
       <td width="60"><input type="checkbox" {if $tweaks.blog_bridge}checked="checked" {/if}id="blog_bridge" name="blog_bridge"></td>
     </tr>
     <tr class="ow_alt2">
+      <td class="ow_txtleft">{text key='spvideolite+explain_youtube_thumb_size'}</td>
+      <td width="60">
+        <select id="youtube_thumb_size" name="tweaks.youtube_thumb_size">
+          <option{if $tweaks.youtube_thumb_size=='default'} selected{/if} value="default">default (120x90)</option>
+          <option{if $tweaks.youtube_thumb_size=='medium'} selected{/if} value="medium">medium (320x180)</option>
+          <option{if $tweaks.youtube_thumb_size=='high'} selected{/if} value="high">high (480x360)</option>
+          <option{if $tweaks.youtube_thumb_size=='standard'} selected{/if} value="standard">standard (640x480)</option>
+          <option{if $tweaks.youtube_thumb_size=='maxres'} selected{/if} value="maxres">maxres (1280x720)</option>
+        </select>
+    </tr>
+    <tr class="ow_alt2">
       <td class="ow_txtleft">{text key='spvideolite+explain_force_https_compat'}</td>
       <td width="60"><input type="checkbox" {if $tweaks.force_https_compat}checked="checked" {/if}id="force_https_compat" name="force_https_compat"></td>
     </tr>

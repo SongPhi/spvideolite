@@ -43,6 +43,17 @@ class SPVIDEOLITE_CTRL_Admin extends ADMIN_CTRL_Abstract {
     OW::getDocument()->addScript( SPVIDEOLITE_BOL_Service::getJsUrl('vendor/toggles.min') );
 
     OW::getDocument()->addOnloadScript("
+      $('.tweaksForm select').change(function(){
+        var postData = { key: $(this).attr('name'), value: $(this).val() };
+        $.post(
+          '".OW::getRouter()->urlForRoute('spvideolite.admin_saveconfig')."',
+          postData,
+          function( data ) {
+          },
+          'text'
+        );
+      });
+
       $('.tweaksForm input[type=checkbox]').each(function(index,obj){
         var togglerId = $(obj).attr('id')+'_toggler';
         $(obj).parent().append('<div class=\"toggle-light\" id=\"'+togglerId+'\" style=\"width:55px\"></div>');
@@ -137,8 +148,9 @@ class SPVIDEOLITE_CTRL_Admin extends ADMIN_CTRL_Abstract {
   }
 
   public function saveconfig( array $params) {
-  	SPVIDEOLITE_BOL_Configs::getInstance()->set($_POST['key'],$_POST['value']);
-  	die();
+    $configs = SPVIDEOLITE_BOL_Configs::getInstance();
+  	$configs->set($_POST['key'],$_POST['value']);
+  	die('aaa');
   }
 
 }

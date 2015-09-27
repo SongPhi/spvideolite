@@ -51,9 +51,14 @@ class SPVIDEOLITE_IMP_Youtube implements SPVIDEOLITE_CLASS_IImporter
 	}
 
 	public static function getClipDetailByIdentifier( $id ) {
+		//spvideo config
+		$configs = SPVIDEOLITE_BOL_Configs::getInstance();
+
 		$video = new stdClass;
 		# XML data URL
-		$json_url = 'https://www.googleapis.com/youtube/v3/videos?part=snippet&key=AIzaSyD7KGGZQu6QyeIlTsEh_aJOiIhCjSjFBmI&id='.$id;
+		$json_url = 'https://www.googleapis.com/youtube/v3/videos?part=snippet&id='.$id;
+
+		$json_url .= '&key=' . $configs->get('importers.youtube.apikey');
 		
 		# XML
 		$data = json_decode(file_get_contents($json_url),true);
@@ -83,12 +88,14 @@ class SPVIDEOLITE_IMP_Youtube implements SPVIDEOLITE_CLASS_IImporter
 		
 		# Last update date
 		$video->date_updated = false;
+
+		$requested_thumb_size = $configs->get('tweaks.youtube_thumb_size');
 		
 		# Thumbnails
 		$thumbnail = new stdClass;
-		$thumbnail->url = $item['thumbnails']['default']['url'];
-		$thumbnail->width = $item['thumbnails']['default']['width'];
-		$thumbnail->height = $item['thumbnails']['default']['height'];
+		$thumbnail->url = $item['thumbnails'][$requested_thumb_size]['url'];
+		$thumbnail->width = $item['thumbnails'][$requested_thumb_size]['width'];
+		$thumbnail->height = $item['thumbnails'][$requested_thumb_size]['height'];
 		$video->thumbnails[] = $thumbnail;
 		
 		# Player URL

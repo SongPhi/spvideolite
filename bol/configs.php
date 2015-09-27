@@ -35,6 +35,7 @@ class SPVIDEOLITE_BOL_Configs
         'tweaks.forum_bridge' => true, 
         'tweaks.blog_bridge' => true, 
         'tweaks.force_https_compat' => false,
+        'tweaks.youtube_thumb_size' => 'default',
         'processor' => 'Allmyvideos',
         'importers.youtube.apikey' => 'AIzaSyD7KGGZQu6QyeIlTsEh_aJOiIhCjSjFBmI'
 
@@ -89,7 +90,7 @@ class SPVIDEOLITE_BOL_Configs
     }
     
     public function saveConfigs() {
-        if (!count($this->changes) > 0) return;
+        if (count($this->changes) == 0) return;
         foreach ($this->changes as $key) {
             if (OW::getConfig()->configExists(self::PLUGINKEY, $key)) {
                 OW::getConfig()->saveConfig(self::PLUGINKEY, $key, $this->configs[$key]);
@@ -97,5 +98,6 @@ class SPVIDEOLITE_BOL_Configs
                 OW::getConfig()->addConfig(self::PLUGINKEY, $key, $this->configs[$key]);
             }
         }
+        $this->changes = array();
     }
 }
