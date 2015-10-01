@@ -20,11 +20,15 @@ $plugin = OW::getPluginManager()->getPlugin('spvideolite');
 $staticDir = OW_DIR_STATIC_PLUGIN . $plugin->getModuleName() . DS;
 $pluginStaticDir = OW_DIR_PLUGIN . $plugin->getModuleName() . DS . 'static' . DS;
 
+error_reporting(E_ALL);
+ini_set('display_errors', 'On');
+
 if ( file_exists($staticDir) ) {
-    UTIL_File::removeDir($staticDir);
+    @UTIL_File::removeDir($staticDir);
 }
 
-mkdir($staticDir);
-chmod($staticDir, 0777);
-UTIL_File::copyDir($pluginStaticDir, $staticDir );
+@mkdir($staticDir);
+@chmod($staticDir, 0777);
+@UTIL_File::copyDir($pluginStaticDir, $staticDir );
 
+@Updater::getLanguageService()->importPrefixFromZip(dirname(dirname(dirname(__FILE__))).DS.'langs.zip', 'spvideolite');
