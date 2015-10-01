@@ -85,7 +85,7 @@ class SPVIDEOLITE_CTRL_Admin extends ADMIN_CTRL_Abstract {
 
       });
     ");
-    $tweaks = SPVIDEOLITE_BOL_Configs::getInstance()->searchKey('/^tweaks\..+?$/i');
+    $tweaks = SPVIDEOLITE_BOL_Configs::getInstance()->searchKey('/^tweaks\..+?$/im');
     $tweaksConfig = array();
     foreach ($tweaks as $tweak) {
       $tweaksConfig[substr($tweak, 7)] = SPVIDEOLITE_BOL_Configs::getInstance()->get($tweak);
