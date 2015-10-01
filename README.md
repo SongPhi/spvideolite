@@ -13,6 +13,7 @@ This plugin powers up basic Oxwall video plugin with useful tweaks. This lite ve
 * Correct default video player size to fit the container.
 * Fix long video title that make the listing ugly.
 * Drag and drop link import (thanks to Pustak Sadan contribute this feature)
+* YouTube default thumbnail quality configuration.
 
 ## FEATURE REQUEST & BUG REPORT
 
@@ -44,6 +45,13 @@ grunt
 * Vk
 * Vidzi.tv
 * Vimeo
+
+## CHANGELOGS
+
+### v2.0.1
+
+* Added YouTube default thumbnail quality configuration.
+
 
 ## CONTRIBUTORS
 
