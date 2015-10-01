@@ -48,6 +48,11 @@ grunt
 
 ## CHANGELOGS
 
+### v2.0.2
+
+* Bugfix: removed code that causing htmlarea error on adding video form.
+* Bugfix: corrected regexp that cause problems from controllers/admin
+
 ### v2.0.1
 
 * Added YouTube default thumbnail quality configuration.
