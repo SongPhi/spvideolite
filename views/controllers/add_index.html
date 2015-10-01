@@ -1,10 +1,7 @@
 <div class="ow_superwide ow_automargin">
 	<ul id="videoTypeNav" class="ow_content_menu clearfix">
 		<li class="active"><a id="vidLink" href="javascript://"><span class="ow_ic_link">{text key='spvideolite+tab_from_link'}</span></a></li>
-<!-- 		<li class=""><a id="vidDragDrop" href="#"><span class="ow_ic_script">{text key='spvideolite+tab_drag_and_drop'}</span></a></li>
-		{if isset($uploadFormTpl)}
-		<li class=""><a id="vidUpload" href="javascript://"><span class="ow_ic_script">{text key='spvideolite+tab_upload'}</span></a></li>
-		{/if} -->
+
 		<li class=""><a id="vidEmbed" href="javascript://"><span class="ow_ic_script">{text key='spvideolite+tab_embed_code'}</span></a></li>
 	</ul>
 </div>
@@ -29,30 +26,7 @@
 				&nbsp;
 			</div>
 		</li>		
-		<!-- <li id="tab-dragdrop" style="display:none">
-            <table class="ow_table_1 ow_form">
-                <tbody>
-                    <tr class="ow_alt2 ow_tr_first">
-                    <td class="ow_value">
-                        <span>
-                           {$dragDropCmp}
-                        </span>
-                    </td>
-                </tr>
-            </tbody>
-            </table>
-            <div id="checkClip_loading" style="display:none">
-				<div class="spvideo_ic_loading2"></div>
-			</div>
-			<div id="checkClip_resp_place_holder2" style="display:none">
-				&nbsp;
-			</div>
-		</li>
-		{if isset($uploadFormTpl)}
-		<li id="tab-upload" style="display:none">
-			{include file=$uploadFormTpl}
-		</li>
-		{/if} -->
+		
 		<li id="tab-embed" style="visibility:hidden">
 			{$embedForm}
 		</li>
@@ -99,15 +73,7 @@ $(function (){
 			ClearClasses();
 			$(this).parent("li").addClass("active");
 			$('#tab-embed').show();
-		} /** else if(getID == "vidUpload"){
-			ClearClasses();
-			$(this).parent("li").addClass("active");
-			$('#tab-upload').show();
-		} else if(getID == "vidDragDrop"){
-			ClearClasses();
-			$(this).parent("li").addClass("active");
-			$('#tab-dragdrop').show();
-		} **/
+		}
 
 	});
 });
