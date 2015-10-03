@@ -22,7 +22,7 @@ class SPVIDEOLITE_IMP_DailyMotion implements SPVIDEOLITE_CLASS_IImporter
 {
 	private static $regexp = '#dailymotion\.com.*/video/([^_]*)#i';
 	private static $regexpIdIndex = 1;
-	private static $embedTemplate = '<iframe frameborder="0" width="560" height="315" src="http://www.dailymotion.com/embed/video/{videoId}"></iframe>';
+	private static $embedTemplate = '<iframe frameborder="0" width="560" height="315" src="//www.dailymotion.com/embed/video/{videoId}"></iframe>';
 
 	public static function getRegExp() {
 		return self::$regexp;
@@ -89,13 +89,13 @@ class SPVIDEOLITE_IMP_DailyMotion implements SPVIDEOLITE_CLASS_IImporter
 		
 		# Thumbnails
 		$thumbnail = new stdClass;
-		$thumbnail->url = 'http://www.dailymotion.com/thumbnail/320x240/video/'.$id;
+		$thumbnail->url = '//www.dailymotion.com/thumbnail/320x240/video/'.$id;
 		$thumbnail->width = 320;
 		$thumbnail->height = 240;
 		$video->thumbnails[] = $thumbnail;
 		
 		# Player URL
-		$video->player_url = 'http://www.dailymotion.com/swf/'.$id;
+		$video->player_url = '//www.dailymotion.com/swf/'.$id;
 		
 		# FLV file URL
 		$flv_url_query = $xml->xpath('/rss/channel/item/media:group/media:content[@type="video/x-flv"]/@url');
