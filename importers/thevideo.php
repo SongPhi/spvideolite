@@ -20,7 +20,7 @@ class SPVIDEOLITE_IMP_Thevideo implements SPVIDEOLITE_CLASS_IImporter
 {
 	private static $regexp = '#thevideo\.me/([a-z0-9]+)#i';
 	private static $regexpIdIndex = 1;
-	private static $embedTemplate = '<iframe src="http://www.thevideo.me/embed-{videoId}.html" frameborder="0" marginwidth="0" marginheight="0" scrolling="NO" allowfullscreen="true" width="560" height="315"></iframe>';
+	private static $embedTemplate = '<iframe src="//www.thevideo.me/embed-{videoId}.html" frameborder="0" marginwidth="0" marginheight="0" scrolling="NO" allowfullscreen="true" width="560" height="315"></iframe>';
 
 	public static function getRegExp() {
 		return self::$regexp;
