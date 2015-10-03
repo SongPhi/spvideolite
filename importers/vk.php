@@ -101,7 +101,7 @@ class SPVIDEOLITE_IMP_Vk implements SPVIDEOLITE_CLASS_IImporter
 		
 		# Thumbnails
 		$thumbnail = new stdClass;
-		$thumbnail->url = $json['jpg'];
+		$thumbnail->url = preg_replace("/(http\:\/\/|https\:\/\/)/", "//", $json['jpg']);
 		$thumbnail->width = 320;
 		$thumbnail->height = 240;
 		$video->thumbnails[] = $thumbnail;
