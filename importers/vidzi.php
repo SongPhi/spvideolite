@@ -31,7 +31,9 @@ class SPVIDEOLITE_IMP_Vidzi implements SPVIDEOLITE_CLASS_IImporter
 	}
 
 	public static function embedApplyVideoId($videoId) {
-		$code = str_replace('{videoUrl}', OW::getRouter()->urlForRoute('spvideolite.vidzi',array('videoId'=>$videoId)), self::$embedTemplate);
+		$url = OW::getRouter()->urlForRoute('spvideolite.vidzi',array('videoId'=>$videoId));
+		$url = preg_replace("/^(http|https)\:\/\//", "//", $url);
+		$code = str_replace('{videoUrl}', $url, self::$embedTemplate);
 		return $code;
 	}
 	
@@ -52,7 +54,7 @@ class SPVIDEOLITE_IMP_Vidzi implements SPVIDEOLITE_CLASS_IImporter
 	public static function getClipDetailByIdentifier( $id ) {
 		$video = new stdClass();
 		# HTML data URLs
-		$file_data = '//vidzi.tv/'.$id.'.html';
+		$file_data = 'http://vidzi.tv/'.$id.'.html';
 		$video->html_url = $file_data;
 
 		# HTML
