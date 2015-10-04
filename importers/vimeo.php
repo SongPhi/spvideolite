@@ -20,9 +20,9 @@
 */
 class SPVIDEOLITE_IMP_Vimeo implements SPVIDEOLITE_CLASS_IImporter
 {
-  private static $regexp = '#vimeo\.com\/.*?[\/]?([0-9]+)[\/\?]?#i';
-  private static $regexpIdIndex = 1;
-  private static $embedTemplate = '<iframe src="//player.vimeo.com/video/{videoId}" width="560" height="315" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
+  public static $regexp = '#vimeo\.com\/.*?[\/]?([0-9]+)[\/\?]?#i';
+  public static $regexpIdIndex = 1;
+  public static $embedTemplate = '<iframe src="//player.vimeo.com/video/{videoId}" width="560" height="315" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
 
   public static function getRegExp() {
     return self::$regexp;

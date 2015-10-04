@@ -20,9 +20,9 @@
 */
 class SPVIDEOLITE_IMP_Youtube implements SPVIDEOLITE_CLASS_IImporter
 {
-	private static $regexp = '%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i';
-	private static $regexpIdIndex = 1;
-	private static $embedTemplate = '<iframe width="560" height="315" src="//www.youtube.com/embed/{videoId}" frameborder="0" allowfullscreen></iframe>';
+	public static $regexp = '%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i';
+	public static $regexpIdIndex = 1;
+	public static $embedTemplate = '<iframe width="560" height="315" src="//www.youtube.com/embed/{videoId}" frameborder="0" allowfullscreen></iframe>';
 
 	public static function getRegExp() {
 		return self::$regexp;

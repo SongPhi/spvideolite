@@ -55,7 +55,7 @@ var SPVideoClass = function(_baseUrl, _loadingEl, _detailElement) {
         $('#btn-resize-player').click(function() {
             var parent = $('.ow_video_player').parent();
             var player = $('.ow_video_player');
-            var iframe = $('.ow_video_player iframe,.ow_video_player object,.ow_video_player embed');
+            var iframe = $('.ow_video_player > iframe,.ow_video_player > object,.ow_video_player > embed,.ow_video_player > .video-js,.ow_video_player > .video');
             var remains = $('#enlarged-remaining');
             var origHeight = iframe.height();
             if (player.attr('data-origheight')) {
@@ -104,19 +104,25 @@ var SPVideoClass = function(_baseUrl, _loadingEl, _detailElement) {
         });
     };
     this.correctPlayerSize = function( callback ) {
-        var parent = $('.ow_video_player').parent();
-        var player = $('.ow_video_player');
-        var iframe = $('.ow_video_player iframe,.ow_video_player object,.ow_video_player embed');
-        var iframeWidth = parseInt($(iframe).attr("width"));        
-        var remains = $('#enlarged-remaining');
-        var newHeight = Math.round(iframe.height() * (player.width() / iframeWidth));
-        if (newHeight > 600) newHeight = 600;
-        iframe.css("height",newHeight+"px",'important');
-        iframe.css("width",player.width()+"px",'important');
+        setTimeout(function(){
+
+            var parent = $('.ow_video_player').parent();
+            var player = $('.ow_video_player');
+            var iframe = $('.ow_video_player > iframe,.ow_video_player > object,.ow_video_player > embed,.ow_video_player > .video-js,.ow_video_player > .video');
+            var iframeWidth = parseInt(
+                $(iframe).attr("width") != null ? $(iframe).attr("width") : $(iframe).width()
+            );
+            var remains = $('#enlarged-remaining');
+            var newHeight = Math.round(iframe.height() * (player.width() / iframeWidth));
+            if (newHeight > 600) newHeight = 600;
+            iframe.css("height",newHeight+"px",'important');
+            iframe.css("width",player.width()+"px",'important');
+            
 
         if (typeof callback != 'undefined') {
             callback({ width: player.width(), height: newHeight });
         }
+        },100);
     };
     this.fixLongTitles = function() {
         $('.ow_video_item_title').each(function(index, e) {

@@ -20,9 +20,9 @@
 */
 class SPVIDEOLITE_IMP_DailyMotion implements SPVIDEOLITE_CLASS_IImporter
 {
-	private static $regexp = '#dailymotion\.com.*/video/([^_]*)#i';
-	private static $regexpIdIndex = 1;
-	private static $embedTemplate = '<iframe frameborder="0" width="560" height="315" src="//www.dailymotion.com/embed/video/{videoId}"></iframe>';
+	public static $regexp = '#dailymotion\.com.*/video/([^_\'"]*)#i';
+	public static $regexpIdIndex = 1;
+	public static $embedTemplate = '<iframe frameborder="0" width="560" height="315" src="//www.dailymotion.com/embed/video/{videoId}"></iframe>';
 
 	public static function getRegExp() {
 		return self::$regexp;

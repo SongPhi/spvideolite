@@ -10,11 +10,17 @@ module.exports = function(grunt) {
           // jquery
           {expand: true, cwd: 'bower_components/jquery/dist/', src: ['*'], dest: 'static/js/vendor/jquery/'},
           // videojs
-          {expand: true, cwd: 'bower_components/videojs/dist/video-js/', src: ['*.js'], dest: 'static/js/vendor/videojs/'},
-          {expand: true, cwd: 'bower_components/videojs/dist/video-js/lang', src: ['*'], dest: 'static/js/vendor/videojs/lang/'},
-          {expand: true, cwd: 'bower_components/videojs/dist/video-js/', src: ['*.css'], dest: 'static/css/vendor/videojs/'},
-          {expand: true, cwd: 'bower_components/videojs/dist/video-js/', src: ['font/*'], dest: 'static/css/vendor/videojs/'},
-          {expand: true, cwd: 'bower_components/videojs/dist/video-js/', src: ['*.swf'], dest: 'static/swf/vendor/videojs/'},
+          {expand: true, cwd: 'bower_components/video.js/dist/video-js/', src: ['*.js'], dest: 'static/js/vendor/videojs/'},
+          {expand: true, cwd: 'bower_components/video.js/dist/video-js/lang', src: ['*'], dest: 'static/js/vendor/videojs/lang/'},
+          {expand: true, cwd: 'bower_components/video.js/dist/video-js/', src: ['*.css'], dest: 'static/css/vendor/videojs/'},
+          {expand: true, cwd: 'bower_components/video.js/dist/video-js/', src: ['font/*'], dest: 'static/css/vendor/videojs/'},
+          {expand: true, cwd: 'bower_components/video.js/dist/video-js/', src: ['*.swf'], dest: 'static/swf/vendor/videojs/'},
+          // videojs-youtube
+          {expand: true, cwd: 'bower_components/videojs-youtube/dist/', src: ['*'], dest: 'static/js/vendor/videojs/sources/'},
+          // videojs-vimeo
+          {expand: true, cwd: 'bower_components/videojs-vimeo/', src: ['vjs.vimeo.js'], dest: 'static/js/vendor/videojs/sources/'},
+          // videojs-dailymotion
+          {expand: true, cwd: 'bower_components/videojs-dailymotion/src/', src: ['*.js'], dest: 'static/js/vendor/videojs/sources/'},
           // blueimp-file-upload
           {expand: true, cwd: 'bower_components/blueimp-file-upload/js/', src: ['**'], dest: 'static/js/vendor/blueimp-file-upload/'},
           
