@@ -1,6 +1,6 @@
 {
   "name": "spvideolite",
-  "version": "2.0-dev",
+  "version": "2.0.3",
   "description": "Oxwall plugin :: give more power and flexibilities to basic video plugin from Oxwall Software Foundation",
   "main": "plugin.xml",
   "devDependencies": {

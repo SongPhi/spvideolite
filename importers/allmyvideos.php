@@ -20,7 +20,7 @@ class SPVIDEOLITE_IMP_Allmyvideos implements SPVIDEOLITE_CLASS_IImporter
 {
 	private static $regexp = '#allmyvideos\.net/([a-z0-9]+)#i';
 	private static $regexpIdIndex = 1;
-	private static $embedTemplate = '<iframe src="http://allmyvideos.net/embed-{videoId}.html" frameborder="0" marginwidth="0" marginheight="0" scrolling="NO" allowfullscreen="true" width="600" height="332"></iframe>';
+	private static $embedTemplate = '<iframe src="//allmyvideos.net/embed-{videoId}.html" frameborder="0" marginwidth="0" marginheight="0" scrolling="NO" allowfullscreen="true" width="600" height="332"></iframe>';
 
 	public static function getRegExp() {
 		return self::$regexp;
@@ -118,6 +118,8 @@ class SPVIDEOLITE_IMP_Allmyvideos implements SPVIDEOLITE_CLASS_IImporter
 		file_put_contents($thumbFile, $jpeg);
 
 		$thumbnail->url = OW::getPluginManager()->getPlugin('spvideolite')->getUserFilesUrl().'/allmyvideos/thumbs/'. $id . '.jpg';
+
+		$thumbnail->url = preg_replace("/^(http|https)\:\/\//", "//", $thumbnail->url);
 
 		$video->thumbnails[] = $thumbnail;
 		
