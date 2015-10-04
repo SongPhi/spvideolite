@@ -94,10 +94,10 @@
             function onload() {
                 if (typeof window.parent.SPVideo != 'undefined') {
                     sizes = window.parent.SPVideo.correctPlayerSize(function(sizes){
-                        document.location.href="http://vidzi.tv/embed-{$videoId}-"+sizes.width+"x"+sizes.height+".html";
+                        document.location.href="//vidzi.tv/embed-{$videoId}-"+sizes.width+"x"+sizes.height+".html";
                     });
                 } else {
-                    document.location.href="http://vidzi.tv/embed-{$videoId}-"+window.innerWidth+"x"+window.innerHeight +".html";
+                    document.location.href="//vidzi.tv/embed-{$videoId}-"+window.innerWidth+"x"+window.innerHeight +".html";
                 }
             }
 
