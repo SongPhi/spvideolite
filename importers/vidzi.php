@@ -52,7 +52,7 @@ class SPVIDEOLITE_IMP_Vidzi implements SPVIDEOLITE_CLASS_IImporter
 	public static function getClipDetailByIdentifier( $id ) {
 		$video = new stdClass();
 		# HTML data URLs
-		$file_data = 'http://vidzi.tv/'.$id.'.html';
+		$file_data = '//vidzi.tv/'.$id.'.html';
 		$video->html_url = $file_data;
 
 		# HTML
@@ -107,6 +107,7 @@ class SPVIDEOLITE_IMP_Vidzi implements SPVIDEOLITE_CLASS_IImporter
 			file_put_contents($thumbFile, $jpeg);
 
 			$thumbnail->url = OW::getPluginManager()->getPlugin('spvideolite')->getUserFilesUrl().'vidzi/thumbs/'. $id . '.jpg';
+			$thumbnail->url = preg_replace("/^(http|https)\:\/\//", "//", $thumbnail->url);
 
 			$video->thumbnails[] = $thumbnail;
 		}
