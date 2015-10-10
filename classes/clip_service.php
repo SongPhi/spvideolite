@@ -152,8 +152,77 @@ HTML;
             OW::getDocument()->addScript(OW::getPluginManager()->getPlugin('spvideolite')->getStaticUrl() . 'js/vendor/videojs/video.js?'.SPVIDEOLITE_BOL_Service::PLUGIN_VER);
             OW::getDocument()->addScript(OW::getPluginManager()->getPlugin('spvideolite')->getStaticUrl() . 'js/vendor/videojs/sources/vjs.vimeo.js?'.SPVIDEOLITE_BOL_Service::PLUGIN_VER);
             OW::getDocument()->addStylesheet(OW::getPluginManager()->getPlugin('spvideolite')->getStaticUrl() . 'css/vendor/videojs/video-js.min.css?'.SPVIDEOLITE_BOL_Service::PLUGIN_VER);
-            
+        }
 
+        if (preg_match(SPVIDEOLITE_IMP_Redtube::$regexp, $clip->code, $matches)) {
+            $redtubeClipId = $matches[SPVIDEOLITE_IMP_Redtube::$regexpIdIndex];
+            preg_match_all("/width\=('|\")(\d+)('|\")/i", $clip->code, $matches);
+            $width = isset($matches[2][0])?$matches[2][0]:"640";
+            preg_match_all("/height\=('|\")(\d+)('|\")/i", $clip->code, $matches);
+            $height = isset($matches[2][0])?$matches[2][0]:"360";
+
+            $sources = SPVIDEOLITE_IMP_Redtube::fetchDownloadLink($redtubeClipId);
+
+            $vidSource = $sources[0][0];
+
+            $clip->code = <<<HTML
+    <video id="spvideo_player" class="video-js vjs-default-skin vjs-fill" controls preload="auto"
+    width="{$width}" height="{$height}" poster="{$clip->thumbUrl}">
+        {$vidSource}
+        I'm sorry; your browser doesn't support HTML5 video.
+    </video>
+HTML;
+            OW::getDocument()->addScript(OW::getPluginManager()->getPlugin('spvideolite')->getStaticUrl() . 'js/vendor/videojs/video.js?'.SPVIDEOLITE_BOL_Service::PLUGIN_VER);
+            OW::getDocument()->addStylesheet(OW::getPluginManager()->getPlugin('spvideolite')->getStaticUrl() . 'css/vendor/videojs/video-js.min.css?'.SPVIDEOLITE_BOL_Service::PLUGIN_VER);
+
+            OW::getDocument()->addScript(OW::getPluginManager()->getPlugin('spvideolite')->getStaticUrl() . 'js/vendor/videojs/videojs.endcard.js?'.SPVIDEOLITE_BOL_Service::PLUGIN_VER);
+            OW::getDocument()->addStylesheet(OW::getPluginManager()->getPlugin('spvideolite')->getStaticUrl() . 'css/vendor/videojs/videojs.endcard.css?'.SPVIDEOLITE_BOL_Service::PLUGIN_VER);
+
+            OW::getDocument()->addScript(OW::getPluginManager()->getPlugin('spvideolite')->getStaticUrl() . 'js/vendor/videojs/videojs.logobrand.js?'.SPVIDEOLITE_BOL_Service::PLUGIN_VER);
+            OW::getDocument()->addStylesheet(OW::getPluginManager()->getPlugin('spvideolite')->getStaticUrl() . 'css/vendor/videojs/videojs.logobrand.css?'.SPVIDEOLITE_BOL_Service::PLUGIN_VER);
+
+            $overlayLogo = OW::getPluginManager()->getPlugin('spvideolite')->getStaticUrl() . 'img/spvideo-logo.png';
+
+            OW::getDocument()->addOnloadScript(<<<JSCRIPT
+                function getRelatedContent(callback) {
+                    var el = document.createElement("p");
+                    el.innerHTML = "So Cool You'll HAVE to Click This!"
+                    setTimeout(function(){
+                        // Needs an array
+                        callback([el])
+                    }, 0);
+                }
+
+                function getNextVid(callback) {
+                    var anchor = document.createElement('a');
+                    anchor.innerHTML = "Users will be taken to the VideoJS website after 10 seconds!"
+                    anchor.href = "http://www.videojs.com/"
+                    setTimeout(function(){
+                        callback(anchor)
+                    }, 0);
+                }
+
+                var video = videojs(
+                        "#spvideo_player",
+                        {
+                            "autoplay": false,
+                        },
+                        function() {                            
+                            
+                            this.play();
+                        }
+                    );
+                video.endcard({
+                    getRelatedContent: getRelatedContent
+//                                , getNextVid: getNextVid
+                });
+                video.logobrand({
+                    image: "{$overlayLogo}",
+                    destination: "https://owdemo.songphi.com/video/"
+                });
+                
+JSCRIPT
+);
         }
 
         return $clip;

@@ -15,13 +15,15 @@
  * under the License.
  */
 
- /**
+require_once SPVIDEOLITE_DIR_ROOT . DS . 'vendor/autoload.php';
+
+/**
 * 
 */
 class SPVIDEOLITE_IMP_Redtube implements SPVIDEOLITE_CLASS_IImporter
 {
-	public static $regexp = '/redtube\.com\/(\d*)/i';
-	public static $regexpIdIndex = 1;
+	public static $regexp = '/redtube\.com\/(\?id\=)?(\d*)?/i';
+	public static $regexpIdIndex = 2;
 	public static $embedTemplate = '<iframe src="//embed.redtube.com/?id={videoId}&bgcolor=000000" frameborder="0" width="560" height="315" scrolling="no" allowfullscreen></iframe>';
 	// http://img.l3.cdn.redtubefiles.com/_thumbs/0000852/0852986/0852986_012i.jpg
 
@@ -86,13 +88,11 @@ class SPVIDEOLITE_IMP_Redtube implements SPVIDEOLITE_CLASS_IImporter
 		$video->author_url = false;
 		
 		# Publication date		
-		$video->date_published = new DateTime($item['publishedAt']);
+		$video->date_published = false;
 		
 		# Last update date
 		$video->date_updated = false;
 
-		$requested_thumb_size = $configs->get('tweaks.youtube_thumb_size');
-		
 		# Thumbnails
 		$thumbnail = new stdClass;
 		$thumbnail->url = preg_replace("#(http://|https://)#i", "//", $item['thumb']);
@@ -114,5 +114,17 @@ class SPVIDEOLITE_IMP_Redtube implements SPVIDEOLITE_CLASS_IImporter
 		// self::$video->flv_url = 'http://www.youtube.com/get_video.php?video_id='.self::$id;
 
 		return $video;
+	}
+
+	public static function fetchDownloadLink($external_id) {
+		$sources = self::findRedtubeVideoLinks(UTIL_HttpResource::getContents("http://www.redtube.com/".$external_id)); 
+		return $sources;
+	}
+
+	public static function findRedtubeVideoLinks($html) {
+	    $sources = array();    
+	    preg_match_all('/<source.*?type="(.+?)".*?>/i', $html, $sources);
+	    
+	    return $sources;
 	}
 }
