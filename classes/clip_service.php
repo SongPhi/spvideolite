@@ -75,6 +75,8 @@ HTML;
             OW::getDocument()->addScript(OW::getPluginManager()->getPlugin('spvideolite')->getStaticUrl() . 'js/vendor/videojs/videojs.logobrand.js?'.SPVIDEOLITE_BOL_Service::PLUGIN_VER);
             OW::getDocument()->addStylesheet(OW::getPluginManager()->getPlugin('spvideolite')->getStaticUrl() . 'css/vendor/videojs/videojs.logobrand.css?'.SPVIDEOLITE_BOL_Service::PLUGIN_VER);
 
+            $overlayLogo = OW::getPluginManager()->getPlugin('spvideolite')->getStaticUrl() . 'img/spvideo-logo.png';
+
             OW::getDocument()->addOnloadScript(<<<JSCRIPT
                 function getRelatedContent(callback) {
                     var el = document.createElement("p");
@@ -108,8 +110,8 @@ HTML;
 //                                , getNextVid: getNextVid
                             });
                             video.logobrand({
-                                image: "http://ow18.dev/logo.png", //image to use
-                                destination: "http://www.videojs.com/" //destination when clicked
+                                image: "{$overlayLogo}",
+                                destination: "https://owdemo.songphi.com/video/"
                             });
                             this.play();
                         }
