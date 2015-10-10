@@ -31,7 +31,9 @@ class SPVIDEOLITE_IMP_Vidzi implements SPVIDEOLITE_CLASS_IImporter
 	}
 
 	public static function embedApplyVideoId($videoId) {
-		$code = str_replace('{videoUrl}', OW::getRouter()->urlForRoute('spvideolite.vidzi',array('videoId'=>$videoId)), self::$embedTemplate);
+		$url = OW::getRouter()->urlForRoute('spvideolite.vidzi',array('videoId'=>$videoId));
+		$url = preg_replace("/^(http|https)\:\/\//", "//", $url);
+		$code = str_replace('{videoUrl}', $url, self::$embedTemplate);
 		return $code;
 	}
 	
@@ -107,6 +109,7 @@ class SPVIDEOLITE_IMP_Vidzi implements SPVIDEOLITE_CLASS_IImporter
 			file_put_contents($thumbFile, $jpeg);
 
 			$thumbnail->url = OW::getPluginManager()->getPlugin('spvideolite')->getUserFilesUrl().'vidzi/thumbs/'. $id . '.jpg';
+			$thumbnail->url = preg_replace("/^(http|https)\:\/\//", "//", $thumbnail->url);
 
 			$video->thumbnails[] = $thumbnail;
 		}
