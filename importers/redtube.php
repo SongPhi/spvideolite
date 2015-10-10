@@ -15,8 +15,6 @@
  * under the License.
  */
 
-require_once SPVIDEOLITE_DIR_ROOT . DS . 'vendor/autoload.php';
-
 /**
 * 
 */
