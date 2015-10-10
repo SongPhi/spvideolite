@@ -1,0 +1,3 @@
+[submodule "git_modules/videojs-logobrand"]
+	path = git_modules/videojs-logobrand
+	url = https://github.com/Mewte/videojs-logobrand.git

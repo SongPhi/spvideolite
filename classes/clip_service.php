@@ -63,13 +63,60 @@ class SPVIDEOLITE_CLASS_ClipService
             preg_match_all("/height\=('|\")(\d+)('|\")/i", $clip->code, $matches);
             $height = isset($matches[2][0])?$matches[2][0]:"360";
             $clip->code = <<<HTML
-    <video id="spvideo_player" src="" class="video-js vjs-default-skin vjs-fill" controls preload="auto" width="{$width}" height="{$height}" data-setup='{ "techOrder": ["youtube"], "ytFullScreenControls": false, "src": "http://www.youtube.com/watch?v={$youtubeClipId}" }'></video>
+    <video id="spvideo_player" src="" class="video-js vjs-default-skin vjs-fill" controls preload="auto" width="{$width}" height="{$height}" poster="{$clip->thumbUrl}" ></video>
 HTML;
             OW::getDocument()->addScript(OW::getPluginManager()->getPlugin('spvideolite')->getStaticUrl() . 'js/vendor/videojs/video.js?'.SPVIDEOLITE_BOL_Service::PLUGIN_VER);
             OW::getDocument()->addScript(OW::getPluginManager()->getPlugin('spvideolite')->getStaticUrl() . 'js/vendor/videojs/sources/vjs.youtube.js?'.SPVIDEOLITE_BOL_Service::PLUGIN_VER);
             OW::getDocument()->addStylesheet(OW::getPluginManager()->getPlugin('spvideolite')->getStaticUrl() . 'css/vendor/videojs/video-js.min.css?'.SPVIDEOLITE_BOL_Service::PLUGIN_VER);
 
+            OW::getDocument()->addScript(OW::getPluginManager()->getPlugin('spvideolite')->getStaticUrl() . 'js/vendor/videojs/videojs.endcard.js?'.SPVIDEOLITE_BOL_Service::PLUGIN_VER);
+            OW::getDocument()->addStylesheet(OW::getPluginManager()->getPlugin('spvideolite')->getStaticUrl() . 'css/vendor/videojs/videojs.endcard.css?'.SPVIDEOLITE_BOL_Service::PLUGIN_VER);
 
+            OW::getDocument()->addScript(OW::getPluginManager()->getPlugin('spvideolite')->getStaticUrl() . 'js/vendor/videojs/videojs.logobrand.js?'.SPVIDEOLITE_BOL_Service::PLUGIN_VER);
+            OW::getDocument()->addStylesheet(OW::getPluginManager()->getPlugin('spvideolite')->getStaticUrl() . 'css/vendor/videojs/videojs.logobrand.css?'.SPVIDEOLITE_BOL_Service::PLUGIN_VER);
+
+            OW::getDocument()->addOnloadScript(<<<JSCRIPT
+                function getRelatedContent(callback) {
+                    var el = document.createElement("p");
+                    el.innerHTML = "So Cool You'll HAVE to Click This!"
+                    setTimeout(function(){
+                        // Needs an array
+                        callback([el])
+                    }, 0);
+                }
+
+                function getNextVid(callback) {
+                    var anchor = document.createElement('a');
+                    anchor.innerHTML = "Users will be taken to the VideoJS website after 10 seconds!"
+                    anchor.href = "http://www.videojs.com/"
+                    setTimeout(function(){
+                        callback(anchor)
+                    }, 0);
+                }
+
+                var video = videojs(
+                        "#spvideo_player",
+                        {
+                            "autoplay": false,
+                            "techOrder": ["youtube"],
+                            "ytFullScreenControls": true,
+                            "src": "http://www.youtube.com/watch?v={$youtubeClipId}"                            
+                        },
+                        function() {                            
+                            video.endcard({
+                                getRelatedContent: getRelatedContent
+//                                , getNextVid: getNextVid
+                            });
+                            video.logobrand({
+                                image: "http://ow18.dev/logo.png", //image to use
+                                destination: "http://www.videojs.com/" //destination when clicked
+                            });
+                            this.play();
+                        }
+                    );
+                
+JSCRIPT
+);
         }
 
         if (preg_match(SPVIDEOLITE_IMP_DailyMotion::$regexp, $clip->code, $matches)) {
@@ -79,13 +126,16 @@ HTML;
             preg_match_all("/height\=('|\")(\d+)('|\")/i", $clip->code, $matches);
             $height = isset($matches[2][0])?$matches[2][0]:"360";
             $clip->code = <<<HTML
-    <video id="spvideo_player" src="" class="video-js vjs-default-skin vjs-fill" controls preload="auto" width="{$width}" height="{$height}" data-setup='{ "techOrder": ["dailymotion"], "src": "http://www.dailymotion.com/video/{$dailymotionClipId}" }'></video>
+    <video id="spvideo_player" src="" class="video-js vjs-default-skin vjs-fill" 
+        controls preload="auto" width="{$width}" height="{$height}" 
+        data-setup='{ "techOrder": ["dailymotion"], "src": "http://www.dailymotion.com/video/{$dailymotionClipId}" }'
+        poster="{$clip->thumbUrl}" >
+    </video>
+
 HTML;
             OW::getDocument()->addScript(OW::getPluginManager()->getPlugin('spvideolite')->getStaticUrl() . 'js/vendor/videojs/video.js?'.SPVIDEOLITE_BOL_Service::PLUGIN_VER);
             OW::getDocument()->addScript(OW::getPluginManager()->getPlugin('spvideolite')->getStaticUrl() . 'js/vendor/videojs/sources/dailymotion.js?'.SPVIDEOLITE_BOL_Service::PLUGIN_VER);
             OW::getDocument()->addStylesheet(OW::getPluginManager()->getPlugin('spvideolite')->getStaticUrl() . 'css/vendor/videojs/video-js.min.css?'.SPVIDEOLITE_BOL_Service::PLUGIN_VER);
-            
-
         }
 
         if (preg_match(SPVIDEOLITE_IMP_Vimeo::$regexp, $clip->code, $matches)) {
