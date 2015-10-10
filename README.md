@@ -36,6 +36,33 @@ grunt
 
 _Select (3) when bower ask about video.js version_
 
+### Update an installation
+
+For patch update version numbers only (i.e from v2.0.2 to v2.0.3)
+
+```Bash
+cd path/to/ow_plugins/spvideolite
+git pull
+bower install
+git submodule update
+grunt
+```
+
+### Upgrade an installation
+
+For major and minor version numbers (i.e from v2.0.x to v2.1.x)
+
+```Bash
+cd path/to/ow_plugins/spvideolite
+git fetch
+git checkout origin/v2.1.x
+git pull
+git submodule update --init
+npm install
+bower install
+grunt
+```
+
 ## SUPPORTED SITES
 * Allmyvideos.net
 * BlipTV
