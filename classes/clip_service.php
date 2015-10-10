@@ -99,7 +99,7 @@ HTML;
                         {
                             "autoplay": false,
                             "techOrder": ["youtube"],
-                            "ytFullScreenControls": true,
+                            "ytFullScreenControls": false,
                             "src": "http://www.youtube.com/watch?v={$youtubeClipId}"                            
                         },
                         function() {                            
