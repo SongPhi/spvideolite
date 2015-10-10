@@ -28,10 +28,13 @@ npm install -g bower grunt-cli
 cd path/to/ow_plugins
 git clone git@github.com:SongPhi/spvideolite.git
 cd spvideolite
+git submodule update --init
 npm install
 bower install
 grunt
 ```
+
+_Select (3) when bower ask about video.js version_
 
 ## SUPPORTED SITES
 * Allmyvideos.net
