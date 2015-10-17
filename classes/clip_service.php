@@ -130,7 +130,7 @@ JSCRIPT
             $clip->code = <<<HTML
     <video id="spvideo_player" src="" class="video-js vjs-default-skin vjs-fill" 
         controls preload="auto" width="{$width}" height="{$height}" 
-        data-setup='{ "techOrder": ["dailymotion"], "src": "http://www.dailymotion.com/video/{$dailymotionClipId}" }'
+        data-setup='{ "techOrder": ["dailymotion"], "dmControls": true, "src": "http://www.dailymotion.com/video/{$dailymotionClipId}" }'
         poster="{$clip->thumbUrl}" >
     </video>
 

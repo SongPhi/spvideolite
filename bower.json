@@ -36,6 +36,7 @@
     "videojs-dailymotion": "*",
     "videojs-vimeo": "~1.0.2",
     "videojs-endcard": "~0.1.0",
-    "videojs-soundcloud": "~1.0.0"
+    "videojs-soundcloud": "~1.0.0",
+    "videojs-resolution-selector": "~1.6.2"
   }
 }

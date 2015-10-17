@@ -98,4 +98,9 @@ class SPVIDEOLITE_IMP_Vimeo implements SPVIDEOLITE_CLASS_IImporter
 
     return $video;
   }
+
+  public static function getDirectSources($id) {
+    // http://keepvid.com/?url=https%3A%2F%2Fvimeo.com%2F140085689&track=downloadbar
+    
+  }
 }

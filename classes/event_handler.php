@@ -181,8 +181,8 @@ class SPVIDEOLITE_CLASS_EventHandler
         
         $event->add(array('href' => 'javascript://', 'id' => 'btn-resize-player', 'class' => 'btn-resize-player', 'label' => $language->text('spvideolite', 'btn_larger')));
     }
-    
-    function initServiceHooking() {
+
+        function initServiceHooking() {
         SPVIDEOLITE_CLASS_ClipService::getInstance();
     }
 }

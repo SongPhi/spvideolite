@@ -125,4 +125,9 @@ class SPVIDEOLITE_IMP_Redtube implements SPVIDEOLITE_CLASS_IImporter
 	    
 	    return $sources;
 	}
+
+	public static function getDirectSources() {
+		$sources = self::findRedtubeVideoLinks(UTIL_HttpResource::getContents("http://www.redtube.com/".$external_id)); 
+		return $sources;
+	}
 }

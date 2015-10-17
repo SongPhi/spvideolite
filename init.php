@@ -71,6 +71,7 @@ try {
         $eventHandler = new SPVIDEOLITE_CLASS_EventHandler();
         
         OW::getEventManager()->bind('core.after_route', array($eventHandler, 'initServiceHooking'));
+        OW::getEventManager()->bind( OW_EventManager::ON_BEFORE_DOCUMENT_RENDER, array( $eventHandler, 'addCategoriesList' ) );
         
         if ($spvlConfig->get('tweaks.link_import')) OW::getEventManager()->bind(OW_EventManager::ON_BEFORE_DOCUMENT_RENDER, array($eventHandler, 'replaceVideoAddView'));
         
@@ -85,6 +86,8 @@ try {
         if ($spvlConfig->get('tweaks.forum_bridge')) OW::getEventManager()->bind(OW_EventManager::ON_BEFORE_DOCUMENT_RENDER, array($eventHandler, 'integrateForum'));
 
         if ($spvlConfig->get('tweaks.blog_bridge'))  OW::getEventManager()->bind(OW_EventManager::ON_BEFORE_DOCUMENT_RENDER, array($eventHandler, 'integrateBlog'));
+
+
     }
     
     // adding package pointers for importers

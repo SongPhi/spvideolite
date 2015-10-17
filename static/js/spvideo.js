@@ -170,35 +170,38 @@ var SPVideoClass = function(_baseUrl, _loadingEl, _detailElement) {
     };
     this.addCategoriesList = function(url) {
         $('<li class="_categories"><a href="' + url + '"><span class="ow_ic_folder">Categories</span></a></li>').insertBefore($('.ow_content_menu li').last());
-        $('<div id="categories-list" style="display:none;position:absolute;"><ul><li>Teen</li><li>Amateur</li></ul></div>').appendTo($('body'));
-        $('.ow_content_menu ._categories').mouseenter(function() {
-            if ($('#categories-list').css('display') != 'none') {
-                clearTimeout($('.ow_content_menu ._categories').data('timeoutId'));
-                return false;
-            }
-            $('.ow_content_menu ._categories').addClass('active');
-            $('#categories-list').css('top', ($('.ow_content_menu ._categories').offset().top + $('.ow_content_menu ._categories').height()) + 'px');
-            $('#categories-list').css('left', $('.ow_content_menu ._categories').offset().left + 'px');
-            $('#categories-list').slideDown(200).show();
-        }).mouseleave(function() {
-            var timeoutId = setTimeout(function() {
-                $('.ow_content_menu ._categories').removeClass('active');
-                $('#categories-list').slideUp(200, function() {
-                    $('#categories-list').hide();
-                });
-            }, 400);
-            $('#categories-list').data('timeoutId', timeoutId);
-        });
-        $('#categories-list').mouseenter(function() {
-            clearTimeout($('#categories-list').data('timeoutId'));
-        }).mouseleave(function() {
-            var timeoutId = setTimeout(function() {
-                $('.ow_content_menu ._categories').removeClass('active');
-                $('#categories-list').slideUp(200, function() {
-                    $('#categories-list').hide();
-                });
-            }, 400);
-            $('.ow_content_menu ._categories').data('timeoutId', timeoutId);
+        // $('<div id="categories-list" style="display:none;position:absolute;"><ul><li>Teen</li><li>Amateur</li></ul></div>').appendTo($('body'));
+        // $('.ow_content_menu ._categories').mouseenter(function() {
+        //     if ($('#categories-list').css('display') != 'none') {
+        //         clearTimeout($('.ow_content_menu ._categories').data('timeoutId'));
+        //         return false;
+        //     }
+        //     $('.ow_content_menu ._categories').addClass('active');
+        //     $('#categories-list').css('top', ($('.ow_content_menu ._categories').offset().top + $('.ow_content_menu ._categories').height()) + 'px');
+        //     $('#categories-list').css('left', $('.ow_content_menu ._categories').offset().left + 'px');
+        //     $('#categories-list').slideDown(200).show();
+        // }).mouseleave(function() {
+        //     var timeoutId = setTimeout(function() {
+        //         $('.ow_content_menu ._categories').removeClass('active');
+        //         $('#categories-list').slideUp(200, function() {
+        //             $('#categories-list').hide();
+        //         });
+        //     }, 400);
+        //     $('#categories-list').data('timeoutId', timeoutId);
+        // });
+        // $('#categories-list').mouseenter(function() {
+        //     clearTimeout($('#categories-list').data('timeoutId'));
+        // }).mouseleave(function() {
+        //     var timeoutId = setTimeout(function() {
+        //         $('.ow_content_menu ._categories').removeClass('active');
+        //         $('#categories-list').slideUp(200, function() {
+        //             $('#categories-list').hide();
+        //         });
+        //     }, 400);
+        //     $('.ow_content_menu ._categories').data('timeoutId', timeoutId);
+        // });
+        $('.ow_content_menu ._categories').click(function(){
+            
         });
     };
     this.connectHtmlArea = function() {
