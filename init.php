@@ -64,15 +64,15 @@ try {
     
     // Initialize helper instance
     SPVIDEOLITE_BOL_Service::getInstance();
+    // Events handling
+    $eventHandler = new SPVIDEOLITE_CLASS_EventHandler();
+    
+    OW::getEventManager()->bind('core.after_route', array($eventHandler, 'initServiceHooking'));
     
     if ((!OW::getRequest()->isAjax() || isset($_SERVER['HTTP_X_PJAX'])) && !OW::getRequest()->isPost()) {
-        
-        // Events handling
-        $eventHandler = new SPVIDEOLITE_CLASS_EventHandler();
-        
-        OW::getEventManager()->bind('core.after_route', array($eventHandler, 'initServiceHooking'));
-        OW::getEventManager()->bind( OW_EventManager::ON_BEFORE_DOCUMENT_RENDER, array( $eventHandler, 'addCategoriesList' ) );
-        
+
+        OW::getEventManager()->bind( OW_EventManager::ON_BEFORE_DOCUMENT_RENDER, array( $eventHandler, 'addCategoriesList' ) );        
+
         if ($spvlConfig->get('tweaks.link_import')) OW::getEventManager()->bind(OW_EventManager::ON_BEFORE_DOCUMENT_RENDER, array($eventHandler, 'replaceVideoAddView'));
         
         if ($spvlConfig->get('tweaks.desc_show_more')) OW::getEventManager()->bind('video.collect_video_toolbar_items', array($eventHandler, 'showLessVideoDescription'));

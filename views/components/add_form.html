@@ -12,7 +12,9 @@
 	    </tr>
 	    <tr class="ow_alt2">
 	        <td class="ow_label">{label name='code'}</td>
-	        <td class="ow_value">{input name='code'} <br /> {error name='code'}</td>
+	        <td class="ow_value">
+	        	<textarea id="html_code_mask">{$html_code}</textarea>
+	        	{input name='code'} <br /> {error name='code'}</td>
 	    </tr>	    
 	    <tr class="ow_alt1">
 	        <td class="ow_label">{label name='description'}</td>
