@@ -39,6 +39,10 @@ class SPVIDEOLITE_CTRL_Spvideo extends OW_ActionController
         if ( $spVideoAddForm->isValid($_POST) ) {
             $language = OW::getLanguage();
             $values = $spVideoAddForm->getValues();
+
+            if (substr($values['code'],0,6)=='base64') 
+                $values['code'] = base64_decode( substr($values['code'], 7) );
+
             $code = VIDEO_BOL_ClipService::getInstance()->validateClipCode($values['code']);
             
             if ( !BOL_TextFormatService::getInstance()->isCodeResourceValid($code) ) {
@@ -97,13 +101,14 @@ class SPVIDEOLITE_CTRL_Spvideo extends OW_ActionController
             $spVideoAddForm->setValues(array(
             	'title' => $video->title,
             	'description' => $video->description,
-                'code' => $video->embedCode,
+                'code' => 'base64:'.base64_encode($video->embedCode),
             	'tags' => implode(',', (array)$video->tags ),
                 'thumbnail' => $thumbnail
         	));
 
             $this->addForm($spVideoAddForm);
             $this->assign('thumbUrl',$thumbnail);
+            $this->assign('html_code',$video->embedCode);
 
 			$formHtml = base64_encode( $this->render() );
 
@@ -231,7 +236,7 @@ class spVideoAddForm extends Form
         $this->addElement($descField->setLabel($language->text('video', 'description')));
 
         // code Field
-        $codeField = new Textarea('code');
+        $codeField = new HiddenField('code');
         $codeField->setRequired(true);
         $this->addElement($codeField->setLabel($language->text('video', 'code')));
 
@@ -265,7 +270,10 @@ class spVideoAddForm extends Form
         $clip->userId = OW::getUser()->getId();
         $clip->thumbUrl = preg_replace("#(http://|https://)#i", "//",$values['thumbnail']);
 
-        $clip->code = UTIL_HtmlTag::stripJs($values['code']);
+        if (substr( $values['code'],0,6 )=='base64') 
+            $values['code'] = base64_decode( substr( $values['code'],7 ) );
+
+        $clip->code = UTIL_HtmlTag::stripJs( $values['code'] );
 
         $prov = new VideoProviders($clip->code);
 
@@ -331,14 +339,17 @@ class spVideoAddForm extends Form
             if ( form.form ) 
             {
                 $(form.form).bind( 'submit', {form:form},
-                        function(e){
-                            return e.data.form.submitForm();
-                        }
+                    function(e){
+                        // console.log('before submitting');
+                        $(e.data.form.form.code).val('base64:'+Base64.encode($('#html_code_mask').val()));
+                        return e.data.form.submitForm();
+                    }
                 );
-                        }
+            }
                         
-                        OW.trigger('base.onFormReady.' + form.name, [], form);
-                        OW.trigger('base.onFormReady', [form]);
+            OW.trigger('base.onFormReady.' + form.name, [], form);
+            OW.trigger('base.onFormReady', [form]);
+            // console.log('on form loaded');
         ";
 
         foreach ( $this->bindedFunctions as $bindType => $binds )

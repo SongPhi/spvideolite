@@ -64,13 +64,12 @@ try {
     
     // Initialize helper instance
     SPVIDEOLITE_BOL_Service::getInstance();
+    // Events handling
+    $eventHandler = new SPVIDEOLITE_CLASS_EventHandler();
+    
+    OW::getEventManager()->bind('core.after_route', array($eventHandler, 'initServiceHooking'));
     
     if ((!OW::getRequest()->isAjax() || isset($_SERVER['HTTP_X_PJAX'])) && !OW::getRequest()->isPost()) {
-        
-        // Events handling
-        $eventHandler = new SPVIDEOLITE_CLASS_EventHandler();
-        
-        OW::getEventManager()->bind('core.after_route', array($eventHandler, 'initServiceHooking'));
         
         if ($spvlConfig->get('tweaks.link_import')) OW::getEventManager()->bind(OW_EventManager::ON_BEFORE_DOCUMENT_RENDER, array($eventHandler, 'replaceVideoAddView'));
         

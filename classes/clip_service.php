@@ -109,6 +109,8 @@ class SPVIDEOLITE_CLASS_ClipService
 
     
     public function validateClipCode($code, $provider = null) {
+        if (substr($code,0,7)=='base64:') 
+            $code = base64_decode( substr($code, 7) );
 
         if (SPVIDEOLITE_BOL_Configs::getInstance()->get('tweaks.force_https_compat')) {
             $code = str_replace("http://", "//", $code);

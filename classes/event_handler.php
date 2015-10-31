@@ -181,8 +181,60 @@ class SPVIDEOLITE_CLASS_EventHandler
         
         $event->add(array('href' => 'javascript://', 'id' => 'btn-resize-player', 'class' => 'btn-resize-player', 'label' => $language->text('spvideolite', 'btn_larger')));
     }
+
+    public function injectAttachmentAddLink() {
+        $url = $_POST['url'];
+
+        $urlInfo = parse_url($url);
+        if ( empty($urlInfo['scheme']) )
+        {
+            $url = 'http://' . $url;
+        }
+
+        $url = str_replace("'", '%27', $url);
+
+        $oembed = UTIL_HttpResource::getOEmbed($url);
+        if (isset($oembed['html'])) {
+            $oembed['html'] = 'base64:' . base64_encode($oembed['html']);
+        }
+        $oembedCmp = new BASE_CMP_AjaxOembedAttachment($oembed);
+
+        $attacmentUniqId = $oembedCmp->initJs();
+
+        unset($oembed['allImages']);
+
+        $response = array(
+            'content' => $this->getMarkup($oembedCmp->render()),
+            'type' => 'link',
+            'result' => $oembed,
+            'attachment' => $attacmentUniqId
+        );
+
+        die( json_encode($response) );
+    }
+
+    private function getMarkup( $html )
+    {
+        /* @var $document OW_AjaxDocument */
+        $document = OW::getDocument();
+
+        $markup = array();
+        $markup['html'] = $html;
+
+        $onloadScript = $document->getOnloadScript();
+        $markup['js'] = empty($onloadScript) ? null : $onloadScript;
+
+        $styleDeclarations = $document->getStyleDeclarations();
+        $markup['css'] = empty($styleDeclarations) ? null : $styleDeclarations;
+
+        return $markup;
+    }
     
-    function initServiceHooking() {
+    public function initServiceHooking() {
+        VIDEO_BOL_ClipService::getInstance();
         SPVIDEOLITE_CLASS_ClipService::getInstance();
+        if (OW::getRequest()->isAjax() && OW::getRouter()->getUri()=='base/attachment/add-link') {
+            $this->injectAttachmentAddLink();
+        }
     }
 }
