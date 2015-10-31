@@ -8,6 +8,7 @@ This plugin powers up basic Oxwall video plugin with useful tweaks. This lite ve
 ## FEATURES
 
 * Import video from link (no more copy and paste embeded code). See list of supported sites below.
+* Make Oxwall video and newsfeed compatible with mod_security
 * Show more/less video description (Youtube idea).
 * Resize video player larger and restore (Youtube idea).
 * Correct default video player size to fit the container.
@@ -68,6 +69,7 @@ grunt
 * BlipTV
 * DailyMotion
 * Facebook
+* LiveLeak
 * GoogleVideo
 * MetaCafe
 * Thevideo.me
