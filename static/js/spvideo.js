@@ -240,7 +240,7 @@ var SPVideoClass = function(_baseUrl, _loadingEl, _detailElement) {
                                 container.find('.preview').remove();
                                 var preview = $($('#pasteZone').val());
                                 preview.addClass('preview');
-                                origCode.val(data.code);
+                                origCode.val($('#pasteZone').val());
                                 preview.width(320);
                                 preview.height(200);
                                 $('<label class="preview"><b>'+OW.getLanguageText('spvideolite', 'htmlarea_preview')+'</b><br/></label>').appendTo(container);
