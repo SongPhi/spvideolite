@@ -45,8 +45,6 @@ class SPVIDEOLITE_CLASS_EventHandler
         $language->addKeyForJs('spvideolite', 'htmlarea_explain');
         $language->addKeyForJs('spvideolite', 'htmlarea_preview');
 
-        OW::getDocument()->addStyleDeclaration(".floatbox_container .floatbox_body textarea[name=code] {display:none}");
-
         OW::getDocument()->addOnloadScript("
             SPVideo.baseUrl = '".OW::getRouter()->urlForRoute('spvideolite.base')."';
             SPVideo.loadingElement = $('#checkClip_loading');
