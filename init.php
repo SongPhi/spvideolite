@@ -57,6 +57,24 @@ OW::getRouter()->addRoute(new OW_Route('spvideolite.ajax_video_add', 'spvideolit
 OW::getRouter()->addRoute(new OW_Route('spvideolite.ajax_video_add_submit', 'spvideolite/ajax-add-submit', 'SPVIDEOLITE_CTRL_AjaxUpload', 'ajaxSubmitVideos'));
 OW::getRouter()->addRoute(new OW_Route('spvideolite.ajax_video_delete', 'spvideolite/ajax-video-delete', 'SPVIDEOLITE_CTRL_AjaxUpload', 'ajaxDelete'));
 
+// categories routings
+OW::getRouter()->addRoute(
+    new OW_Route('spvideolite.categories', 'video/categories','SPVIDEOLITE_CTRL_Categories', 'index')
+);
+OW::getRouter()->addRoute(
+    new OW_Route('spvideolite.category', 'video/category/:slug','SPVIDEOLITE_CTRL_Categories', 'videoList',
+        array('slug','listtype'=>'latest'))
+);
+OW::getRouter()->addRoute(
+    new OW_Route('spvideolite.category', 'video/category/:slug/:listtype','SPVIDEOLITE_CTRL_Categories', 'videoList',
+        array('slug','listtype'))
+);
+
+OW::getRouter()->addRoute(
+    new OW_Route('spvideolite.admin_categories', 'admin/plugins/spvideolite/categories', 
+        'SPVIDEOLITE_CTRL_Admin', 'categories')
+);
+
 try {
     
     // check if base video plugin is installed and active

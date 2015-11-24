@@ -33,3 +33,25 @@ if (!count($cols)) {
   $sql = "ALTER TABLE `".OW_DB_PREFIX."video_clip` ADD `plugin` VARCHAR(255) NULL DEFAULT 'video' ; ";
   OW::getDbo()->update($sql);
 }
+
+//DDL for category
+// CREATE TABLE `ow_spvideo_category` (
+//   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+//   `title` varchar(255) NOT NULL,
+//   `description` text,
+//   `addDatetime` timestamp NULL DEFAULT NULL,
+//   `thumbFile` text,
+//   `slug` varchar(255) NOT NULL,
+//   PRIMARY KEY (`id`),
+//   KEY `ow_spvideo_category_id_IDX` (`id`),
+//   KEY `ow_spvideo_category_slug_IDX` (`slug`)
+// ) ENGINE=MyISAM DEFAULT CHARSET=utf8
+//
+// CREATE TABLE `ow_spvideo_clip_category` (
+//   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+//   `clipId` int(10) unsigned NOT NULL,
+//   `categoryId` int(10) unsigned NOT NULL,
+//   PRIMARY KEY (`id`),
+//   UNIQUE KEY `ow_spvideo_clip_category_PK1` (`clipId`,`categoryId`),
+//   KEY `ow_spvideo_clip_category_categoryId_IDX` (`categoryId`)
+// ) ENGINE=MyISAM DEFAULT CHARSET=utf8
