@@ -1,0 +1,13 @@
+<div class="clearfix">{add_content key='video.add_content.list.top' listType=$listType}</div>
+
+{if $showAddButton}
+    <div class="ow_right">{decorator name='button' class='ow_ic_add' id='btn-add-new-video' langLabel='video+add_new'}</div>
+{/if}
+
+{$videoMenu}
+
+{add_content key='video.content.list.after_menu' listType=$listType}
+
+{component class='VIDEO_CMP_VideoList' type=$listType count=5}
+
+{add_content key='video.content.list.bottom' listType=$listType}

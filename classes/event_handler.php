@@ -105,7 +105,8 @@ class SPVIDEOLITE_CLASS_EventHandler
         preg_match_all("/<form.*<\/form>/is", $embedForm, $matches);
         if (count($matches[0]) > 0) $embedForm = $matches[0][0];
         $spVideoCtrl = new SPVIDEOLITE_CTRL_Add();
-        $spVideoCtrl->setTemplate(OW::getPluginManager()->getPlugin('spvideolite')->getCtrlViewDir() . 'add_index.html');
+        $spVideoCtrl->setTemplate(
+            OW::getPluginManager()->getPlugin('spvideolite')->getCtrlViewDir() . 'add_index.html');
         $spVideoCtrl->setEmbedForm($embedForm);
 
         $language->addKeyForJs('spvideolite', 'tab_from_link');
@@ -119,10 +120,15 @@ class SPVIDEOLITE_CLASS_EventHandler
     }
     
     function addCategoriesList($event) {
-        if (!SPVIDEOLITE_BOL_Service::isRoute('VIDEO_CTRL_Video', 'viewList') && !SPVIDEOLITE_BOL_Service::isRoute('VIDEO_CTRL_Video', 'viewTaggedList')) return;
-        
+        if (!SPVIDEOLITE_BOL_Service::isRoute('VIDEO_CTRL_Video', 'viewList') 
+            && !SPVIDEOLITE_BOL_Service::isRoute('VIDEO_CTRL_Video', 'viewTaggedList')) 
+            return;
+
         self::requireSpvideoJs();
-        OW::getDocument()->addOnloadScript("SPVideo.addCategoriesList('" . OW::getRouter()->urlForRoute('spvideolite.categories') . "')");
+
+        OW::getDocument()->addOnloadScript(
+            "SPVideo.addCategoriesList('" . OW::getRouter()->urlForRoute('spvideolite.categories') . "')"
+        );
     }
     
     /**

@@ -84,6 +84,8 @@ try {
     SPVIDEOLITE_BOL_Service::getInstance();
     // Events handling
     $eventHandler = new SPVIDEOLITE_CLASS_EventHandler();
+
+            OW::getEventManager()->bind(OW_EventManager::ON_BEFORE_DOCUMENT_RENDER, array($eventHandler, 'addCategoriesList'));
     
     OW::getEventManager()->bind('core.after_route', array($eventHandler, 'initServiceHooking'));
     
@@ -102,6 +104,7 @@ try {
         if ($spvlConfig->get('tweaks.forum_bridge')) OW::getEventManager()->bind(OW_EventManager::ON_BEFORE_DOCUMENT_RENDER, array($eventHandler, 'integrateForum'));
 
         if ($spvlConfig->get('tweaks.blog_bridge'))  OW::getEventManager()->bind(OW_EventManager::ON_BEFORE_DOCUMENT_RENDER, array($eventHandler, 'integrateBlog'));
+
     }
     
     // adding package pointers for importers
