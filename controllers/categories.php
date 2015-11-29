@@ -97,13 +97,25 @@ class SPVIDEOLITE_CTRL_Categories extends OW_ActionController
     }
 
 	public function index() {
+        $this->assign('listType', 'categories');
 		$this->assign('videoMenu', $this->menu);
 		$this->assign('showAddButton', $this->showAddButton);
 		OW::getDocument()->setHeading(OW::getLanguage()->text('video', 'page_title_browse_video'));
         OW::getDocument()->setHeadingIconClass('ow_ic_video');
+
+        $categories = array();
+        $no_content = false;
+        
+        if (count($categories)==0) {
+            $no_content = OW::getLanguage()->text('spvideolite', 'no_category');
+        }
+
+        $this->assign('categories',$categories);
+        $this->assign('no_content',$no_content);
 	}
 
-	public function videoList() {
+	public function videoList( array $params ) {
+        $this->assign('listType', 'category');
 		$this->assign('videoMenu', $this->menu);
 		$this->assign('showAddButton', $this->showAddButton);
 		OW::getDocument()->setHeading(OW::getLanguage()->text('video', 'page_title_browse_video'));

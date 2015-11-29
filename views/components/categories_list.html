@@ -1,0 +1,49 @@
+
+{if !$no_content}
+
+	<div class="ow_video_list ow_stdmargin clearfix">
+	
+	    {assign var='alt1' value=true}
+	    {assign var='cnt' value=0}
+	
+		{foreach from=$categories item='category' name='c'}
+		
+	        {if $cnt == $count}
+	            {if $alt1}{assign var='alt1' value=false}{else}{assign var='alt1' value=true}{/if}
+	            {assign var='cnt' value=0}
+	        {/if}
+	        
+	        {assign var='cnt' value=$cnt+1}
+	
+	        {if $cnt == 1}
+	            <div class="clearfix {if $alt1}ow_alt1{else}ow_alt2{/if}">
+	        {/if} 
+	                
+		    
+			<div class="ow_video_list_item ow_small{if isset($data.set_class)} {$data.set_class}{/if}">
+
+			    {capture name='url'}{url_for_route for="view_clip:[id=>`$data.id`]"}{/capture}
+
+			    {if $data.thumb == 'undefined'}
+			        <a href="{$smarty.capture.url}" class="ow_video_thumb"></a>
+			    {else}
+			        <a href="{$smarty.capture.url}"><img src="{$data.thumb}" title="{$data.title}" /></a>
+			    {/if}
+			    <div class="ow_video_item_rate"></div>
+			    <div class="ow_video_item_title">{$data.title|truncate:55:"..."}</div>
+
+			</div>
+	        
+            {if $cnt == $count && $smarty.foreach.c.iteration != 1 || $smarty.foreach.c.last}
+                </div>
+            {/if}
+	        
+	    {/foreach}
+	    
+	</div>
+	
+    {$paging}
+    
+{else}
+    <div class="ow_nocontent">{$no_content}</div>
+{/if}

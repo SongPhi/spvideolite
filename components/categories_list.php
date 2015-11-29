@@ -15,12 +15,9 @@
  * under the License.
  */
 
-class SPVIDEOLITE_BOL_Category extends OW_Entity
+class SPVIDEOLITE_CMP_CategoriesList extends OW_Component
 {
-    public $title;
-    public $description;
-    public $addDatetime;
-    public $thumbFile;
-    public $slug;
-
+	public function __construct( array $params ) {
+    	$count = isset($params['count']) ? $params['count'] : 5;
+    }
 }

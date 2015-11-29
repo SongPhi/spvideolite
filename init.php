@@ -62,7 +62,7 @@ OW::getRouter()->addRoute(
     new OW_Route('spvideolite.categories', 'video/categories','SPVIDEOLITE_CTRL_Categories', 'index')
 );
 OW::getRouter()->addRoute(
-    new OW_Route('spvideolite.category', 'video/category/:slug','SPVIDEOLITE_CTRL_Categories', 'videoList',
+    new OW_Route('spvideolite.category_latest', 'video/category/:slug','SPVIDEOLITE_CTRL_Categories', 'videoList',
         array('slug','listtype'=>'latest'))
 );
 OW::getRouter()->addRoute(

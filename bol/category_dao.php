@@ -15,7 +15,8 @@
  * under the License.
  */
 
-class SPVIDEOLITE_BOL_CategoryDao extends OW_BaseDao {
+class SPVIDEOLITE_BOL_CategoryDao extends OW_BaseDao
+{
 	
     private static $classInstance;
     
@@ -53,5 +54,13 @@ class SPVIDEOLITE_BOL_CategoryDao extends OW_BaseDao {
         return 'SPVIDEOLITE_BOL_Category';
     }
 
-    
+    /**
+     * @see OW_BaseDao::getTableName()
+     *
+     * @return string
+     */
+    public function getTableName()
+    {
+        return OW_DB_PREFIX . 'spvideo_category';
+    }
 }
